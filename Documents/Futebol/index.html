@@ -214,6 +214,104 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .modal-body h2,.modal-body h3{color:#fff;font-size:16px;margin:1.5rem 0 .75rem}
 .modal-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.5rem 0}
 
+/* SELEÇÃO BRASILEIRA */
+.selecao-hero{background:linear-gradient(135deg,#003320 0%,#006633 50%,#002200 100%);padding:2rem 1.25rem;position:relative;overflow:hidden;border-bottom:3px solid #c8a400}
+.selecao-hero::before{content:'🇧🇷';position:absolute;right:-20px;top:-20px;font-size:180px;opacity:.05}
+.selecao-hero-title{font-size:26px;font-weight:900;color:#fff;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.selecao-hero-sub{font-size:12px;color:#8fc;margin-top:4px;letter-spacing:.5px}
+.selecao-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1c1c2e;border-top:1px solid #1c1c2e}
+.selecao-stat{background:#0e0e1a;padding:1rem;text-align:center}
+.selecao-stat-val{font-size:28px;font-weight:900;color:#c8a400}
+.selecao-stat-lbl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.selecao-body{display:grid;grid-template-columns:1fr 300px;gap:0}
+.selecao-main{padding:1.25rem}
+.selecao-section{margin-bottom:1.5rem}
+.selecao-section-title{font-size:11px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid #1c1c2e;padding-bottom:8px;margin-bottom:12px}
+.player-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.player-card{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:10px;text-align:center;transition:border-color .15s;cursor:pointer}
+.player-card:hover{border-color:#c8a400}
+.player-num{font-size:20px;font-weight:900;color:#c8a400;line-height:1}
+.player-name{font-size:11px;color:#ddd;font-weight:600;margin-top:4px;line-height:1.2}
+.player-pos{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.player-club{font-size:9px;color:#555;margin-top:2px}
+.camp-jogo{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #141420;gap:10px;font-size:12px}
+.camp-jogo:last-child{border-bottom:none}
+.camp-data{color:#777;font-size:10px;width:60px;flex-shrink:0}
+.camp-times{flex:1;text-align:center;color:#ddd}
+.camp-placar{font-weight:800;color:#fff;font-size:14px;width:50px;text-align:center;flex-shrink:0}
+.camp-result{font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;flex-shrink:0}
+.camp-result.v{background:#1a4a1a;color:#6f6}
+.camp-result.e{background:#3a3a0a;color:#cc6}
+.camp-result.d{background:#4a1a1a;color:#f66}
+
+/* MATA-MATA */
+.bracket-wrap{padding:1.25rem;overflow-x:auto}
+.bracket-title{font-size:11px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;text-align:center}
+.bracket{display:flex;gap:0;align-items:center;min-width:800px}
+.bracket-round{display:flex;flex-direction:column;flex:1}
+.bracket-round-title{font-size:9px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.6px;text-align:center;padding:6px;border-bottom:1px solid #1c1c2e;margin-bottom:8px}
+.bracket-matches{display:flex;flex-direction:column;justify-content:space-around;flex:1;gap:8px}
+.bracket-match{background:#12121e;border:1px solid #1e1e30;border-radius:4px;overflow:hidden;margin:4px 4px}
+.bracket-match.highlight{border-color:#c8a400}
+.bm-team{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:11px;color:#ccc;border-bottom:1px solid #141420}
+.bm-team:last-child{border-bottom:none}
+.bm-team.winner{background:#1a1a10;color:#fff;font-weight:700}
+.bm-team.winner .bm-score{color:#c8a400}
+.bm-flag{font-size:14px;flex-shrink:0}
+.bm-name{flex:1}
+.bm-score{font-size:13px;font-weight:800;color:#fff;flex-shrink:0;min-width:16px;text-align:right}
+.connector{width:20px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-around}
+.connector-line{height:2px;background:#1e1e30;flex:1}
+.final-box{background:linear-gradient(135deg,#1a1500,#2a2000);border:2px solid #c8a400;border-radius:6px;padding:1rem;text-align:center;margin:0 8px;flex-shrink:0}
+.final-box-title{font-size:9px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.final-team{font-size:13px;color:#fff;font-weight:700;padding:6px 0;border-bottom:1px solid #2a2000}
+.final-team:last-child{border-bottom:none}
+.champion-box{background:linear-gradient(135deg,#2a1a00,#3a2800);border:2px solid #c8a400;border-radius:6px;padding:1.25rem;text-align:center;margin-top:1rem}
+.champion-emoji{font-size:40px}
+.champion-label{font-size:9px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-top:6px}
+.champion-name{font-size:18px;font-weight:900;color:#fff;margin-top:4px}
+
+/* ADMIN */
+.admin-login{max-width:380px;margin:3rem auto;background:#0e0e1a;border:1px solid #1e1e30;border-radius:6px;padding:2rem}
+.admin-login-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.admin-login-sub{font-size:11px;color:#555;margin-bottom:1.5rem}
+.admin-input{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;margin-bottom:10px;outline:none;transition:border-color .15s}
+.admin-input:focus{border-color:#c8a400}
+.admin-btn{width:100%;background:#c8a400;color:#000;font-size:13px;font-weight:800;padding:11px;border:none;border-radius:4px;cursor:pointer;font-family:inherit;letter-spacing:.3px}
+.admin-btn:hover{background:#dab800}
+.admin-btn.danger{background:#cc0000;color:#fff;margin-top:6px}
+.admin-wrap{padding:1.25rem;display:none}
+.admin-wrap.open{display:block}
+.admin-grid{display:grid;grid-template-columns:200px 1fr;gap:0;min-height:70vh}
+.admin-sidebar{background:#0a0a12;border-right:1px solid #1c1c2e;padding:1rem 0}
+.admin-menu-item{display:block;padding:10px 16px;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.admin-menu-item:hover{color:#ddd;background:#12121e}
+.admin-menu-item.on{color:#c8a400;border-left-color:#c8a400;background:#12121e}
+.admin-main{padding:1.25rem}
+.admin-panel{display:none}
+.admin-panel.on{display:block}
+.admin-panel-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid #1c1c2e}
+.admin-form-group{margin-bottom:14px}
+.admin-form-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
+.admin-textarea{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:120px}
+.admin-textarea:focus{border-color:#c8a400}
+.admin-select{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;outline:none}
+.admin-articles-list{display:flex;flex-direction:column;gap:8px}
+.admin-article-row{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:12px}
+.admin-article-title{flex:1;font-size:13px;color:#ddd;font-weight:500}
+.admin-article-date{font-size:10px;color:#555;flex-shrink:0}
+.admin-article-edit{background:#1a1a28;border:1px solid #2a2a3e;color:#c8a400;font-size:10px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:inherit}
+.admin-article-del{background:#1a0a0a;border:1px solid #3a1a1a;color:#cc0000;font-size:10px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:inherit}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-box{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:1rem;text-align:center}
+.stat-box-val{font-size:28px;font-weight:900;color:#c8a400}
+.stat-box-lbl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.banner-slot{background:#12121e;border:1px dashed #2a2a3e;border-radius:4px;padding:1rem;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.banner-slot-label{font-size:11px;color:#888;flex:1}
+.banner-slot-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:2px}
+.banner-slot-status.active{background:#1a3a1a;color:#6f6}
+.banner-slot-status.empty{background:#1a1a28;color:#666}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .news-hero-row{grid-template-columns:1fr}
@@ -246,9 +344,12 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
   </div>
   <nav>
     <button class="nb on" onclick="switchTab('noticias',this)">📰 Notícias</button>
+    <button class="nb" onclick="switchTab('selecao',this)">🇧🇷 Seleção</button>
     <button class="nb" onclick="switchTab('jogos',this)">⚽ Jogos</button>
     <button class="nb" onclick="switchTab('grupos',this)">📊 Grupos</button>
+    <button class="nb" onclick="switchTab('matamata',this)">🏆 Mata-Mata</button>
     <button class="nb" onclick="switchTab('artilheiros',this)">🎯 Artilheiros</button>
+    <button class="nb" onclick="switchTab('admin',this)" style="margin-left:auto;color:#c8a400">⚙️ Admin</button>
   </nav>
 </header>
 
@@ -344,6 +445,253 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <div id="sidebar-resultados">
             <div class="sidebar-empty">Carregando...</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SELEÇÃO BRASILEIRA -->
+<div id="tab-selecao" class="panel">
+  <div class="selecao-hero">
+    <div class="selecao-hero-title">🇧🇷 SELEÇÃO BRASILEIRA</div>
+    <div class="selecao-hero-sub">COPA DO MUNDO 2026 · GRUPO C</div>
+  </div>
+  <div class="selecao-stats-row">
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-pts">4</div><div class="selecao-stat-lbl">Pontos</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-jogos">2</div><div class="selecao-stat-lbl">Jogos</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-gols">4</div><div class="selecao-stat-lbl">Gols</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-pos">1º</div><div class="selecao-stat-lbl">Posição</div></div>
+  </div>
+  <div class="selecao-body">
+    <div class="selecao-main">
+      <!-- Campanha -->
+      <div class="selecao-section">
+        <div class="selecao-section-title">⚽ Campanha na Copa 2026</div>
+        <div class="camp-jogo">
+          <div class="camp-data">19 jun</div>
+          <div class="camp-times">🇧🇷 Brasil × 🇭🇹 Haiti</div>
+          <div class="camp-placar">3–0</div>
+          <span class="camp-result v">V</span>
+        </div>
+        <div class="camp-jogo">
+          <div class="camp-data">22 jun</div>
+          <div class="camp-times">🇧🇷 Brasil × 🇲🇦 Marrocos</div>
+          <div class="camp-placar">1–1</div>
+          <span class="camp-result e">E</span>
+        </div>
+        <div class="camp-jogo" style="opacity:.5">
+          <div class="camp-data">25 jun</div>
+          <div class="camp-times">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia × 🇧🇷 Brasil</div>
+          <div class="camp-placar">– –</div>
+          <span class="camp-result e" style="background:#1c1c2e;color:#555">?</span>
+        </div>
+      </div>
+
+      <!-- Convocação -->
+      <div class="selecao-section">
+        <div class="selecao-section-title">👥 Convocação Copa 2026</div>
+        <div class="player-grid" id="bra-squad"></div>
+      </div>
+    </div>
+
+    <div class="news-right-sidebar" style="border-left:1px solid #1c1c2e">
+      <!-- Grupo C -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">Grupo C <a onclick="switchTab('grupos',document.querySelectorAll('.nb')[3])">Ver tudo →</a></div>
+        <div id="selecao-grupo-c"></div>
+      </div>
+      <!-- Próximo jogo -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">Próximo Jogo</div>
+        <div style="background:#12121e;border-radius:4px;padding:1rem;text-align:center">
+          <div style="font-size:10px;color:#c8a400;font-weight:700;text-transform:uppercase;margin-bottom:8px">25 JUN · 15h00 (BRT)</div>
+          <div style="font-size:18px;margin-bottom:6px">🏴󠁧󠁢󠁳󠁣󠁴󠁿 × 🇧🇷</div>
+          <div style="font-size:12px;color:#ddd;font-weight:600">Escócia vs Brasil</div>
+          <div style="font-size:10px;color:#555;margin-top:4px">Grupo C · Rodada 3</div>
+        </div>
+      </div>
+      <!-- Artilheiros Brasil -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">⚽ Artilheiros do Brasil</div>
+        <div style="font-size:12px">
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Vinicius Jr.</div><div style="font-size:10px;color:#555">Real Madrid</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">2</div></div>
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Rodrygo</div><div style="font-size:10px;color:#555">Real Madrid</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">1</div></div>
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Raphinha</div><div style="font-size:10px;color:#555">Barcelona</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATA-MATA -->
+<div id="tab-matamata" class="panel">
+  <div style="padding:1rem 1.25rem;border-bottom:1px solid #1c1c2e;display:flex;align-items:center;justify-content:space-between">
+    <div style="font-size:13px;font-weight:800;color:#fff">🏆 Fase Eliminatória — Copa do Mundo 2026</div>
+    <div style="font-size:10px;color:#555">Oitavas começam em 29 de junho</div>
+  </div>
+  <div class="bracket-wrap">
+    <!-- OITAVAS -->
+    <div style="margin-bottom:2rem">
+      <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">OITAVAS DE FINAL</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <!-- Jogo 1 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇲🇽</span><span class="bm-name">México</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo F</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 2 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇺🇸</span><span class="bm-name">EUA</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo E</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 3 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇩🇪</span><span class="bm-name">Alemanha</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo C</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 4 -->
+        <div class="bracket-match highlight"><div class="bm-team"><span class="bm-flag">🇧🇷</span><span class="bm-name">Brasil</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo D</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 5 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇫🇷</span><span class="bm-name">França</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo J</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 6 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇦🇷</span><span class="bm-name">Argentina</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo I</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 7 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇪🇸</span><span class="bm-name">Espanha</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo G</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 8 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇳🇱</span><span class="bm-name">Holanda</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo K</span><span class="bm-score">–</span></div></div>
+      </div>
+    </div>
+
+    <!-- QUARTAS -->
+    <div style="margin-bottom:2rem;opacity:.6">
+      <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">QUARTAS DE FINAL</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+    </div>
+
+    <!-- SEMI + FINAL -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;opacity:.5">
+      <div>
+        <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">SEMIFINAIS</div>
+        <div class="bracket-match" style="margin-bottom:8px"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div class="final-box">
+          <div class="final-box-title">🏆 FINAL · 19 JUL</div>
+          <div class="final-team" style="color:#555">A definir</div>
+          <div style="color:#c8a400;font-size:18px;padding:4px 0">×</div>
+          <div class="final-team" style="color:#555">A definir</div>
+        </div>
+      </div>
+      <div>
+        <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">3º LUGAR</div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="tab-admin" class="panel">
+  <div class="admin-login" id="admin-login">
+    <div class="admin-login-title">⚙️ Painel Admin</div>
+    <div class="admin-login-sub">Acesso restrito — equipe editorial</div>
+    <input class="admin-input" type="password" id="admin-pwd" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="admin-btn" onclick="adminLogin()">Entrar</button>
+    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none">Senha incorreta.</div>
+  </div>
+  <div class="admin-wrap" id="admin-wrap">
+    <div class="admin-grid">
+      <!-- Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-menu-item on" onclick="adminPanel('dashboard',this)">📊 Dashboard</div>
+        <div class="admin-menu-item" onclick="adminPanel('nova-materia',this)">✏️ Nova Matéria</div>
+        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Matérias</div>
+        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners</div>
+        <div class="admin-menu-item" onclick="adminPanel('config',this)" style="margin-top:auto">⚙️ Configurações</div>
+        <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+      </div>
+      <!-- Main -->
+      <div class="admin-main">
+        <!-- Dashboard -->
+        <div class="admin-panel on" id="ap-dashboard">
+          <div class="admin-panel-title">Dashboard</div>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="stat-box-val" id="ad-total">0</div><div class="stat-box-lbl">Matérias publicadas</div></div>
+            <div class="stat-box"><div class="stat-box-val">12</div><div class="stat-box-lbl">Visitas hoje</div></div>
+            <div class="stat-box"><div class="stat-box-val">3</div><div class="stat-box-lbl">Banners ativos</div></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Últimas Matérias Publicadas</div>
+          <div id="ad-recent-list" style="font-size:12px;color:#555">Nenhuma matéria criada ainda.</div>
+        </div>
+        <!-- Nova Matéria -->
+        <div class="admin-panel" id="ap-nova-materia">
+          <div class="admin-panel-title">✏️ Nova Matéria</div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Título *</label>
+            <input class="admin-input" type="text" id="art-title" placeholder="Título da matéria">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Categoria</label>
+            <select class="admin-select" id="art-cat">
+              <option>Copa do Mundo 2026</option>
+              <option>Seleção Brasileira</option>
+              <option>Grupo C</option>
+              <option>Mercado da Bola</option>
+              <option>Bastidores</option>
+              <option>Curiosidades</option>
+            </select>
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">URL da Imagem</label>
+            <input class="admin-input" type="text" id="art-img" placeholder="https://...">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Conteúdo *</label>
+            <textarea class="admin-textarea" id="art-body" placeholder="Texto da matéria..." style="min-height:180px"></textarea>
+          </div>
+          <button class="admin-btn" onclick="publishArticle()">📤 Publicar Matéria</button>
+          <div id="art-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Matéria publicada com sucesso!</div>
+        </div>
+        <!-- Matérias -->
+        <div class="admin-panel" id="ap-materias">
+          <div class="admin-panel-title">📰 Matérias Publicadas</div>
+          <div class="admin-articles-list" id="admin-articles-list">
+            <div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>
+          </div>
+        </div>
+        <!-- Banners -->
+        <div class="admin-panel" id="ap-banners">
+          <div class="admin-panel-title">🎯 Gerenciar Banners Publicitários</div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Topo</strong><br><span style="font-size:10px;color:#555">728×90 · acima das notícias</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-topo" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-topo-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('topo')">Salvar</button>
+          </div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Meio</strong><br><span style="font-size:10px;color:#555">320×100 · entre as notícias</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-meio" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-meio-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('meio')">Salvar</button>
+          </div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Lateral</strong><br><span style="font-size:10px;color:#555">300×250 · sidebar direita</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-lateral" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-lateral-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('lateral')">Salvar</button>
+          </div>
+        </div>
+        <!-- Config -->
+        <div class="admin-panel" id="ap-config">
+          <div class="admin-panel-title">⚙️ Configurações</div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Nome do Site</label>
+            <input class="admin-input" type="text" id="cfg-nome" value="Copa do Mundo 2026 – Ao Vivo">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Alterar Senha do Admin</label>
+            <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
+          </div>
+          <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
+          <div id="cfg-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
         </div>
       </div>
     </div>
@@ -702,462 +1050,4 @@ function parseStandingsFromAPI() {
   } catch(e) { return null; }
 }
 
-function renderGrupoContent() {
-  const apiGroups = parseStandingsFromAPI();
-  const groups    = apiGroups || FALLBACK_GROUPS;
-  const teams     = groups[currentGroup] || FALLBACK_GROUPS[currentGroup] || [];
-
-  let h = `<div class="grp-name">🏆 Grupo ${currentGroup} ${usingFallback.standings?'<small style="color:#555;font-size:10px;font-weight:400">(dados de 22/06)</small>':''}</div>`;
-  h += `<table class="gt"><thead><tr>
-    <th colspan="2">Time</th><th class="c">PTS</th><th class="c">J</th>
-    <th class="c">V</th><th class="c">E</th><th class="c">D</th>
-    <th class="c">GP</th><th class="c">GC</th><th class="c">SG</th>
-  </tr></thead><tbody>`;
-
-  teams.forEach((t,i) => {
-    const sg = (t.gp||0)-(t.gc||0);
-    const isQ = t.cl==='g';
-    const isE = t.cl==='e'||t.el;
-    const cls = isE?'el':isQ?'q':'';
-    const dot = isE?'e':isQ?'g':'n';
-    const logoHtml = t.logo
-      ? `<img class="t-logo" src="${t.logo}" onerror="this.style.display='none'">`
-      : `<span style="font-size:15px">${t.f||flag(t.abbr)||'🌐'}</span>`;
-    h += `<tr class="${cls}">
-      <td><span class="pd ${dot}"></span>${i+1}</td>
-      <td><div class="tfl">${logoHtml}<span>${t.n}${t.w?'<span style="color:#c8a400;font-size:9px;margin-left:4px">✓</span>':''}</span></div></td>
-      <td class="c ptb">${t.pts}</td>
-      <td class="c">${t.j}</td><td class="c">${t.v}</td><td class="c">${t.e}</td><td class="c">${t.d}</td>
-      <td class="c">${t.gp}</td><td class="c">${t.gc}</td>
-      <td class="c">${sg>=0?'+'+sg:sg}</td>
-    </tr>`;
-  });
-
-  h += `</tbody></table>`;
-  h += `<div class="legend"><span><span class="pd g"></span>Classificado</span><span><span class="pd e"></span>Eliminado</span></div>`;
-
-  // Next games
-  const nx = NEXT_GAMES[currentGroup];
-  if(nx && nx.length) {
-    h += `<div class="next-games"><div class="ng-title">Próximos jogos do grupo</div>`;
-    nx.forEach(m => {
-      h += `<div class="ng-row"><div class="ng-d">${m[0]}</div><div class="ng-tm">${m[2]} <span style="color:#444">×</span> ${m[3]}</div><div class="ng-h">${m[1]}</div></div>`;
-    });
-    h += `</div>`;
-  }
-
-  document.getElementById('group-content').innerHTML = h;
-}
-
-// ─── RENDER ARTILHEIROS ────────────────────────────────────────────────────
-function renderArtilheiros() {
-  let scorers = FALLBACK_SCORERS;
-
-  // Try to parse from ESPN leaders API
-  if(apiData.scorers) {
-    try {
-      const leaders = apiData.scorers.leaders || [];
-      const goals = leaders.find(l => l.name==='goals' || l.displayName?.toLowerCase().includes('goal'));
-      if(goals && goals.leaders) {
-        scorers = goals.leaders.map(l => ({
-          name:  l.athlete?.displayName || l.displayName || '?',
-          team:  l.team?.displayName || '',
-          abbr:  l.team?.abbreviation || '',
-          logo:  l.team?.logos?.[0]?.href || l.team?.logo || '',
-          flag:  flag(l.team?.abbreviation || ''),
-          goals: Math.round(l.value||0)
-        }));
-      }
-    } catch(e) {}
-  }
-
-  const assists  = FALLBACK_SCORERS.map((s,i) => ({...s, assists: [3,2,2,2,1,1,1,0][i]||0}));
-
-  let h = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
-
-  // Goals
-  h += `<div class="scorer-card"><div class="scorer-hdr">⚽ Artilheiros</div>`;
-  scorers.slice(0,8).forEach((s,i) => {
-    const logoHtml = s.logo
-      ? `<img class="s-logo" src="${s.logo}" onerror="this.style.display='none'">`
-      : `<span style="font-size:20px">${s.flag||flag(s.abbr)||'🌐'}</span>`;
-    h += `<div class="scorer-row">
-      <span class="rank ${i<3?'top':''}">${i+1}</span>
-      ${logoHtml}
-      <div class="s-info"><div class="s-name">${s.name}</div><div class="s-team">${s.team}</div></div>
-      <span class="s-val">${s.goals}</span>
-    </div>`;
-  });
-  h += `</div>`;
-
-  // Assists
-  h += `<div class="scorer-card"><div class="scorer-hdr">🎯 Assistências</div>`;
-  assists.slice(0,8).forEach((s,i) => {
-    h += `<div class="scorer-row">
-      <span class="rank ${i<3?'top':''}">${i+1}</span>
-      <span style="font-size:20px">${s.flag}</span>
-      <div class="s-info"><div class="s-name">${s.name}</div><div class="s-team">${s.team}</div></div>
-      <span class="s-val">${[3,2,2,2,1,1,0,0][i]}</span>
-    </div>`;
-  });
-  h += `</div></div>`;
-
-  // Clean sheets
-  const cleanSheets = [
-    {name:'M. ter Stegen',team:'Alemanha',flag:'🇩🇪',val:2},
-    {name:'A. Nyland',team:'Noruega',flag:'🇳🇴',val:1},
-    {name:'T. Flekken',team:'Holanda',flag:'🇳🇱',val:1},
-    {name:'G. Turner',team:'EUA',flag:'🇺🇸',val:1},
-    {name:'A. Onana',team:'Camarões',flag:'🇨🇲',val:1},
-  ];
-  h += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">`;
-  h += `<div class="scorer-card"><div class="scorer-hdr">🧤 Clean Sheets</div>`;
-  cleanSheets.forEach((s,i) => {
-    h += `<div class="scorer-row"><span class="rank ${i<3?'top':''}">${i+1}</span><span style="font-size:20px">${s.flag}</span><div class="s-info"><div class="s-name">${s.name}</div><div class="s-team">${s.team}</div></div><span class="s-val">${s.val}</span></div>`;
-  });
-  h += `</div>`;
-
-  const yellows = [{name:'A. Morata',t:'Espanha',f:'🇪🇸',v:2},{name:'G. Magallán',t:'México',f:'🇲🇽',v:2},{name:'Vários jogadores',t:'1 cartão',f:'🟨',v:1}];
-  h += `<div class="scorer-card"><div class="scorer-hdr">🟨 Cartões Amarelos</div>`;
-  yellows.forEach((s,i) => {
-    h += `<div class="scorer-row"><span class="rank ${i<2?'top':''}">${i+1}</span><span style="font-size:20px">${s.f}</span><div class="s-info"><div class="s-name">${s.name}</div><div class="s-team">${s.t}</div></div><span class="s-val">${s.v}</span></div>`;
-  });
-  h += `</div></div>`;
-
-  document.getElementById('scorers-content').innerHTML = h;
-}
-
-// ─── RENDER NOTÍCIAS ───────────────────────────────────────────────────────
-function renderNoticias() {
-  const articles = apiData.news?.articles || [];
-  const allNews  = articles.length >= 2 ? articles : getStaticNews();
-  allArticlesCache = allNews; // salva para o modal
-
-  // ── HERO (article[0]) ──────────────────────────────────────────────────
-  const heroEl = document.getElementById('news-hero-main');
-  const hero = allNews[0] || {};
-  const heroImg   = hero.images?.[0]?.url || hero.image || '';
-  const heroTitle = traduzirTitulo(hero.headline || hero.title || 'Copa do Mundo 2026');
-  const heroDesc  = traduzirTitulo(hero.description || hero.excerpt || '');
-  const heroUrl   = hero.links?.web?.href || hero.url || '#';
-  const heroCat   = traduzirCategoria(hero.categories?.[0]?.description || hero.categories?.[0]?.shortName || 'COPA DO MUNDO 2026');
-
-  heroEl.innerHTML = `
-    ${heroImg
-      ? `<img src="${heroImg}" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.style.display='none'">`
-      : `<div style="width:100%;height:100%;background:linear-gradient(135deg,#001a44,#0a2a0a)"></div>`}
-    <div class="news-hero-overlay"></div>
-    <div class="news-hero-body">
-      <span class="news-hero-tag">${heroCat}</span>
-      <div class="news-hero-title">${heroTitle}</div>
-      ${heroDesc ? `<div class="news-hero-desc">${heroDesc}</div>` : ''}
-      <div class="news-hero-meta">
-        <span>Redação Copa ao Vivo</span>
-        ${hero.published ? `<span>· ${timeAgo(hero.published)}</span>` : ''}
-      </div>
-      <span class="news-hero-btn" onclick="event.stopPropagation();openArticle(0)">Ler mais →</span>
-    </div>`;
-  heroEl.onclick = () => openArticle(0);
-
-  // ── SIDEBAR — últimas notícias (articles[1..4]) ────────────────────────
-  const sidebarEl = document.getElementById('news-sidebar-list');
-  const sideItems = allNews.slice(1, 5);
-  if(sideItems.length) {
-    sidebarEl.innerHTML = sideItems.map(a => {
-      const img   = a.images?.[0]?.url || a.image || '';
-      const title = traduzirTitulo(a.headline || a.title || 'Notícia');
-      const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
-      const url   = a.links?.web?.href || a.url || '#';
-      return `<div class="news-sidebar-item" onclick="openArticle(${1+sideItems.indexOf(a)})">
-        ${img
-          ? `<img class="news-sidebar-thumb" src="${img}" onerror="this.outerHTML='<div class=\\'news-sidebar-thumb-ph\\'>⚽</div>'">`
-          : `<div class="news-sidebar-thumb-ph">⚽</div>`}
-        <div class="news-sidebar-info">
-          <div class="news-sidebar-tag">${cat}</div>
-          <div class="news-sidebar-title">${title}</div>
-          <div class="news-sidebar-date">${a.published ? timeAgo(a.published) : ''}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  // ── GRID — mais notícias (articles[5..12]) ─────────────────────────────
-  const gridEl   = document.getElementById('news-content');
-  const gridNews = allNews.slice(5, 13);
-  if(!gridNews.length) {
-    gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#444"><div style="font-size:32px">📰</div><p>Notícias serão carregadas em breve</p></div>`;
-  } else {
-    gridEl.innerHTML = gridNews.map(a => {
-      const img   = a.images?.[0]?.url || a.image || '';
-      const title = traduzirTitulo(a.headline || a.title || 'Notícia');
-      const desc  = traduzirTitulo(a.description || a.excerpt || '');
-      const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa 2026');
-      const url   = a.links?.web?.href || a.url || '#';
-      const date  = a.published ? timeAgo(a.published) : '';
-      return `<div class="news-card" onclick="openArticle(${5+gridNews.indexOf(a)})">
-        ${img
-          ? `<img class="news-card-img" src="${img}" onerror="this.outerHTML='<div class=\\'news-card-img-ph\\'>⚽</div>'">`
-          : `<div class="news-card-img-ph">⚽</div>`}
-        <div class="news-card-body">
-          <div class="news-tag">${cat}</div>
-          <div class="news-title">${title}</div>
-          ${desc ? `<div class="news-excerpt">${desc}</div>` : ''}
-          <div class="news-date">🕐 ${date}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  // ── SIDEBAR DIREITA — Jogos de Hoje ───────────────────────────────────
-  const jogosEl = document.getElementById('sidebar-jogos');
-  const events  = apiData.scoreboard?.events || [];
-  if(!events.length) {
-    jogosEl.innerHTML = `<div class="sidebar-empty"><div class="sidebar-empty-icon">🗓️</div>Nenhum jogo hoje<br><a style="color:#c8a400;cursor:pointer" onclick="switchTab('jogos',document.querySelectorAll('.nb')[1])">Ver próximos jogos →</a></div>`;
-  } else {
-    const live = events.filter(e => e.status.type.state==='in');
-    const sched= events.filter(e => e.status.type.state==='pre');
-    const show = [...live,...sched].slice(0,4);
-    jogosEl.innerHTML = show.map(ev => {
-      const comp = ev.competitions[0];
-      const h = comp.competitors.find(c=>c.homeAway==='home') || comp.competitors[0];
-      const a = comp.competitors.find(c=>c.homeAway==='away') || comp.competitors[1];
-      const isLive = ev.status.type.state==='in';
-      const timeStr = isLive
-        ? `<span style="color:#cc0000;font-weight:800">${ev.status.displayClock||'AO VIVO'}</span>`
-        : `<span>${new Date(ev.date).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span>`;
-      return `<div class="mini-match">
-        <div class="mini-match-teams">
-          <div class="mini-match-team">${flag(h.team.abbreviation)} ${h.team.shortDisplayName||h.team.abbreviation}</div>
-          <div class="mini-match-team">${flag(a.team.abbreviation)} ${a.team.shortDisplayName||a.team.abbreviation}</div>
-        </div>
-        <div class="mini-match-score">${isLive ? `${h.score||0}–${a.score||0}` : '–'}</div>
-        <div class="mini-match-time">${timeStr}</div>
-      </div>`;
-    }).join('');
-  }
-
-  // ── SIDEBAR DIREITA — Mini Tabela Grupo C ─────────────────────────────
-  const tabelaEl = document.getElementById('sidebar-tabela');
-  const grpTeams = FALLBACK_GROUPS['C'] || [];
-  // Rotate which group is shown based on today
-  const grpKeys = Object.keys(FALLBACK_GROUPS);
-  const todayGrp = grpKeys[new Date().getDate() % grpKeys.length] || 'C';
-  document.getElementById('sidebar-grp-letter').textContent = todayGrp;
-  const grpShow = FALLBACK_GROUPS[todayGrp] || grpTeams;
-  tabelaEl.innerHTML = `
-    <table class="mini-table">
-      <thead><tr><th class="pos">#</th><th>Seleção</th><th class="c">J</th><th class="c">Pts</th></tr></thead>
-      <tbody>
-      ${grpShow.map((t,i) => `<tr>
-        <td class="pos" style="color:${t.cl==='g'?'#c8a400':t.cl==='e'?'#cc0000':'#555'}">${i+1}</td>
-        <td><span style="font-size:13px">${t.f||'🌐'}</span> ${t.n}</td>
-        <td class="c">${t.j}</td>
-        <td class="c ptb">${t.pts}</td>
-      </tr>`).join('')}
-      </tbody>
-    </table>`;
-
-  // ── SIDEBAR DIREITA — Resultados Recentes ──────────────────────────────
-  const resEl = document.getElementById('sidebar-resultados');
-  const done  = (apiData.scoreboard?.events||[]).filter(e=>e.status.type.state==='post').slice(0,3);
-  const staticResults = [
-    {grp:'Grupo H',hf:'🇪🇸',hn:'Espanha',hs:3,af:'🇸🇦',an:'Ar. Saudita',as:1},
-    {grp:'Grupo G',hf:'🇧🇪',hn:'Bélgica',hs:1,af:'🇮🇷',an:'Irã',as:1},
-    {grp:'Grupo G',hf:'🇪🇬',hn:'Egito',hs:2,af:'🇳🇿',an:'Nova Zel.',as:0},
-  ];
-  if(done.length) {
-    resEl.innerHTML = done.map(ev => {
-      const comp = ev.competitions[0];
-      const h = comp.competitors.find(c=>c.homeAway==='home')||comp.competitors[0];
-      const a = comp.competitors.find(c=>c.homeAway==='away')||comp.competitors[1];
-      const gn = comp.groups?.shortName || '';
-      return `<div class="result-card">
-        ${gn?`<div class="result-card-grp">${gn}</div>`:''}
-        <div class="result-teams">
-          <div class="result-team home">${flag(h.team.abbreviation)} ${h.team.shortDisplayName||h.team.abbreviation}</div>
-          <div class="result-score">${h.score}–${a.score}</div>
-          <div class="result-team">${flag(a.team.abbreviation)} ${a.team.shortDisplayName||a.team.abbreviation}</div>
-        </div>
-        <div class="result-status">Encerrado</div>
-      </div>`;
-    }).join('');
-  } else {
-    resEl.innerHTML = staticResults.map(r => `<div class="result-card">
-      <div class="result-card-grp">${r.grp}</div>
-      <div class="result-teams">
-        <div class="result-team home">${r.hf} ${r.hn}</div>
-        <div class="result-score">${r.hs}–${r.as}</div>
-        <div class="result-team">${r.af} ${r.an}</div>
-      </div>
-      <div class="result-status">Encerrado</div>
-    </div>`).join('');
-  }
-}
-
-// Tradução de palavras-chave mais comuns nos títulos da ESPN
-function traduzirTitulo(txt) {
-  if(!txt) return txt;
-  const map = [
-    [/World Cup/gi,'Copa do Mundo'],[/FIFA World Cup/gi,'Copa do Mundo FIFA'],
-    [/\bgoal(s)?\b/gi,'gol'],[/\bgoals?\b/gi,'gols'],
-    [/\bmatch(es)?\b/gi,'partida'],[/\bgame(s)?\b/gi,'jogo'],
-    [/\bwin(s)?\b/gi,'vitória'],[/\bloss(es)?\b/gi,'derrota'],
-    [/\bdraw(s)?\b/gi,'empate'],[/\btie(s)?\b/gi,'empate'],
-    [/\bgroup(s)?\b/gi,'grupo'],[/\bstage\b/gi,'fase'],
-    [/\bknockout\b/gi,'mata-mata'],[/\bquarterfinal\b/gi,'quartas de final'],
-    [/\bsemifinal\b/gi,'semifinal'],[/\bfinal\b/gi,'final'],
-    [/\binjury\b/gi,'lesão'],[/\binjured\b/gi,'lesionado'],
-    [/\bscore(s)?\b/gi,'placar'],[/\bscored\b/gi,'marcou'],
-    [/\bsaved by\b/gi,'salvo pelo'],[/\bcrying\b/gi,'chorando'],
-    [/\bfan(s)?\b/gi,'torcedor'],[/\bteam(s)?\b/gi,'seleção'],
-    [/\bplayer(s)?\b/gi,'jogador'],[/\bcoach\b/gi,'técnico'],
-    [/\bstar(s)?\b/gi,'estrela'],[/\bin action\b/gi,'em ação'],
-    [/\bmiss(es)?\b/gi,'desfalca'],[/\brest of\b/gi,'o restante da'],
-    [/\bwith ankle\b/gi,'com lesão no tornozelo'],[/\bwith knee\b/gi,'com lesão no joelho'],
-    [/\bdaily\b/gi,'diário'],[/\bnews\b/gi,'notícias'],
-    [/\bhighlights\b/gi,'melhores momentos'],[/\banalysis\b/gi,'análise'],
-    [/\bpreview\b/gi,'prévia'],[/\breview\b/gi,'análise'],
-    [/\badvances\b/gi,'avança'],[/\beliminates\b/gi,'elimina'],
-    [/\bqualifies\b/gi,'se classifica'],[/\bqualified\b/gi,'classificado'],
-    [/\bleads\b/gi,'lidera'],[/\bdefeats\b/gi,'derrota'],
-    [/\bblanks\b/gi,'goleia'],[/\bbeats\b/gi,'vence'],
-    [/VAR/g,'VAR'],[/penalty/gi,'pênalti'],
-    [/\bRowing\b/gi,'Remando'],[/\bRapping\b/gi,'Rapeando'],
-    [/\bsaved\b/gi,'salvo'],[/\baction\b/gi,'ação'],
-  ];
-  let r = txt;
-  map.forEach(([pat, rep]) => { r = r.replace(pat, rep); });
-  return r;
-}
-
-function traduzirCategoria(cat) {
-  const map = {
-    'Soccer':'Futebol','FIFA World Cup':'Copa do Mundo','World Cup':'Copa do Mundo',
-    'Group A':'Grupo A','Group B':'Grupo B','Group C':'Grupo C','Group D':'Grupo D',
-    'Group E':'Grupo E','Group F':'Grupo F','Group G':'Grupo G','Group H':'Grupo H',
-    'Group I':'Grupo I','Group J':'Grupo J','Group K':'Grupo K','Group L':'Grupo L',
-    'International':'Internacional','Sports':'Esportes',
-  };
-  return map[cat] || cat;
-}
-
-function getStaticNews() {
-  const now = Date.now();
-  return [
-    // Hero (index 0)
-    {headline:'Copa do Mundo 2026: confira todos os resultados e classificação atualizada',description:'Resumo completo de todos os jogos disputados até 22 de junho de 2026, com a tabela de classificação dos 12 grupos.',categories:[{description:'Copa do Mundo 2026'}],published:new Date(now-1800000).toISOString()},
-    // Sidebar (index 1-4)
-    {headline:'Bastidores da Seleção: Pressão, União e o Sonho do Hexa no Mundial 2026',categories:[{description:'Copa do Mundo 2026'}],published:new Date(now-3600000).toISOString()},
-    {headline:'Bastidores da Seleção: Tensão e União Marcam a Trajetória no Mundial 2026',categories:[{description:'Copa do Mundo 2026'}],published:new Date(now-7200000).toISOString()},
-    {headline:'Copa 2026: Quem Brilha e Quem Decepcionou Após a Fase de Grupos?',categories:[{description:'Copa do Mundo 2026'}],published:new Date(now-86400000).toISOString()},
-    {headline:'Holanda e Japão empatam em jogo emocionante; Suécia goleia Tunísia',categories:[{description:'Grupo F'}],published:new Date(now-172800000).toISOString()},
-    // Grid (index 5-12)
-    {headline:'Alemanha domina Copa 2026 com 9 gols em dois jogos; México também avança',description:'Alemanha lidera o Grupo E com 6 pontos e saldo de gols +7 após vencer Curaçao por 7 a 1 e Costa do Marfim por 2 a 1.',categories:[{description:'Grupo E'}],published:new Date(now-172800000).toISOString()},
-    {headline:'Brasil empata com Marrocos e vence Haiti na fase de grupos da Copa 2026',description:'Seleção Brasileira soma 4 pontos no Grupo C após dois jogos e garante vaga antecipada na próxima fase.',categories:[{description:'Grupo C'}],published:new Date(now-259200000).toISOString()},
-    {headline:'Mbappé brilha e França vence Senegal; Noruega surpreende com goleada sobre Iraque',description:'Grupo I tem França e Noruega empatadas na liderança após a primeira rodada, com Mbappé e Haaland como destaques.',categories:[{description:'Grupo I'}],published:new Date(now-345600000).toISOString()},
-    {headline:'Argentina goleia Argélia e Áustria surpreende na estreia da Copa 2026',description:'Grupo J tem Argentina e Áustria liderando após a primeira rodada, com Messi marcando na estreia.',categories:[{description:'Grupo J'}],published:new Date(now-345600000).toISOString()},
-    {headline:'EUA classifica-se antecipadamente e lidera Grupo D com campanha perfeita',description:'Seleção americana vence os dois primeiros jogos e assegura passagem às oitavas com uma rodada de antecedência.',categories:[{description:'Grupo D'}],published:new Date(now-432000000).toISOString()},
-    {headline:'México conquista liderança com 6 pontos — primeiro classificado da Concacaf',description:'El Tri vence os dois jogos da fase de grupos e se torna o primeiro time norte-americano a avançar no torneio.',categories:[{description:'Grupo A'}],published:new Date(now-518400000).toISOString()},
-    {headline:'Espanha goleia Arábia Saudita por 3–1 e segue na briga pelo topo do Grupo H',description:'Lamine Yamal marcou dois gols e deu passe para o terceiro na goleada da Fúria sobre os sauditas.',categories:[{description:'Grupo H'}],published:new Date(now-604800000).toISOString()},
-    {headline:'Egito vence Nova Zelândia por 2–0 e assume liderança do Grupo G',description:'Os egípcios dominaram o jogo do início ao fim e se mantêm invictos no torneio com 4 pontos.',categories:[{description:'Grupo G'}],published:new Date(now-691200000).toISOString()},
-  ];
-}
-
-// ─── MODAL ARTIGO ──────────────────────────────────────────────────────────
-let allArticlesCache = [];
-
-function openArticle(idx) {
-  const a = allArticlesCache[idx];
-  if(!a) return;
-
-  const img   = a.images?.[0]?.url || a.image || '';
-  const title = traduzirTitulo(a.headline || a.title || 'Notícia');
-  const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
-  const date  = a.published ? new Date(a.published).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-  const author= a.byline || 'Redação Copa ao Vivo';
-  const desc  = traduzirTitulo(a.description || '');
-  const story = traduzirTitulo(a.story || '');
-
-  // Hero
-  const heroEl = document.getElementById('modal-hero');
-  heroEl.innerHTML = img
-    ? `<img src="${img}" onerror="this.style.display='none'"><div class="modal-hero-overlay"></div>`
-    : '';
-  if(!img) heroEl.style.display = 'none';
-  else heroEl.style.display = 'block';
-
-  document.getElementById('modal-tag').textContent = cat;
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-meta').innerHTML =
-    `<span>✍️ ${author}</span>${date?`<span>🕐 ${date}</span>`:''}`;
-
-  // Body
-  const bodyEl = document.getElementById('modal-body');
-  if(story) {
-    // ESPN às vezes retorna HTML da matéria
-    bodyEl.innerHTML = story;
-  } else if(desc) {
-    // Só tem descrição — exibe parágrafo expandido
-    bodyEl.innerHTML = `<p>${desc}</p>
-      <p style="color:#555;font-size:13px;border-top:1px solid #1c1c2e;padding-top:1rem;margin-top:1.5rem">
-        Para ler a matéria completa acesse a fonte original.
-        ${a.links?.web?.href ? `<a href="${a.links.web.href}" target="_blank" style="color:#c8a400;text-decoration:underline">Ver matéria →</a>` : ''}
-      </p>`;
-  } else {
-    bodyEl.innerHTML = `<p style="color:#555">Conteúdo não disponível.</p>`;
-  }
-
-  // Abre modal
-  document.getElementById('modal-overlay').classList.add('open');
-  document.getElementById('modal-box').scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-
-function closeArticle() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeModal(e) {
-  if(e.target === document.getElementById('modal-overlay')) closeArticle();
-}
-
-// Fecha com ESC
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeArticle(); });
-
-// ─── RENDER ALL ────────────────────────────────────────────────────────────
-function renderAll() {
-  renderJogos();
-  buildGroupSelector();
-  renderGrupoContent();
-  renderArtilheiros();
-  renderNoticias();
-}
-
-// ─── TABS ──────────────────────────────────────────────────────────────────
-function switchTab(id, btn) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
-  document.getElementById('tab-' + id).classList.add('on');
-  btn.classList.add('on');
-  if(id==='grupos') renderGrupoContent();
-}
-
-// ─── COUNTDOWN TIMER ───────────────────────────────────────────────────────
-setInterval(() => {
-  countdown--;
-  if(countdown <= 0) {
-    countdown = 60;
-    fetchData();
-  }
-  document.getElementById('countdown').textContent = countdown;
-}, 1000);
-
-// ─── INIT ──────────────────────────────────────────────────────────────────
-// Garante que notícias abre como aba inicial
-document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-document.getElementById('tab-noticias').classList.add('on');
-fetchData();
-</script>
-</body>
-</html>
+func

@@ -214,6 +214,104 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .modal-body h2,.modal-body h3{color:#fff;font-size:16px;margin:1.5rem 0 .75rem}
 .modal-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.5rem 0}
 
+/* SELEÇÃO BRASILEIRA */
+.selecao-hero{background:linear-gradient(135deg,#003320 0%,#006633 50%,#002200 100%);padding:2rem 1.25rem;position:relative;overflow:hidden;border-bottom:3px solid #c8a400}
+.selecao-hero::before{content:'🇧🇷';position:absolute;right:-20px;top:-20px;font-size:180px;opacity:.05}
+.selecao-hero-title{font-size:26px;font-weight:900;color:#fff;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.selecao-hero-sub{font-size:12px;color:#8fc;margin-top:4px;letter-spacing:.5px}
+.selecao-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1c1c2e;border-top:1px solid #1c1c2e}
+.selecao-stat{background:#0e0e1a;padding:1rem;text-align:center}
+.selecao-stat-val{font-size:28px;font-weight:900;color:#c8a400}
+.selecao-stat-lbl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.selecao-body{display:grid;grid-template-columns:1fr 300px;gap:0}
+.selecao-main{padding:1.25rem}
+.selecao-section{margin-bottom:1.5rem}
+.selecao-section-title{font-size:11px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid #1c1c2e;padding-bottom:8px;margin-bottom:12px}
+.player-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.player-card{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:10px;text-align:center;transition:border-color .15s;cursor:pointer}
+.player-card:hover{border-color:#c8a400}
+.player-num{font-size:20px;font-weight:900;color:#c8a400;line-height:1}
+.player-name{font-size:11px;color:#ddd;font-weight:600;margin-top:4px;line-height:1.2}
+.player-pos{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.player-club{font-size:9px;color:#555;margin-top:2px}
+.camp-jogo{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #141420;gap:10px;font-size:12px}
+.camp-jogo:last-child{border-bottom:none}
+.camp-data{color:#777;font-size:10px;width:60px;flex-shrink:0}
+.camp-times{flex:1;text-align:center;color:#ddd}
+.camp-placar{font-weight:800;color:#fff;font-size:14px;width:50px;text-align:center;flex-shrink:0}
+.camp-result{font-size:9px;font-weight:800;padding:2px 6px;border-radius:2px;flex-shrink:0}
+.camp-result.v{background:#1a4a1a;color:#6f6}
+.camp-result.e{background:#3a3a0a;color:#cc6}
+.camp-result.d{background:#4a1a1a;color:#f66}
+
+/* MATA-MATA */
+.bracket-wrap{padding:1.25rem;overflow-x:auto}
+.bracket-title{font-size:11px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;text-align:center}
+.bracket{display:flex;gap:0;align-items:center;min-width:800px}
+.bracket-round{display:flex;flex-direction:column;flex:1}
+.bracket-round-title{font-size:9px;font-weight:800;color:#555;text-transform:uppercase;letter-spacing:.6px;text-align:center;padding:6px;border-bottom:1px solid #1c1c2e;margin-bottom:8px}
+.bracket-matches{display:flex;flex-direction:column;justify-content:space-around;flex:1;gap:8px}
+.bracket-match{background:#12121e;border:1px solid #1e1e30;border-radius:4px;overflow:hidden;margin:4px 4px}
+.bracket-match.highlight{border-color:#c8a400}
+.bm-team{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:11px;color:#ccc;border-bottom:1px solid #141420}
+.bm-team:last-child{border-bottom:none}
+.bm-team.winner{background:#1a1a10;color:#fff;font-weight:700}
+.bm-team.winner .bm-score{color:#c8a400}
+.bm-flag{font-size:14px;flex-shrink:0}
+.bm-name{flex:1}
+.bm-score{font-size:13px;font-weight:800;color:#fff;flex-shrink:0;min-width:16px;text-align:right}
+.connector{width:20px;flex-shrink:0;display:flex;flex-direction:column;justify-content:space-around}
+.connector-line{height:2px;background:#1e1e30;flex:1}
+.final-box{background:linear-gradient(135deg,#1a1500,#2a2000);border:2px solid #c8a400;border-radius:6px;padding:1rem;text-align:center;margin:0 8px;flex-shrink:0}
+.final-box-title{font-size:9px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.final-team{font-size:13px;color:#fff;font-weight:700;padding:6px 0;border-bottom:1px solid #2a2000}
+.final-team:last-child{border-bottom:none}
+.champion-box{background:linear-gradient(135deg,#2a1a00,#3a2800);border:2px solid #c8a400;border-radius:6px;padding:1.25rem;text-align:center;margin-top:1rem}
+.champion-emoji{font-size:40px}
+.champion-label{font-size:9px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.8px;margin-top:6px}
+.champion-name{font-size:18px;font-weight:900;color:#fff;margin-top:4px}
+
+/* ADMIN */
+.admin-login{max-width:380px;margin:3rem auto;background:#0e0e1a;border:1px solid #1e1e30;border-radius:6px;padding:2rem}
+.admin-login-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.admin-login-sub{font-size:11px;color:#555;margin-bottom:1.5rem}
+.admin-input{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;margin-bottom:10px;outline:none;transition:border-color .15s}
+.admin-input:focus{border-color:#c8a400}
+.admin-btn{width:100%;background:#c8a400;color:#000;font-size:13px;font-weight:800;padding:11px;border:none;border-radius:4px;cursor:pointer;font-family:inherit;letter-spacing:.3px}
+.admin-btn:hover{background:#dab800}
+.admin-btn.danger{background:#cc0000;color:#fff;margin-top:6px}
+.admin-wrap{padding:1.25rem;display:none}
+.admin-wrap.open{display:block}
+.admin-grid{display:grid;grid-template-columns:200px 1fr;gap:0;min-height:70vh}
+.admin-sidebar{background:#0a0a12;border-right:1px solid #1c1c2e;padding:1rem 0}
+.admin-menu-item{display:block;padding:10px 16px;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.admin-menu-item:hover{color:#ddd;background:#12121e}
+.admin-menu-item.on{color:#c8a400;border-left-color:#c8a400;background:#12121e}
+.admin-main{padding:1.25rem}
+.admin-panel{display:none}
+.admin-panel.on{display:block}
+.admin-panel-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:1rem;padding-bottom:8px;border-bottom:1px solid #1c1c2e}
+.admin-form-group{margin-bottom:14px}
+.admin-form-label{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}
+.admin-textarea{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:120px}
+.admin-textarea:focus{border-color:#c8a400}
+.admin-select{width:100%;background:#141420;border:1px solid #23233a;color:#ddd;padding:10px 12px;border-radius:4px;font-size:13px;font-family:inherit;outline:none}
+.admin-articles-list{display:flex;flex-direction:column;gap:8px}
+.admin-article-row{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:12px}
+.admin-article-title{flex:1;font-size:13px;color:#ddd;font-weight:500}
+.admin-article-date{font-size:10px;color:#555;flex-shrink:0}
+.admin-article-edit{background:#1a1a28;border:1px solid #2a2a3e;color:#c8a400;font-size:10px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:inherit}
+.admin-article-del{background:#1a0a0a;border:1px solid #3a1a1a;color:#cc0000;font-size:10px;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:inherit}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-box{background:#12121e;border:1px solid #1e1e30;border-radius:4px;padding:1rem;text-align:center}
+.stat-box-val{font-size:28px;font-weight:900;color:#c8a400}
+.stat-box-lbl{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.banner-slot{background:#12121e;border:1px dashed #2a2a3e;border-radius:4px;padding:1rem;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.banner-slot-label{font-size:11px;color:#888;flex:1}
+.banner-slot-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:2px}
+.banner-slot-status.active{background:#1a3a1a;color:#6f6}
+.banner-slot-status.empty{background:#1a1a28;color:#666}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .news-hero-row{grid-template-columns:1fr}
@@ -246,9 +344,12 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
   </div>
   <nav>
     <button class="nb on" onclick="switchTab('noticias',this)">📰 Notícias</button>
+    <button class="nb" onclick="switchTab('selecao',this)">🇧🇷 Seleção</button>
     <button class="nb" onclick="switchTab('jogos',this)">⚽ Jogos</button>
     <button class="nb" onclick="switchTab('grupos',this)">📊 Grupos</button>
+    <button class="nb" onclick="switchTab('matamata',this)">🏆 Mata-Mata</button>
     <button class="nb" onclick="switchTab('artilheiros',this)">🎯 Artilheiros</button>
+    <button class="nb" onclick="switchTab('admin',this)" style="margin-left:auto;color:#c8a400">⚙️ Admin</button>
   </nav>
 </header>
 
@@ -344,6 +445,253 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <div id="sidebar-resultados">
             <div class="sidebar-empty">Carregando...</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SELEÇÃO BRASILEIRA -->
+<div id="tab-selecao" class="panel">
+  <div class="selecao-hero">
+    <div class="selecao-hero-title">🇧🇷 SELEÇÃO BRASILEIRA</div>
+    <div class="selecao-hero-sub">COPA DO MUNDO 2026 · GRUPO C</div>
+  </div>
+  <div class="selecao-stats-row">
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-pts">4</div><div class="selecao-stat-lbl">Pontos</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-jogos">2</div><div class="selecao-stat-lbl">Jogos</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-gols">4</div><div class="selecao-stat-lbl">Gols</div></div>
+    <div class="selecao-stat"><div class="selecao-stat-val" id="bra-pos">1º</div><div class="selecao-stat-lbl">Posição</div></div>
+  </div>
+  <div class="selecao-body">
+    <div class="selecao-main">
+      <!-- Campanha -->
+      <div class="selecao-section">
+        <div class="selecao-section-title">⚽ Campanha na Copa 2026</div>
+        <div class="camp-jogo">
+          <div class="camp-data">19 jun</div>
+          <div class="camp-times">🇧🇷 Brasil × 🇭🇹 Haiti</div>
+          <div class="camp-placar">3–0</div>
+          <span class="camp-result v">V</span>
+        </div>
+        <div class="camp-jogo">
+          <div class="camp-data">22 jun</div>
+          <div class="camp-times">🇧🇷 Brasil × 🇲🇦 Marrocos</div>
+          <div class="camp-placar">1–1</div>
+          <span class="camp-result e">E</span>
+        </div>
+        <div class="camp-jogo" style="opacity:.5">
+          <div class="camp-data">25 jun</div>
+          <div class="camp-times">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia × 🇧🇷 Brasil</div>
+          <div class="camp-placar">– –</div>
+          <span class="camp-result e" style="background:#1c1c2e;color:#555">?</span>
+        </div>
+      </div>
+
+      <!-- Convocação -->
+      <div class="selecao-section">
+        <div class="selecao-section-title">👥 Convocação Copa 2026</div>
+        <div class="player-grid" id="bra-squad"></div>
+      </div>
+    </div>
+
+    <div class="news-right-sidebar" style="border-left:1px solid #1c1c2e">
+      <!-- Grupo C -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">Grupo C <a onclick="switchTab('grupos',document.querySelectorAll('.nb')[3])">Ver tudo →</a></div>
+        <div id="selecao-grupo-c"></div>
+      </div>
+      <!-- Próximo jogo -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">Próximo Jogo</div>
+        <div style="background:#12121e;border-radius:4px;padding:1rem;text-align:center">
+          <div style="font-size:10px;color:#c8a400;font-weight:700;text-transform:uppercase;margin-bottom:8px">25 JUN · 15h00 (BRT)</div>
+          <div style="font-size:18px;margin-bottom:6px">🏴󠁧󠁢󠁳󠁣󠁴󠁿 × 🇧🇷</div>
+          <div style="font-size:12px;color:#ddd;font-weight:600">Escócia vs Brasil</div>
+          <div style="font-size:10px;color:#555;margin-top:4px">Grupo C · Rodada 3</div>
+        </div>
+      </div>
+      <!-- Artilheiros Brasil -->
+      <div class="sidebar-widget">
+        <div class="sidebar-widget-title">⚽ Artilheiros do Brasil</div>
+        <div style="font-size:12px">
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Vinicius Jr.</div><div style="font-size:10px;color:#555">Real Madrid</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">2</div></div>
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Rodrygo</div><div style="font-size:10px;color:#555">Real Madrid</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">1</div></div>
+          <div class="camp-jogo"><div style="font-size:20px">🇧🇷</div><div style="flex:1;padding:0 8px"><div style="color:#ddd;font-weight:600">Raphinha</div><div style="font-size:10px;color:#555">Barcelona</div></div><div style="font-size:18px;font-weight:900;color:#c8a400">1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MATA-MATA -->
+<div id="tab-matamata" class="panel">
+  <div style="padding:1rem 1.25rem;border-bottom:1px solid #1c1c2e;display:flex;align-items:center;justify-content:space-between">
+    <div style="font-size:13px;font-weight:800;color:#fff">🏆 Fase Eliminatória — Copa do Mundo 2026</div>
+    <div style="font-size:10px;color:#555">Oitavas começam em 29 de junho</div>
+  </div>
+  <div class="bracket-wrap">
+    <!-- OITAVAS -->
+    <div style="margin-bottom:2rem">
+      <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">OITAVAS DE FINAL</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <!-- Jogo 1 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇲🇽</span><span class="bm-name">México</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo F</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 2 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇺🇸</span><span class="bm-name">EUA</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo E</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 3 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇩🇪</span><span class="bm-name">Alemanha</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo C</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 4 -->
+        <div class="bracket-match highlight"><div class="bm-team"><span class="bm-flag">🇧🇷</span><span class="bm-name">Brasil</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo D</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 5 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇫🇷</span><span class="bm-name">França</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo J</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 6 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇦🇷</span><span class="bm-name">Argentina</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo I</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 7 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇪🇸</span><span class="bm-name">Espanha</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo G</span><span class="bm-score">–</span></div></div>
+        <!-- Jogo 8 -->
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">🇳🇱</span><span class="bm-name">Holanda</span><span class="bm-score">–</span></div><div class="bm-team"><span class="bm-flag">🌐</span><span class="bm-name">2º Grupo K</span><span class="bm-score">–</span></div></div>
+      </div>
+    </div>
+
+    <!-- QUARTAS -->
+    <div style="margin-bottom:2rem;opacity:.6">
+      <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">QUARTAS DE FINAL</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+    </div>
+
+    <!-- SEMI + FINAL -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;opacity:.5">
+      <div>
+        <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">SEMIFINAIS</div>
+        <div class="bracket-match" style="margin-bottom:8px"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div class="final-box">
+          <div class="final-box-title">🏆 FINAL · 19 JUL</div>
+          <div class="final-team" style="color:#555">A definir</div>
+          <div style="color:#c8a400;font-size:18px;padding:4px 0">×</div>
+          <div class="final-team" style="color:#555">A definir</div>
+        </div>
+      </div>
+      <div>
+        <div class="bracket-title" style="text-align:left;margin-bottom:.5rem;color:#666">3º LUGAR</div>
+        <div class="bracket-match"><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div><div class="bm-team"><span class="bm-flag">❓</span><span class="bm-name">A definir</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="tab-admin" class="panel">
+  <div class="admin-login" id="admin-login">
+    <div class="admin-login-title">⚙️ Painel Admin</div>
+    <div class="admin-login-sub">Acesso restrito — equipe editorial</div>
+    <input class="admin-input" type="password" id="admin-pwd" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="admin-btn" onclick="adminLogin()">Entrar</button>
+    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none">Senha incorreta.</div>
+  </div>
+  <div class="admin-wrap" id="admin-wrap">
+    <div class="admin-grid">
+      <!-- Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-menu-item on" onclick="adminPanel('dashboard',this)">📊 Dashboard</div>
+        <div class="admin-menu-item" onclick="adminPanel('nova-materia',this)">✏️ Nova Matéria</div>
+        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Matérias</div>
+        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners</div>
+        <div class="admin-menu-item" onclick="adminPanel('config',this)" style="margin-top:auto">⚙️ Configurações</div>
+        <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+      </div>
+      <!-- Main -->
+      <div class="admin-main">
+        <!-- Dashboard -->
+        <div class="admin-panel on" id="ap-dashboard">
+          <div class="admin-panel-title">Dashboard</div>
+          <div class="stat-grid">
+            <div class="stat-box"><div class="stat-box-val" id="ad-total">0</div><div class="stat-box-lbl">Matérias publicadas</div></div>
+            <div class="stat-box"><div class="stat-box-val">12</div><div class="stat-box-lbl">Visitas hoje</div></div>
+            <div class="stat-box"><div class="stat-box-val">3</div><div class="stat-box-lbl">Banners ativos</div></div>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Últimas Matérias Publicadas</div>
+          <div id="ad-recent-list" style="font-size:12px;color:#555">Nenhuma matéria criada ainda.</div>
+        </div>
+        <!-- Nova Matéria -->
+        <div class="admin-panel" id="ap-nova-materia">
+          <div class="admin-panel-title">✏️ Nova Matéria</div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Título *</label>
+            <input class="admin-input" type="text" id="art-title" placeholder="Título da matéria">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Categoria</label>
+            <select class="admin-select" id="art-cat">
+              <option>Copa do Mundo 2026</option>
+              <option>Seleção Brasileira</option>
+              <option>Grupo C</option>
+              <option>Mercado da Bola</option>
+              <option>Bastidores</option>
+              <option>Curiosidades</option>
+            </select>
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">URL da Imagem</label>
+            <input class="admin-input" type="text" id="art-img" placeholder="https://...">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Conteúdo *</label>
+            <textarea class="admin-textarea" id="art-body" placeholder="Texto da matéria..." style="min-height:180px"></textarea>
+          </div>
+          <button class="admin-btn" onclick="publishArticle()">📤 Publicar Matéria</button>
+          <div id="art-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Matéria publicada com sucesso!</div>
+        </div>
+        <!-- Matérias -->
+        <div class="admin-panel" id="ap-materias">
+          <div class="admin-panel-title">📰 Matérias Publicadas</div>
+          <div class="admin-articles-list" id="admin-articles-list">
+            <div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>
+          </div>
+        </div>
+        <!-- Banners -->
+        <div class="admin-panel" id="ap-banners">
+          <div class="admin-panel-title">🎯 Gerenciar Banners Publicitários</div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Topo</strong><br><span style="font-size:10px;color:#555">728×90 · acima das notícias</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-topo" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-topo-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('topo')">Salvar</button>
+          </div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Meio</strong><br><span style="font-size:10px;color:#555">320×100 · entre as notícias</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-meio" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-meio-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('meio')">Salvar</button>
+          </div>
+          <div class="banner-slot">
+            <div class="banner-slot-label"><strong>Banner Lateral</strong><br><span style="font-size:10px;color:#555">300×250 · sidebar direita</span></div>
+            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-lateral" placeholder="URL do banner ou código HTML"></div>
+            <span class="banner-slot-status empty" id="bn-lateral-status">Vazio</span>
+            <button class="admin-article-edit" onclick="saveBanner('lateral')">Salvar</button>
+          </div>
+        </div>
+        <!-- Config -->
+        <div class="admin-panel" id="ap-config">
+          <div class="admin-panel-title">⚙️ Configurações</div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Nome do Site</label>
+            <input class="admin-input" type="text" id="cfg-nome" value="Copa do Mundo 2026 – Ao Vivo">
+          </div>
+          <div class="admin-form-group">
+            <label class="admin-form-label">Alterar Senha do Admin</label>
+            <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
+          </div>
+          <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
+          <div id="cfg-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
         </div>
       </div>
     </div>
@@ -1125,6 +1473,178 @@ function closeModal(e) {
 // Fecha com ESC
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeArticle(); });
 
+// ─── SELEÇÃO BRASILEIRA ────────────────────────────────────────────────────
+const BRA_SQUAD = [
+  {n:1,nm:'Ederson',pos:'GOL',cl:'Manchester City'},{n:12,nm:'Bento',pos:'GOL',cl:'Al-Qadsiah'},
+  {n:22,nm:'Weverton',pos:'GOL',cl:'Palmeiras'},{n:2,nm:'Danilo',pos:'ZAG',cl:'Juventus'},
+  {n:3,nm:'Marquinhos',pos:'ZAG',cl:'PSG'},{n:4,nm:'Militão',pos:'ZAG',cl:'Real Madrid'},
+  {n:6,nm:'Gleison Bremer',pos:'ZAG',cl:'Juventus'},{n:13,nm:'Alex Telles',pos:'LAT',cl:'Sevilla'},
+  {n:14,nm:'Guilherme Arana',pos:'LAT',cl:'Atlético-MG'},{n:5,nm:'Casemiro',pos:'MEI',cl:'Manchester Utd'},
+  {n:8,nm:'Fred',pos:'MEI',cl:'Manchester Utd'},{n:15,nm:'Bruno Guimarães',pos:'MEI',cl:'Newcastle'},
+  {n:18,nm:'Lucas Paquetá',pos:'MEI',cl:'West Ham'},{n:21,nm:'Rodrygo',pos:'ATA',cl:'Real Madrid'},
+  {n:7,nm:'Vinicius Jr.',pos:'ATA',cl:'Real Madrid'},{n:9,nm:'Gabriel Jesus',pos:'ATA',cl:'Arsenal'},
+  {n:10,nm:'Neymar Jr.',pos:'ATA',cl:'Al-Hilal'},{n:11,nm:'Raphinha',pos:'ATA',cl:'Barcelona'},
+  {n:17,nm:'Endrick',pos:'ATA',cl:'Real Madrid'},{n:19,nm:'Pedro',pos:'ATA',cl:'Flamengo'},
+  {n:20,nm:'Gabriel Martinelli',pos:'ATA',cl:'Arsenal'},
+  {n:16,nm:'Gerson',pos:'MEI',cl:'Flamengo'},{n:23,nm:'Yan Couto',pos:'LAT',cl:'Manchester City'},
+];
+
+function renderSelecao() {
+  // Squad
+  const sq = document.getElementById('bra-squad');
+  if(sq && !sq.children.length) {
+    sq.innerHTML = BRA_SQUAD.map(p => `
+      <div class="player-card">
+        <div class="player-num">${p.n}</div>
+        <div class="player-name">${p.nm}</div>
+        <div class="player-pos">${p.pos}</div>
+        <div class="player-club">${p.cl}</div>
+      </div>`).join('');
+  }
+  // Grupo C mini tabela
+  const gc = document.getElementById('selecao-grupo-c');
+  if(gc && !gc.children.length) {
+    const teams = FALLBACK_GROUPS['C'] || [];
+    gc.innerHTML = `<table class="mini-table">
+      <thead><tr><th class="pos">#</th><th>Seleção</th><th class="c">J</th><th class="c">Pts</th></tr></thead>
+      <tbody>${teams.map((t,i)=>`<tr>
+        <td class="pos" style="color:${t.cl==='g'?'#c8a400':'#555'}">${i+1}</td>
+        <td><span style="font-size:13px">${t.f}</span> ${t.n}${t.n==='Brasil'?'<span style="color:#c8a400;font-size:9px;margin-left:4px">◄</span>':''}</td>
+        <td class="c">${t.j}</td><td class="c ptb">${t.pts}</td>
+      </tr>`).join('')}</tbody></table>`;
+  }
+}
+
+// ─── ADMIN ─────────────────────────────────────────────────────────────────
+const ADMIN_PWD_KEY = 'copa_admin_pwd';
+const ADMIN_ARTS_KEY = 'copa_articles';
+let adminPwd = localStorage.getItem(ADMIN_PWD_KEY) || 'copa2026';
+let adminArticles = JSON.parse(localStorage.getItem(ADMIN_ARTS_KEY)||'[]');
+
+function adminLogin() {
+  const pwd = document.getElementById('admin-pwd').value;
+  if(pwd === adminPwd) {
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-wrap').classList.add('open');
+    renderAdminDashboard();
+  } else {
+    document.getElementById('admin-login-err').style.display = 'block';
+  }
+}
+
+function adminLogout() {
+  document.getElementById('admin-login').style.display = 'block';
+  document.getElementById('admin-wrap').classList.remove('open');
+  document.getElementById('admin-pwd').value = '';
+  document.getElementById('admin-login-err').style.display = 'none';
+}
+
+function adminPanel(id, el) {
+  document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.admin-menu-item').forEach(m => m.classList.remove('on'));
+  document.getElementById('ap-'+id).classList.add('on');
+  el.classList.add('on');
+  if(id==='materias') renderAdminArticles();
+  if(id==='dashboard') renderAdminDashboard();
+}
+
+function publishArticle() {
+  const title = document.getElementById('art-title').value.trim();
+  const body  = document.getElementById('art-body').value.trim();
+  if(!title || !body) return alert('Título e conteúdo são obrigatórios.');
+  const art = {
+    id: Date.now(),
+    headline: title,
+    description: body.substring(0,200),
+    story: body.replace(/\n/g,'</p><p>'),
+    categories: [{description: document.getElementById('art-cat').value}],
+    image: document.getElementById('art-img').value.trim(),
+    images: document.getElementById('art-img').value.trim() ? [{url: document.getElementById('art-img').value.trim()}] : [],
+    published: new Date().toISOString(),
+    byline: 'Redação',
+    source: 'admin'
+  };
+  adminArticles.unshift(art);
+  localStorage.setItem(ADMIN_ARTS_KEY, JSON.stringify(adminArticles));
+  // Injeta nas notícias
+  const staticNews = getStaticNews();
+  allArticlesCache = [...adminArticles, ...staticNews];
+  renderNoticias();
+  document.getElementById('art-title').value = '';
+  document.getElementById('art-body').value = '';
+  document.getElementById('art-img').value = '';
+  const s = document.getElementById('art-success');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display='none', 3000);
+}
+
+function deleteArticle(id) {
+  if(!confirm('Excluir matéria?')) return;
+  adminArticles = adminArticles.filter(a => a.id !== id);
+  localStorage.setItem(ADMIN_ARTS_KEY, JSON.stringify(adminArticles));
+  renderAdminArticles();
+  renderAdminDashboard();
+}
+
+function renderAdminArticles() {
+  const el = document.getElementById('admin-articles-list');
+  if(!adminArticles.length) {
+    el.innerHTML = '<div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>';
+    return;
+  }
+  el.innerHTML = adminArticles.map(a => `
+    <div class="admin-article-row">
+      ${a.images?.[0]?.url ? `<img src="${a.images[0].url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px">` : '<div style="width:60px;height:44px;background:#1a1a28;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#444;font-size:18px">📰</div>'}
+      <div class="admin-article-title">${a.headline}</div>
+      <div class="admin-article-date">${new Date(a.published).toLocaleDateString('pt-BR')}</div>
+      <button class="admin-article-del" onclick="deleteArticle(${a.id})">🗑 Excluir</button>
+    </div>`).join('');
+}
+
+function renderAdminDashboard() {
+  document.getElementById('ad-total').textContent = adminArticles.length;
+  const rec = document.getElementById('ad-recent-list');
+  if(!adminArticles.length) {
+    rec.textContent = 'Nenhuma matéria criada ainda.';
+    return;
+  }
+  rec.innerHTML = adminArticles.slice(0,5).map(a => `
+    <div style="padding:8px 0;border-bottom:1px solid #141420;display:flex;align-items:center;gap:8px">
+      <span style="font-size:9px;color:#c8a400;text-transform:uppercase">${a.categories?.[0]?.description||'Copa 2026'}</span>
+      <span style="flex:1;font-size:12px;color:#ddd">${a.headline}</span>
+      <span style="font-size:10px;color:#555">${new Date(a.published).toLocaleDateString('pt-BR')}</span>
+    </div>`).join('');
+}
+
+function saveBanner(slot) {
+  const val = document.getElementById('bn-'+slot).value.trim();
+  const el = document.getElementById('ad-slot-'+slot==='topo'?'top':slot);
+  const status = document.getElementById('bn-'+slot+'-status');
+  if(val) {
+    if(el) el.innerHTML = val.startsWith('http') ? `<img src="${val}" style="max-height:100%;max-width:100%">` : val;
+    if(status) { status.textContent = 'Ativo'; status.className = 'banner-slot-status active'; }
+    localStorage.setItem('copa_banner_'+slot, val);
+  }
+}
+
+function saveConfig() {
+  const nome = document.getElementById('cfg-nome').value;
+  const novaPwd = document.getElementById('cfg-pwd').value;
+  if(novaPwd) { adminPwd = novaPwd; localStorage.setItem(ADMIN_PWD_KEY, novaPwd); }
+  document.title = nome;
+  const s = document.getElementById('cfg-success');
+  s.style.display = 'block';
+  setTimeout(() => s.style.display='none', 3000);
+}
+
+// Carrega artigos admin nas notícias ao iniciar
+function loadAdminArticles() {
+  if(adminArticles.length) {
+    const staticNews = getStaticNews();
+    allArticlesCache = [...adminArticles, ...staticNews];
+  }
+}
+
 // ─── RENDER ALL ────────────────────────────────────────────────────────────
 function renderAll() {
   renderJogos();
@@ -1132,6 +1652,7 @@ function renderAll() {
   renderGrupoContent();
   renderArtilheiros();
   renderNoticias();
+  renderSelecao();
 }
 
 // ─── TABS ──────────────────────────────────────────────────────────────────
@@ -1141,6 +1662,8 @@ function switchTab(id, btn) {
   document.getElementById('tab-' + id).classList.add('on');
   btn.classList.add('on');
   if(id==='grupos') renderGrupoContent();
+  if(id==='selecao') renderSelecao();
+  if(id==='admin') { /* admin handles own state */ }
 }
 
 // ─── COUNTDOWN TIMER ───────────────────────────────────────────────────────
@@ -1154,7 +1677,7 @@ setInterval(() => {
 }, 1000);
 
 // ─── INIT ──────────────────────────────────────────────────────────────────
-// Garante que notícias abre como aba inicial
+loadAdminArticles();
 document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
 document.getElementById('tab-noticias').classList.add('on');
 fetchData();
