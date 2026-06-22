@@ -50,13 +50,13 @@ img{max-width:100%}
 .header-banner-img{font-size:40px;line-height:1}
 
 /* NAV */
-.main-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,23,42,.05)}
-.main-nav-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;padding:0 1rem}
-.nav-item{position:relative;display:flex;align-items:center}
-.nav-link{display:flex;align-items:center;gap:4px;padding:18px 16px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;color:var(--txt);white-space:nowrap;border-bottom:4px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;cursor:pointer}
+.main-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,23,42,.05);min-height:58px;overflow:visible}
+.main-nav-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;padding:0 1rem;min-height:58px;height:58px;overflow:visible}
+.nav-item{position:relative;display:flex;align-items:center;height:58px;flex-shrink:0}
+.nav-link{display:flex;align-items:center;gap:4px;height:58px;padding:0 16px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;color:var(--txt);white-space:nowrap;border-bottom:4px solid transparent;transition:color .2s,border-color .2s;cursor:pointer;line-height:1}
 .nav-link:hover,.nav-link.on{color:var(--green);border-bottom-color:var(--green)}
 .nav-link svg{width:10px;height:10px;fill:currentColor}
-.nav-search{margin-left:auto;color:var(--txt3);font-size:18px;padding:14px 8px;cursor:pointer}
+.nav-search{margin-left:auto;color:var(--txt3);font-size:18px;height:58px;min-width:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .nav-search:hover{color:var(--green)}
 .dropdown{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border);border-radius:4px;min-width:180px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.12)}
 .nav-item:hover .dropdown{display:block}
@@ -64,10 +64,10 @@ img{max-width:100%}
 .dropdown a:hover{background:#f8f8f8;color:var(--green)}
 
 /* TICKER */
-.ticker-bar{background:linear-gradient(90deg,#008f3a,#00a648);color:#fff;font-size:12px;font-weight:700;overflow:hidden;white-space:nowrap;padding:0}
-.ticker-bar-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center}
-.ticker-label{background:var(--dark);color:#fff;padding:8px 18px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0;border-radius:4px;margin-left:0}
-.ticker-scroll{overflow:hidden;flex:1;height:32px;display:flex;align-items:center}
+.ticker-bar{background:linear-gradient(90deg,#008f3a,#00a648);color:#fff;font-size:12px;font-weight:700;overflow:hidden;white-space:nowrap;padding:0;min-height:40px}
+.ticker-bar-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;min-height:40px}
+.ticker-label{background:var(--dark);color:#fff;height:30px;padding:0 18px;font-size:12px;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0;border-radius:4px;margin-left:0;display:flex;align-items:center}
+.ticker-scroll{overflow:hidden;flex:1;height:40px;display:flex;align-items:center}
 .ticker-track{display:flex;animation:scroll 40s linear infinite;white-space:nowrap}
 .ticker-track:hover{animation-play-state:paused}
 .ticker-item{padding:0 24px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
@@ -413,8 +413,9 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
   .topbar-inner{height:auto;gap:8px;align-items:flex-start;flex-direction:column;padding:10px 0}
   .site-header-inner{grid-template-columns:1fr;gap:1rem}
   .header-banner{height:auto;min-height:86px}
-  .main-nav-inner{overflow-x:auto}
-  .nav-link{padding:14px 12px}
+  .main-nav-inner{overflow-x:auto;min-height:54px;height:54px}
+  .main-nav,.nav-item,.nav-link,.nav-search{min-height:54px;height:54px}
+  .nav-link{padding:0 12px}
   .news-side-col{flex-direction:column}
   .news-grid3{grid-template-columns:1fr}
   .next-match{grid-template-columns:1fr}
