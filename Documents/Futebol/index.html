@@ -367,6 +367,16 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .banner-slot-status.active{background:#d4f0d4;color:#1a6a1a}
 .banner-slot-status.empty{background:#eeeeee;color:#aaa}
 
+/* API STATUS */
+.api-status-row{font-size:11px;color:#555;display:flex;align-items:center;gap:6px;padding:6px 0}
+.api-dot{width:8px;height:8px;border-radius:50%;background:#ddd;flex-shrink:0;display:inline-block}
+.api-dot.green{background:#28a745}
+.api-dot.red{background:#dc3545}
+.api-dot.dot-spin{background:var(--red);animation:livepulse 1s infinite}
+/* ADMIN GRID heights */
+.admin-grid{min-height:80vh}
+.admin-sidebar{display:flex;flex-direction:column}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .news-hero-row{grid-template-columns:1fr}
@@ -661,274 +671,229 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 <!-- ADMIN -->
 <div id="tab-admin" class="panel">
   <div class="admin-login" id="admin-login">
-    <div class="admin-login-title">⚙️ Painel Admin</div>
-    <div class="admin-login-sub">Acesso restrito — equipe editorial</div>
-    <input class="admin-input" type="password" id="admin-pwd" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')adminLogin()">
-    <button class="admin-btn" onclick="adminLogin()">Entrar</button>
-    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none">Senha incorreta.</div>
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:36px;margin-bottom:8px">🏆</div>
+      <div class="admin-login-title">Painel Administrativo</div>
+      <div class="admin-login-sub">Copa do Mundo 2026 · Acesso restrito</div>
+    </div>
+    <label class="admin-form-label">Senha de acesso</label>
+    <input class="admin-input" type="password" id="admin-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="admin-btn" onclick="adminLogin()" style="margin-top:4px">Entrar no Painel →</button>
+    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none;text-align:center">⚠️ Senha incorreta. Tente novamente.</div>
+    <div style="font-size:10px;color:#bbb;text-align:center;margin-top:1.5rem">Esqueceu? Senha padrão: <strong>copa2026</strong></div>
   </div>
   <div class="admin-wrap" id="admin-wrap">
     <div class="admin-grid">
       <!-- Sidebar -->
       <div class="admin-sidebar">
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">EDITORIAL</div>
         <div class="admin-menu-item on" onclick="adminPanel('dashboard',this)">📊 Dashboard</div>
         <div class="admin-menu-item" onclick="adminPanel('nova-materia',this)">✏️ Nova Matéria</div>
-        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Matérias</div>
-        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners</div>
-        <div class="admin-menu-item" onclick="adminPanel('config',this)" style="margin-top:auto">⚙️ Configurações</div>
-        <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Gerenciar Matérias</div>
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px;margin-top:8px">MONETIZAÇÃO</div>
+        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners & Anúncios</div>
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px;margin-top:8px">SISTEMA</div>
+        <div class="admin-menu-item" onclick="adminPanel('apis',this)">🔌 APIs de Conteúdo</div>
+        <div class="admin-menu-item" onclick="adminPanel('config',this)">⚙️ Configurações</div>
+        <div style="margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)">
+          <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+        </div>
       </div>
       <!-- Main -->
       <div class="admin-main">
-        <!-- Dashboard -->
+
+        <!-- ═══ DASHBOARD ═══ -->
         <div class="admin-panel on" id="ap-dashboard">
-          <div class="admin-panel-title">Dashboard</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0">📊 Dashboard</div>
+            <div style="font-size:11px;color:#888" id="dash-updated">Carregando...</div>
+          </div>
+          <!-- Stats -->
           <div class="stat-grid">
-            <div class="stat-box"><div class="stat-box-val" id="ad-total">0</div><div class="stat-box-lbl">Matérias publicadas</div></div>
-            <div class="stat-box"><div class="stat-box-val">12</div><div class="stat-box-lbl">Visitas hoje</div></div>
-            <div class="stat-box"><div class="stat-box-val">3</div><div class="stat-box-lbl">Banners ativos</div></div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-total">0</div>
+              <div class="stat-box-lbl">Matérias publicadas</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-drafts">0</div>
+              <div class="stat-box-lbl">Rascunhos</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-apis-ok" style="font-size:22px">–</div>
+              <div class="stat-box-lbl">APIs ativas</div>
+            </div>
           </div>
-          <div style="font-size:11px;font-weight:700;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Últimas Matérias Publicadas</div>
-          <div id="ad-recent-list" style="font-size:12px;color:#555">Nenhuma matéria criada ainda.</div>
+          <!-- API Status -->
+          <div style="background:#f8f8f8;border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1.25rem">
+            <div style="font-size:11px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Status das APIs</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="api-status-grid">
+              <div class="api-status-row" id="ast-espn"><span class="api-dot dot-spin"></span> ESPN API — verificando...</div>
+              <div class="api-status-row" id="ast-sdb"><span class="api-dot dot-spin"></span> TheSportsDB — verificando...</div>
+              <div class="api-status-row" id="ast-gnews"><span class="api-dot"></span> GNews — não configurada</div>
+              <div class="api-status-row" id="ast-apif"><span class="api-dot"></span> API-Football — não configurada</div>
+            </div>
+          </div>
+          <!-- Ações rápidas -->
+          <div style="display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap">
+            <button class="admin-btn" style="width:auto;padding:8px 18px" onclick="adminPanel('nova-materia',document.querySelectorAll('.admin-menu-item')[1])">✏️ Nova Matéria</button>
+            <button class="admin-btn" style="width:auto;padding:8px 18px;background:#f8f8f8;color:#1a1a1a;border:1px solid var(--border)" onclick="fetchData()">🔄 Atualizar APIs</button>
+          </div>
+          <!-- Últimas matérias -->
+          <div style="font-size:11px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;border-bottom:2px solid var(--red);padding-bottom:8px">Últimas Matérias</div>
+          <div id="ad-recent-list" style="font-size:12px;color:#888">Nenhuma matéria criada ainda.</div>
         </div>
-        <!-- Nova Matéria -->
+
+        <!-- ═══ NOVA MATÉRIA ═══ -->
         <div class="admin-panel" id="ap-nova-materia">
-          <div class="admin-panel-title">✏️ Nova Matéria</div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Título *</label>
-            <input class="admin-input" type="text" id="art-title" placeholder="Título da matéria">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0" id="editor-title-label">✏️ Nova Matéria</div>
+            <div style="display:flex;gap:6px">
+              <button onclick="saveArticle('draft')" style="background:#f8f8f8;border:1px solid var(--border);color:#555;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:inherit">💾 Salvar Rascunho</button>
+              <button onclick="saveArticle('published')" style="background:var(--red);border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:inherit">📤 Publicar</button>
+            </div>
           </div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Categoria</label>
-            <select class="admin-select" id="art-cat">
-              <option>Copa do Mundo 2026</option>
-              <option>Seleção Brasileira</option>
-              <option>Grupo C</option>
-              <option>Mercado da Bola</option>
-              <option>Bastidores</option>
-              <option>Curiosidades</option>
-            </select>
+          <input type="hidden" id="art-edit-id" value="">
+          <!-- Linha título + categoria -->
+          <div style="display:grid;grid-template-columns:1fr 180px;gap:12px;margin-bottom:14px">
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Título da Matéria *</label>
+              <input class="admin-input" type="text" id="art-title" placeholder="Ex: Brasil vence e lidera Grupo C" oninput="updateTitleCount(this)" style="margin:0">
+              <div style="font-size:10px;color:#bbb;margin-top:3px"><span id="title-count">0</span>/120 caracteres</div>
+            </div>
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Categoria</label>
+              <select class="admin-select" id="art-cat" style="margin:0">
+                <option>Copa do Mundo 2026</option>
+                <option>Seleção Brasileira</option>
+                <option>Grupo C — Brasil</option>
+                <option>Mata-Mata</option>
+                <option>Artilheiros</option>
+                <option>Mercado da Bola</option>
+                <option>Bastidores</option>
+                <option>Curiosidades</option>
+                <option>Opinião</option>
+              </select>
+            </div>
           </div>
+          <!-- Subtítulo/lead -->
           <div class="admin-form-group">
-            <label class="admin-form-label">URL da Imagem</label>
-            <input class="admin-input" type="text" id="art-img" placeholder="https://...">
+            <label class="admin-form-label">Lead / Subtítulo <span style="font-weight:400;text-transform:none;color:#bbb">(aparece abaixo do título)</span></label>
+            <input class="admin-input" type="text" id="art-lead" placeholder="Resumo da matéria em 1 frase...">
           </div>
+          <!-- Imagem -->
           <div class="admin-form-group">
-            <label class="admin-form-label">Conteúdo *</label>
-            <textarea class="admin-textarea" id="art-body" placeholder="Texto da matéria..." style="min-height:180px"></textarea>
+            <label class="admin-form-label">URL da Imagem de Capa</label>
+            <div style="display:flex;gap:8px">
+              <input class="admin-input" type="text" id="art-img" placeholder="https://..." oninput="previewImg()" style="margin:0;flex:1">
+              <button onclick="previewImg()" style="background:#f8f8f8;border:1px solid var(--border);color:#555;font-size:11px;padding:0 14px;border-radius:4px;cursor:pointer;font-family:inherit;white-space:nowrap">👁 Preview</button>
+            </div>
+            <div id="img-preview" style="margin-top:8px;display:none">
+              <img id="img-preview-el" src="" style="width:100%;max-height:200px;object-fit:cover;border-radius:4px;border:1px solid var(--border)" onerror="this.parentElement.style.display='none'">
+            </div>
           </div>
-          <button class="admin-btn" onclick="publishArticle()">📤 Publicar Matéria</button>
-          <div id="art-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Matéria publicada com sucesso!</div>
+          <!-- Corpo -->
+          <div class="admin-form-group">
+            <label class="admin-form-label" style="display:flex;align-items:center;justify-content:space-between">
+              Conteúdo da Matéria *
+              <span style="font-weight:400;text-transform:none;color:#bbb;font-size:10px">Use Enter para separar parágrafos</span>
+            </label>
+            <!-- Barra de formatação rápida -->
+            <div style="background:#f8f8f8;border:1px solid var(--border);border-bottom:none;border-radius:4px 4px 0 0;padding:6px 8px;display:flex;gap:4px">
+              <button onclick="insertTag('**','**')" title="Negrito" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-weight:800;font-size:12px">B</button>
+              <button onclick="insertTag('*','*')" title="Itálico" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-style:italic;font-size:12px">I</button>
+              <button onclick="insertTag('\n## ','\n')" title="Subtítulo" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700">H2</button>
+              <button onclick="insertBlank()" title="Separar parágrafo" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-size:11px">¶</button>
+            </div>
+            <textarea class="admin-textarea" id="art-body" placeholder="Escreva o conteúdo da matéria aqui...
+
+Exemplo:
+A Seleção Brasileira fez uma partida dominante nesta terça-feira e garantiu a primeira colocação no Grupo C.
+
+## Como foi o jogo
+O Brasil abriu o placar aos 23 minutos com Vinicius Jr. em cobrança de falta precisa..." style="min-height:280px;border-radius:0 0 4px 4px;border-top:1px solid var(--border)"></textarea>
+          </div>
+          <!-- Tags -->
+          <div class="admin-form-group">
+            <label class="admin-form-label">Tags <span style="font-weight:400;text-transform:none;color:#bbb">(separadas por vírgula)</span></label>
+            <input class="admin-input" type="text" id="art-tags" placeholder="brasil, copa 2026, vinicius jr, gol">
+          </div>
+          <!-- Destaque -->
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8f8f8;border:1px solid var(--border);border-radius:4px;margin-bottom:14px">
+            <input type="checkbox" id="art-featured" style="width:16px;height:16px;accent-color:var(--red)">
+            <label for="art-featured" style="font-size:12px;font-weight:600;cursor:pointer;color:#333">⭐ Marcar como destaque (aparece no topo do site)</label>
+          </div>
+          <div id="art-success" style="background:#d4f0d4;border:1px solid #b0ddb0;color:#1a6a1a;font-size:12px;font-weight:600;padding:10px 14px;border-radius:4px;margin-bottom:10px;display:none">✓ Matéria salva com sucesso!</div>
+          <div id="art-error" style="background:#f0d4d4;border:1px solid #ddb0b0;color:#6a0000;font-size:12px;font-weight:600;padding:10px 14px;border-radius:4px;margin-bottom:10px;display:none">⚠️ Preencha o título e o conteúdo.</div>
         </div>
-        <!-- Matérias -->
+
+        <!-- ═══ GERENCIAR MATÉRIAS ═══ -->
         <div class="admin-panel" id="ap-materias">
-          <div class="admin-panel-title">📰 Matérias Publicadas</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0">📰 Matérias</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="art-search" class="admin-input" type="text" placeholder="🔍 Buscar matéria..." style="margin:0;width:200px" oninput="renderAdminArticles()">
+              <select id="art-filter" class="admin-select" style="width:130px" onchange="renderAdminArticles()">
+                <option value="">Todos</option>
+                <option value="published">Publicadas</option>
+                <option value="draft">Rascunhos</option>
+              </select>
+            </div>
+          </div>
           <div class="admin-articles-list" id="admin-articles-list">
-            <div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>
+            <div style="color:#888;font-size:12px;text-align:center;padding:2rem">Nenhuma matéria criada ainda.</div>
           </div>
         </div>
-        <!-- Banners -->
+        <!-- ═══ BANNERS ═══ -->
         <div class="admin-panel" id="ap-banners">
-          <div class="admin-panel-title">🎯 Gerenciar Banners Publicitários</div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Topo</strong><br><span style="font-size:10px;color:#555">728×90 · acima das notícias</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-topo" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-topo-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('topo')">Salvar</button>
+          <div class="admin-panel-title">🎯 Banners & Anúncios</div>
+          <div style="background:#fff8e0;border:1px solid #f0d860;border-radius:6px;padding:10px 14px;font-size:12px;color:#664;margin-bottom:1.25rem">
+            ✅ Seus anúncios <strong>HighPerformanceFormat</strong> já estão ativos no site (728×90 no topo e 300×250 na sidebar). Use os campos abaixo para adicionar banners extras.
           </div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Meio</strong><br><span style="font-size:10px;color:#555">320×100 · entre as notícias</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-meio" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-meio-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('meio')">Salvar</button>
-          </div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Lateral</strong><br><span style="font-size:10px;color:#555">300×250 · sidebar direita</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-lateral" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-lateral-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('lateral')">Salvar</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Topo — 728×90</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Exibido acima das notícias principais</div>
+              <div class="banner-slot-status active" style="font-size:10px;margin-bottom:8px;display:inline-block">✓ HiPerf ativo</div>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-topo" placeholder="URL extra ou código HTML adicional">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('topo')">Salvar banner extra</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Lateral — 300×250</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Exibido na sidebar direita das notícias</div>
+              <div class="banner-slot-status active" style="font-size:10px;margin-bottom:8px;display:inline-block">✓ HiPerf ativo</div>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-lateral" placeholder="URL extra ou código HTML adicional">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('lateral')">Salvar banner extra</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Meio — 320×100</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Abaixo do grid de notícias</div>
+              <span class="banner-slot-status empty" id="bn-meio-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-meio" placeholder="URL do banner ou código HTML">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('meio')">Salvar</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Rodapé — 728×90</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Acima do rodapé do site</div>
+              <span class="banner-slot-status empty" id="bn-rodape-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-rodape" placeholder="URL do banner ou código HTML">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('rodape')">Salvar</button>
+            </div>
           </div>
         </div>
-        <!-- Config -->
-        <div class="admin-panel" id="ap-config">
-          <div class="admin-panel-title">⚙️ Configurações</div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Nome do Site</label>
-            <input class="admin-input" type="text" id="cfg-nome" value="Copa do Mundo 2026 – Ao Vivo">
-          </div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Alterar Senha do Admin</label>
-            <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
-          </div>
-          <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
-          <div id="cfg-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
 
-          <!-- APIs EXTRAS -->
-          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
-            <div class="admin-panel-title" style="font-size:14px">🔌 APIs de Notícias Extras</div>
-
-            <div style="background:#f0f8ff;border:1px solid #cce0ff;border-radius:6px;padding:1rem;margin-bottom:1.25rem;font-size:12px;color:#335">
-              <strong>TheSportsDB</strong> — ✅ Ativa (gratuita, sem chave)<br>
-              <span style="color:#666">Fornece dados de times, eventos e partidas da Copa 2026 automaticamente.</span>
+        <!-- ═══ APIs ═══ -->
+        <div class="admin-panel" id="ap-apis">
+          <div class="admin-panel-title">🔌 APIs de Conteúdo</div>
+          <!-- ESPN -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
+            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">📡</span>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:800;color:#1a1a1a">ESPN API</div>
+                <div style="font-size:10px;color:#888">Notícias, jogos ao vivo, artilheiros · Gratuita · Sem cadastro</div>
+              </div>
+              <span class="banner-slot-status active">✓ Ativa</span>
             </div>
-
-            <div class="admin-form-group">
-              <label class="admin-form-label">🗞️ GNews API Key
-                <a href="https://gnews.io" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em gnews.io</a>
-              </label>
-              <input class="admin-input" type="text" id="cfg-gnews" placeholder="Cole sua chave aqui (ex: abc123def456...)" value="${localStorage.getItem('cfg_gnews_key')||''}">
-              <div style="font-size:10px;color:#888;margin-top:4px">Traz notícias de futebol em português de portais brasileiros. Plano gratuito: 100 req/dia.</div>
-            </div>
-
-            <div class="admin-form-group">
-              <label class="admin-form-label">⚽ API-Football Key (RapidAPI)
-                <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em rapidapi.com</a>
-              </label>
-              <input class="admin-input" type="text" id="cfg-rapidapi" placeholder="Cole sua X-RapidAPI-Key aqui" value="${localStorage.getItem('cfg_rapidapi_key')||''}">
-              <div style="font-size:10px;color:#888;margin-top:4px">Dados de jogos ao vivo, artilheiros e tabelas da Copa 2026. Plano gratuito: 100 req/dia.</div>
-            </div>
-
-            <button class="admin-btn" onclick="saveApiKeys()" style="width:auto;padding:10px 24px">🔑 Salvar Chaves de API</button>
-            <div id="api-key-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Chaves salvas! Recarregando dados...</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer id="site-footer" style="background:#f8f8f8;border-top:1px solid var(--border);margin-top:3rem;padding:2rem 1.5rem 1rem">
-  <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;max-width:1100px;margin:0 auto;padding-bottom:1.5rem;border-bottom:1px solid var(--border)">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-        <div style="background:var(--red);border-radius:6px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:18px">🏆</div>
-        <div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#1a1a1a">COPA DO MUNDO 2026</div>
-          <div style="font-size:9px;color:var(--red);letter-spacing:1.5px;text-transform:uppercase">Portal de Futebol</div>
-        </div>
-      </div>
-      <p style="font-size:12px;color:var(--txt2);line-height:1.6">Seu portal de notícias, resultados ao vivo, classificação e estatísticas da Copa do Mundo FIFA 2026. Atualização automática a cada 60 segundos.</p>
-    </div>
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;border-left:3px solid var(--red);padding-left:8px">Navegação</div>
-      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--txt2)">
-        <a onclick="switchTab('noticias',document.querySelectorAll('.nb')[0])" style="cursor:pointer">📰 Notícias</a>
-        <a onclick="switchTab('selecao',document.querySelectorAll('.nb')[1])" style="cursor:pointer">🇧🇷 Seleção Brasileira</a>
-        <a onclick="switchTab('jogos',document.querySelectorAll('.nb')[2])" style="cursor:pointer">⚽ Jogos ao Vivo</a>
-        <a onclick="switchTab('grupos',document.querySelectorAll('.nb')[3])" style="cursor:pointer">📊 Grupos</a>
-        <a onclick="switchTab('matamata',document.querySelectorAll('.nb')[4])" style="cursor:pointer">🏆 Mata-Mata</a>
-        <a onclick="switchTab('artilheiros',document.querySelectorAll('.nb')[5])" style="cursor:pointer">🎯 Artilheiros</a>
-      </div>
-    </div>
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;border-left:3px solid var(--red);padding-left:8px">Copa 2026</div>
-      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:var(--txt2)">
-        <span>📅 11 jun – 19 jul 2026</span>
-        <span>🌎 EUA · Canadá · México</span>
-        <span>⚽ 48 seleções</span>
-        <span>🏟️ 16 estádios</span>
-        <span>🎯 104 jogos</span>
-      </div>
-    </div>
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;border-left:3px solid var(--red);padding-left:8px">Anuncie</div>
-      <div style="font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:10px">Espaços publicitários disponíveis no portal.</div>
-      <button onclick="switchTab('admin',document.querySelectorAll('.nb')[6])" style="background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:7px 16px;border:none;border-radius:4px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.5px">⚙️ Área Admin</button>
-    </div>
-  </div>
-  <div style="max-width:1100px;margin:1rem auto 0;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--txt3)">
-    <span>© 2026 Portal Copa do Mundo · Dados: ESPN API · Atualização automática</span>
-    <span style="color:var(--txt3)">Desenvolvido com ⚽</span>
-  </div>
-</footer>
-
-<!-- PÁGINA DE MATÉRIA -->
-<div class="artigo-page" id="artigo-page">
-  <div class="artigo-breadcrumb">
-    <a onclick="closeArticle()">← Voltar</a>
-    <span>/</span>
-    <span id="artigo-breadcrumb-cat">Copa do Mundo 2026</span>
-    <span>/</span>
-    <span id="artigo-breadcrumb-titulo" style="color:#aaa;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
-  </div>
-  <div class="artigo-layout">
-    <div class="artigo-main">
-      <div id="artigo-img-wrap"></div>
-      <span class="artigo-tag" id="artigo-tag"></span>
-      <h1 class="artigo-titulo" id="artigo-titulo"></h1>
-      <div class="artigo-meta" id="artigo-meta"></div>
-      <div class="artigo-ad" id="artigo-ad-topo">ESPAÇO PUBLICITÁRIO · 728×90</div>
-      <div class="artigo-corpo" id="artigo-corpo"></div>
-      <div class="artigo-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
-      <div class="artigo-tags" id="artigo-tags-list"></div>
-    </div>
-    <div class="artigo-sidebar">
-      <div class="artigo-sidebar-title">📰 Mais Notícias</div>
-      <div id="artigo-relacionadas"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-// ─── CONFIG ────────────────────────────────────────────────────────────────
-const ESPN_BASE  = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world';
-const ESPN_V2    = 'https://site.api.espn.com/apis/v2/sports/soccer/fifa.world';
-const REFRESH_MS = 60000; // 60 segundos
-
-// ── CHAVES DE API (configure no painel Admin ou aqui diretamente) ──────────
-let CFG = {
-  gnews_key:   localStorage.getItem('cfg_gnews_key')    || '',
-  rapidapi_key:localStorage.getItem('cfg_rapidapi_key') || '',
-};
-const SPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/3'; // free tier key = 3
-let extraNewsCache = []; // notícias extras (GNews + SportsDB)
-
-// Dados estáticos de fallback (usados se API falhar)
-const FALLBACK_GROUPS = {
-  A:[{f:'🇲🇽',n:'México',pts:6,j:2,v:2,e:0,d:0,gp:5,gc:2,w:true,cl:'g'},
-     {f:'🇰🇷',n:'Coreia do Sul',pts:3,j:2,v:1,e:0,d:1,gp:3,gc:3,cl:'n'},
-     {f:'🇨🇿',n:'Rep. Tcheca',pts:1,j:2,v:0,e:1,d:1,gp:2,gc:3,cl:'n'},
-     {f:'🇿🇦',n:'África do Sul',pts:1,j:2,v:0,e:1,d:1,gp:1,gc:3,cl:'n'}],
-  B:[{f:'🇨🇦',n:'Canadá',pts:4,j:2,v:1,e:1,d:0,gp:7,gc:1,cl:'g'},
-     {f:'🇨🇭',n:'Suíça',pts:4,j:2,v:1,e:1,d:0,gp:5,gc:2,cl:'g'},
-     {f:'🇧🇦',n:'Bósnia-Herz.',pts:1,j:2,v:0,e:1,d:1,gp:2,gc:5,cl:'n'},
-     {f:'🇶🇦',n:'Catar',pts:1,j:2,v:0,e:1,d:1,gp:0,gc:6,cl:'e',el:true}],
-  C:[{f:'🇧🇷',n:'Brasil',pts:4,j:2,v:1,e:1,d:0,gp:4,gc:1,cl:'g'},
-     {f:'🇲🇦',n:'Marrocos',pts:4,j:2,v:1,e:1,d:0,gp:3,gc:2,cl:'g'},
-     {f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',n:'Escócia',pts:3,j:2,v:1,e:0,d:1,gp:2,gc:2,cl:'n'},
-     {f:'🇭🇹',n:'Haiti',pts:0,j:2,v:0,e:0,d:2,gp:0,gc:4,cl:'e',el:true}],
-  D:[{f:'🇺🇸',n:'EUA',pts:6,j:2,v:2,e:0,d:0,gp:7,gc:2,w:true,cl:'g'},
-     {f:'🇦🇺',n:'Austrália',pts:3,j:2,v:1,e:0,d:1,gp:3,gc:3,cl:'n'},
-     {f:'🇵🇾',n:'Paraguai',pts:3,j:2,v:1,e:0,d:1,gp:2,gc:4,cl:'n'},
-     {f:'🇹🇷',n:'Turquia',pts:0,j:2,v:0,e:0,d:2,gp:1,gc:4,cl:'e',el:true}],
-  E:[{f:'🇩🇪',n:'Alemanha',pts:6,j:2,v:2,e:0,d:0,gp:9,gc:2,w:true,cl:'g'},
-     {f:'🇨🇮',n:'Costa do Marfim',pts:3,j:2,v:1,e:0,d:1,gp:3,gc:3,cl:'n'},
-     {f:'🇪🇨',n:'Equador',pts:1,j:2,v:0,e:1,d:1,gp:1,gc:2,cl:'n'},
-     {f:'🇨🇼',n:'Curaçao',pts:1,j:2,v:0,e:1,d:1,gp:0,gc:6,cl:'n'}],
-  F:[{f:'🇳🇱',n:'Holanda',pts:4,j:2,v:1,e:1,d:0,gp:5,gc:1,cl:'g'},
-     {f:'🇯🇵',n:'Japão',pts:4,j:2,v:1,e:1,d:0,gp:5,gc:1,cl:'g'},
-     {f:'🇸🇪',n:'Suécia',pts:3,j:2,v:1,e:0,d:1,gp:2,gc:2,cl:'n'},
-     {f:'🇹🇳',n:'Tunísia',pts:0,j:2,v:0,e:0,d:2,gp:0,gc:8,cl:'e',el:true}],
-  G:[{f:'🇪🇬',n:'Egito',pts:4,j:2,v:1,e:1,d:0,gp:3,gc:1,cl:'g'},
-     {f:'🇮🇷',n:'Irã',pts:2,j:2,v:0,e:2,d:0,gp:1,gc:1,cl:'n'},
-     {f:'🇧🇪',n:'Bélgica',pts:2,j:2,v:0,e:2,d:0,gp:1,gc:1,cl:'n'},
-     {f:'🇳🇿',n:'Nova Zelândia',pts:1,j:2,v:0,e:1,d:1,gp:0,gc:2,cl:'n'}],
-  H:[{f:'🇪🇸',n:'Espanha',pts:4,j:2,v:1,e:1,d:0,gp:6,gc:2,cl:'g'},
-     {f:'🇺🇾',n:'Uruguai',pts:2,j:2,v:0,e:2,d:0,gp:1,gc:1,cl:'n'},
-     {f:'🇨🇻',n:'Cabo Verde',pts:2,j:2,v:0,e:2,d:0,gp:0,gc:0,cl:'n'},
-     {f:'🇸🇦',n:'Arábia Saudita',pts:1,j:2,v:0,e:1,d:1,gp:2,gc:6,cl:'n'}],
-  I:[{f:'🇳🇴',n:'Noruega',pts:3,j:1,v:1,e:0,d:0,gp:3,gc:0,cl:'n'},
-     {f:'🇫🇷',n:'França',pts:3,j:1,v:1,e:0,d:0,gp:2,gc:0,cl:'n'},
-     {f:'🇸🇳',n:'Senegal',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:3,cl:'n'},
-     {f:'🇮🇶',n:'Iraque',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:2,cl:'n'}],
-  J:[{f:'🇦🇷',n:'Argentina',pts:3,j:1,v:1,e:0,d:0,gp:3,gc:0,cl:'n'},
-     {f:'🇦🇹',n:'Áustria',pts:3,j:1,v:1,e:0,d:0,gp:2,gc:0,cl:'n'},
-     {f:'🇯🇴',n:'Jordânia',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:2,cl:'n'},
-     {f:'🇩🇿',n:'Argélia',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:3,cl:'n'}],
-  K:[{f:'🇨🇴',n:'Colômbia',pts:3,j:2,v:1,e:0,d:1,gp:2,gc:0,cl:'n'},
-     {f:'🇨🇩',n:'DR Congo',pts:1,j:2,v:0,e:1,d:1,gp:0,gc:0,cl:'n'},
-     {f:'🇵🇹',n:'Portugal',pts:1,j:2,v:0,e:1,d:1,gp:1,gc:1,cl:'n'},
-     {f:'🇺🇿',n:'Uzbequistão',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:2,cl:'n'}],
-  L:[{f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',n:'Inglaterra',pts:3,j:1,v:1,e:0,d:0,gp:3,gc:1,cl:'n'},
-     {f:'🇬🇭',n:'G
+          <!-- TheSportsDB -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-

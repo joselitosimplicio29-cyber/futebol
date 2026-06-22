@@ -367,6 +367,16 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .banner-slot-status.active{background:#d4f0d4;color:#1a6a1a}
 .banner-slot-status.empty{background:#eeeeee;color:#aaa}
 
+/* API STATUS */
+.api-status-row{font-size:11px;color:#555;display:flex;align-items:center;gap:6px;padding:6px 0}
+.api-dot{width:8px;height:8px;border-radius:50%;background:#ddd;flex-shrink:0;display:inline-block}
+.api-dot.green{background:#28a745}
+.api-dot.red{background:#dc3545}
+.api-dot.dot-spin{background:var(--red);animation:livepulse 1s infinite}
+/* ADMIN GRID heights */
+.admin-grid{min-height:80vh}
+.admin-sidebar{display:flex;flex-direction:column}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .news-hero-row{grid-template-columns:1fr}
@@ -661,137 +671,303 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 <!-- ADMIN -->
 <div id="tab-admin" class="panel">
   <div class="admin-login" id="admin-login">
-    <div class="admin-login-title">⚙️ Painel Admin</div>
-    <div class="admin-login-sub">Acesso restrito — equipe editorial</div>
-    <input class="admin-input" type="password" id="admin-pwd" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')adminLogin()">
-    <button class="admin-btn" onclick="adminLogin()">Entrar</button>
-    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none">Senha incorreta.</div>
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div style="font-size:36px;margin-bottom:8px">🏆</div>
+      <div class="admin-login-title">Painel Administrativo</div>
+      <div class="admin-login-sub">Copa do Mundo 2026 · Acesso restrito</div>
+    </div>
+    <label class="admin-form-label">Senha de acesso</label>
+    <input class="admin-input" type="password" id="admin-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="admin-btn" onclick="adminLogin()" style="margin-top:4px">Entrar no Painel →</button>
+    <div id="admin-login-err" style="color:#cc0000;font-size:11px;margin-top:8px;display:none;text-align:center">⚠️ Senha incorreta. Tente novamente.</div>
+    <div style="font-size:10px;color:#bbb;text-align:center;margin-top:1.5rem">Esqueceu? Senha padrão: <strong>copa2026</strong></div>
   </div>
   <div class="admin-wrap" id="admin-wrap">
     <div class="admin-grid">
       <!-- Sidebar -->
       <div class="admin-sidebar">
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px">EDITORIAL</div>
         <div class="admin-menu-item on" onclick="adminPanel('dashboard',this)">📊 Dashboard</div>
         <div class="admin-menu-item" onclick="adminPanel('nova-materia',this)">✏️ Nova Matéria</div>
-        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Matérias</div>
-        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners</div>
-        <div class="admin-menu-item" onclick="adminPanel('config',this)" style="margin-top:auto">⚙️ Configurações</div>
-        <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+        <div class="admin-menu-item" onclick="adminPanel('materias',this)">📰 Gerenciar Matérias</div>
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px;margin-top:8px">MONETIZAÇÃO</div>
+        <div class="admin-menu-item" onclick="adminPanel('banners',this)">🎯 Banners & Anúncios</div>
+        <div style="padding:1rem 16px 8px;font-size:9px;font-weight:800;color:#bbb;text-transform:uppercase;letter-spacing:1px;margin-top:8px">SISTEMA</div>
+        <div class="admin-menu-item" onclick="adminPanel('apis',this)">🔌 APIs de Conteúdo</div>
+        <div class="admin-menu-item" onclick="adminPanel('config',this)">⚙️ Configurações</div>
+        <div style="margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)">
+          <div class="admin-menu-item" onclick="adminLogout()" style="color:#cc0000">🚪 Sair</div>
+        </div>
       </div>
       <!-- Main -->
       <div class="admin-main">
-        <!-- Dashboard -->
+
+        <!-- ═══ DASHBOARD ═══ -->
         <div class="admin-panel on" id="ap-dashboard">
-          <div class="admin-panel-title">Dashboard</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0">📊 Dashboard</div>
+            <div style="font-size:11px;color:#888" id="dash-updated">Carregando...</div>
+          </div>
+          <!-- Stats -->
           <div class="stat-grid">
-            <div class="stat-box"><div class="stat-box-val" id="ad-total">0</div><div class="stat-box-lbl">Matérias publicadas</div></div>
-            <div class="stat-box"><div class="stat-box-val">12</div><div class="stat-box-lbl">Visitas hoje</div></div>
-            <div class="stat-box"><div class="stat-box-val">3</div><div class="stat-box-lbl">Banners ativos</div></div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-total">0</div>
+              <div class="stat-box-lbl">Matérias publicadas</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-drafts">0</div>
+              <div class="stat-box-lbl">Rascunhos</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-val" id="ad-apis-ok" style="font-size:22px">–</div>
+              <div class="stat-box-lbl">APIs ativas</div>
+            </div>
           </div>
-          <div style="font-size:11px;font-weight:700;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Últimas Matérias Publicadas</div>
-          <div id="ad-recent-list" style="font-size:12px;color:#555">Nenhuma matéria criada ainda.</div>
+          <!-- API Status -->
+          <div style="background:#f8f8f8;border:1px solid var(--border);border-radius:6px;padding:1rem;margin-bottom:1.25rem">
+            <div style="font-size:11px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Status das APIs</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="api-status-grid">
+              <div class="api-status-row" id="ast-espn"><span class="api-dot dot-spin"></span> ESPN API — verificando...</div>
+              <div class="api-status-row" id="ast-sdb"><span class="api-dot dot-spin"></span> TheSportsDB — verificando...</div>
+              <div class="api-status-row" id="ast-gnews"><span class="api-dot"></span> GNews — não configurada</div>
+              <div class="api-status-row" id="ast-apif"><span class="api-dot"></span> API-Football — não configurada</div>
+            </div>
+          </div>
+          <!-- Ações rápidas -->
+          <div style="display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap">
+            <button class="admin-btn" style="width:auto;padding:8px 18px" onclick="adminPanel('nova-materia',document.querySelectorAll('.admin-menu-item')[1])">✏️ Nova Matéria</button>
+            <button class="admin-btn" style="width:auto;padding:8px 18px;background:#f8f8f8;color:#1a1a1a;border:1px solid var(--border)" onclick="fetchData()">🔄 Atualizar APIs</button>
+          </div>
+          <!-- Últimas matérias -->
+          <div style="font-size:11px;font-weight:800;color:#1a1a1a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;border-bottom:2px solid var(--red);padding-bottom:8px">Últimas Matérias</div>
+          <div id="ad-recent-list" style="font-size:12px;color:#888">Nenhuma matéria criada ainda.</div>
         </div>
-        <!-- Nova Matéria -->
+
+        <!-- ═══ NOVA MATÉRIA ═══ -->
         <div class="admin-panel" id="ap-nova-materia">
-          <div class="admin-panel-title">✏️ Nova Matéria</div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Título *</label>
-            <input class="admin-input" type="text" id="art-title" placeholder="Título da matéria">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0" id="editor-title-label">✏️ Nova Matéria</div>
+            <div style="display:flex;gap:6px">
+              <button onclick="saveArticle('draft')" style="background:#f8f8f8;border:1px solid var(--border);color:#555;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:inherit">💾 Salvar Rascunho</button>
+              <button onclick="saveArticle('published')" style="background:var(--red);border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:inherit">📤 Publicar</button>
+            </div>
           </div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Categoria</label>
-            <select class="admin-select" id="art-cat">
-              <option>Copa do Mundo 2026</option>
-              <option>Seleção Brasileira</option>
-              <option>Grupo C</option>
-              <option>Mercado da Bola</option>
-              <option>Bastidores</option>
-              <option>Curiosidades</option>
-            </select>
+          <input type="hidden" id="art-edit-id" value="">
+          <!-- Linha título + categoria -->
+          <div style="display:grid;grid-template-columns:1fr 180px;gap:12px;margin-bottom:14px">
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Título da Matéria *</label>
+              <input class="admin-input" type="text" id="art-title" placeholder="Ex: Brasil vence e lidera Grupo C" oninput="updateTitleCount(this)" style="margin:0">
+              <div style="font-size:10px;color:#bbb;margin-top:3px"><span id="title-count">0</span>/120 caracteres</div>
+            </div>
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Categoria</label>
+              <select class="admin-select" id="art-cat" style="margin:0">
+                <option>Copa do Mundo 2026</option>
+                <option>Seleção Brasileira</option>
+                <option>Grupo C — Brasil</option>
+                <option>Mata-Mata</option>
+                <option>Artilheiros</option>
+                <option>Mercado da Bola</option>
+                <option>Bastidores</option>
+                <option>Curiosidades</option>
+                <option>Opinião</option>
+              </select>
+            </div>
           </div>
+          <!-- Subtítulo/lead -->
           <div class="admin-form-group">
-            <label class="admin-form-label">URL da Imagem</label>
-            <input class="admin-input" type="text" id="art-img" placeholder="https://...">
+            <label class="admin-form-label">Lead / Subtítulo <span style="font-weight:400;text-transform:none;color:#bbb">(aparece abaixo do título)</span></label>
+            <input class="admin-input" type="text" id="art-lead" placeholder="Resumo da matéria em 1 frase...">
           </div>
+          <!-- Imagem -->
           <div class="admin-form-group">
-            <label class="admin-form-label">Conteúdo *</label>
-            <textarea class="admin-textarea" id="art-body" placeholder="Texto da matéria..." style="min-height:180px"></textarea>
+            <label class="admin-form-label">URL da Imagem de Capa</label>
+            <div style="display:flex;gap:8px">
+              <input class="admin-input" type="text" id="art-img" placeholder="https://..." oninput="previewImg()" style="margin:0;flex:1">
+              <button onclick="previewImg()" style="background:#f8f8f8;border:1px solid var(--border);color:#555;font-size:11px;padding:0 14px;border-radius:4px;cursor:pointer;font-family:inherit;white-space:nowrap">👁 Preview</button>
+            </div>
+            <div id="img-preview" style="margin-top:8px;display:none">
+              <img id="img-preview-el" src="" style="width:100%;max-height:200px;object-fit:cover;border-radius:4px;border:1px solid var(--border)" onerror="this.parentElement.style.display='none'">
+            </div>
           </div>
-          <button class="admin-btn" onclick="publishArticle()">📤 Publicar Matéria</button>
-          <div id="art-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Matéria publicada com sucesso!</div>
+          <!-- Corpo -->
+          <div class="admin-form-group">
+            <label class="admin-form-label" style="display:flex;align-items:center;justify-content:space-between">
+              Conteúdo da Matéria *
+              <span style="font-weight:400;text-transform:none;color:#bbb;font-size:10px">Use Enter para separar parágrafos</span>
+            </label>
+            <!-- Barra de formatação rápida -->
+            <div style="background:#f8f8f8;border:1px solid var(--border);border-bottom:none;border-radius:4px 4px 0 0;padding:6px 8px;display:flex;gap:4px">
+              <button onclick="insertTag('**','**')" title="Negrito" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-weight:800;font-size:12px">B</button>
+              <button onclick="insertTag('*','*')" title="Itálico" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-style:italic;font-size:12px">I</button>
+              <button onclick="insertTag('\n## ','\n')" title="Subtítulo" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700">H2</button>
+              <button onclick="insertBlank()" title="Separar parágrafo" style="background:#fff;border:1px solid var(--border);border-radius:3px;padding:3px 8px;cursor:pointer;font-family:inherit;font-size:11px">¶</button>
+            </div>
+            <textarea class="admin-textarea" id="art-body" placeholder="Escreva o conteúdo da matéria aqui...
+
+Exemplo:
+A Seleção Brasileira fez uma partida dominante nesta terça-feira e garantiu a primeira colocação no Grupo C.
+
+## Como foi o jogo
+O Brasil abriu o placar aos 23 minutos com Vinicius Jr. em cobrança de falta precisa..." style="min-height:280px;border-radius:0 0 4px 4px;border-top:1px solid var(--border)"></textarea>
+          </div>
+          <!-- Tags -->
+          <div class="admin-form-group">
+            <label class="admin-form-label">Tags <span style="font-weight:400;text-transform:none;color:#bbb">(separadas por vírgula)</span></label>
+            <input class="admin-input" type="text" id="art-tags" placeholder="brasil, copa 2026, vinicius jr, gol">
+          </div>
+          <!-- Destaque -->
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8f8f8;border:1px solid var(--border);border-radius:4px;margin-bottom:14px">
+            <input type="checkbox" id="art-featured" style="width:16px;height:16px;accent-color:var(--red)">
+            <label for="art-featured" style="font-size:12px;font-weight:600;cursor:pointer;color:#333">⭐ Marcar como destaque (aparece no topo do site)</label>
+          </div>
+          <div id="art-success" style="background:#d4f0d4;border:1px solid #b0ddb0;color:#1a6a1a;font-size:12px;font-weight:600;padding:10px 14px;border-radius:4px;margin-bottom:10px;display:none">✓ Matéria salva com sucesso!</div>
+          <div id="art-error" style="background:#f0d4d4;border:1px solid #ddb0b0;color:#6a0000;font-size:12px;font-weight:600;padding:10px 14px;border-radius:4px;margin-bottom:10px;display:none">⚠️ Preencha o título e o conteúdo.</div>
         </div>
-        <!-- Matérias -->
+
+        <!-- ═══ GERENCIAR MATÉRIAS ═══ -->
         <div class="admin-panel" id="ap-materias">
-          <div class="admin-panel-title">📰 Matérias Publicadas</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
+            <div class="admin-panel-title" style="margin:0;border:none;padding:0">📰 Matérias</div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="art-search" class="admin-input" type="text" placeholder="🔍 Buscar matéria..." style="margin:0;width:200px" oninput="renderAdminArticles()">
+              <select id="art-filter" class="admin-select" style="width:130px" onchange="renderAdminArticles()">
+                <option value="">Todos</option>
+                <option value="published">Publicadas</option>
+                <option value="draft">Rascunhos</option>
+              </select>
+            </div>
+          </div>
           <div class="admin-articles-list" id="admin-articles-list">
-            <div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>
+            <div style="color:#888;font-size:12px;text-align:center;padding:2rem">Nenhuma matéria criada ainda.</div>
           </div>
         </div>
-        <!-- Banners -->
+        <!-- ═══ BANNERS ═══ -->
         <div class="admin-panel" id="ap-banners">
-          <div class="admin-panel-title">🎯 Gerenciar Banners Publicitários</div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Topo</strong><br><span style="font-size:10px;color:#555">728×90 · acima das notícias</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-topo" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-topo-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('topo')">Salvar</button>
+          <div class="admin-panel-title">🎯 Banners & Anúncios</div>
+          <div style="background:#fff8e0;border:1px solid #f0d860;border-radius:6px;padding:10px 14px;font-size:12px;color:#664;margin-bottom:1.25rem">
+            ✅ Seus anúncios <strong>HighPerformanceFormat</strong> já estão ativos no site (728×90 no topo e 300×250 na sidebar). Use os campos abaixo para adicionar banners extras.
           </div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Meio</strong><br><span style="font-size:10px;color:#555">320×100 · entre as notícias</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-meio" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-meio-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('meio')">Salvar</button>
-          </div>
-          <div class="banner-slot">
-            <div class="banner-slot-label"><strong>Banner Lateral</strong><br><span style="font-size:10px;color:#555">300×250 · sidebar direita</span></div>
-            <div style="flex:1"><input class="admin-input" style="margin:0" type="text" id="bn-lateral" placeholder="URL do banner ou código HTML"></div>
-            <span class="banner-slot-status empty" id="bn-lateral-status">Vazio</span>
-            <button class="admin-article-edit" onclick="saveBanner('lateral')">Salvar</button>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Topo — 728×90</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Exibido acima das notícias principais</div>
+              <div class="banner-slot-status active" style="font-size:10px;margin-bottom:8px;display:inline-block">✓ HiPerf ativo</div>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-topo" placeholder="URL extra ou código HTML adicional">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('topo')">Salvar banner extra</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Lateral — 300×250</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Exibido na sidebar direita das notícias</div>
+              <div class="banner-slot-status active" style="font-size:10px;margin-bottom:8px;display:inline-block">✓ HiPerf ativo</div>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-lateral" placeholder="URL extra ou código HTML adicional">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('lateral')">Salvar banner extra</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Meio — 320×100</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Abaixo do grid de notícias</div>
+              <span class="banner-slot-status empty" id="bn-meio-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-meio" placeholder="URL do banner ou código HTML">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('meio')">Salvar</button>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
+              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Rodapé — 728×90</div>
+              <div style="font-size:10px;color:#888;margin-bottom:8px">Acima do rodapé do site</div>
+              <span class="banner-slot-status empty" id="bn-rodape-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
+              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-rodape" placeholder="URL do banner ou código HTML">
+              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('rodape')">Salvar</button>
+            </div>
           </div>
         </div>
-        <!-- Config -->
+
+        <!-- ═══ APIs ═══ -->
+        <div class="admin-panel" id="ap-apis">
+          <div class="admin-panel-title">🔌 APIs de Conteúdo</div>
+          <!-- ESPN -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
+            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">📡</span>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:800;color:#1a1a1a">ESPN API</div>
+                <div style="font-size:10px;color:#888">Notícias, jogos ao vivo, artilheiros · Gratuita · Sem cadastro</div>
+              </div>
+              <span class="banner-slot-status active">✓ Ativa</span>
+            </div>
+          </div>
+          <!-- TheSportsDB -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
+            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">🏟️</span>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:800;color:#1a1a1a">TheSportsDB</div>
+                <div style="font-size:10px;color:#888">Dados de times, eventos, imagens · Gratuita · Sem cadastro</div>
+              </div>
+              <span class="banner-slot-status active">✓ Ativa</span>
+            </div>
+          </div>
+          <!-- GNews -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
+            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">🗞️</span>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:800;color:#1a1a1a">GNews API</div>
+                <div style="font-size:10px;color:#888">Notícias em português de portais brasileiros · 100 req/dia grátis</div>
+              </div>
+              <span class="banner-slot-status" id="gnews-pill" style="font-size:10px;padding:3px 8px;border-radius:2px">Configurar</span>
+            </div>
+            <div style="padding:12px 14px;border-top:1px solid var(--border)">
+              <div style="display:flex;gap:8px;align-items:center">
+                <input class="admin-input" type="text" id="cfg-gnews" style="margin:0;flex:1" placeholder="Cole sua chave aqui (gnews.io)">
+                <button onclick="saveApiKeys()" style="background:var(--red);border:none;color:#fff;font-size:11px;font-weight:700;padding:0 16px;height:38px;border-radius:4px;cursor:pointer;white-space:nowrap;font-family:inherit">Salvar</button>
+                <a href="https://gnews.io" target="_blank" style="color:var(--red);font-size:10px;white-space:nowrap;font-weight:600">Pegar chave →</a>
+              </div>
+            </div>
+          </div>
+          <!-- API-Football -->
+          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
+            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">⚽</span>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:800;color:#1a1a1a">API-Football (RapidAPI)</div>
+                <div style="font-size:10px;color:#888">Jogos ao vivo, escalações, estatísticas da Copa · 100 req/dia grátis</div>
+              </div>
+              <span class="banner-slot-status" id="apif-pill" style="font-size:10px;padding:3px 8px;border-radius:2px">Configurar</span>
+            </div>
+            <div style="padding:12px 14px;border-top:1px solid var(--border)">
+              <div style="display:flex;gap:8px;align-items:center">
+                <input class="admin-input" type="text" id="cfg-rapidapi" style="margin:0;flex:1" placeholder="Cole sua X-RapidAPI-Key aqui">
+                <button onclick="saveApiKeys()" style="background:var(--red);border:none;color:#fff;font-size:11px;font-weight:700;padding:0 16px;height:38px;border-radius:4px;cursor:pointer;white-space:nowrap;font-family:inherit">Salvar</button>
+                <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank" style="color:var(--red);font-size:10px;white-space:nowrap;font-weight:600">Pegar chave →</a>
+              </div>
+            </div>
+          </div>
+          <div id="api-key-success" style="background:#d4f0d4;border:1px solid #b0ddb0;color:#1a6a1a;font-size:12px;font-weight:600;padding:10px 14px;border-radius:4px;display:none">✓ Chaves salvas! Atualizando dados...</div>
+        </div>
+
+        <!-- ═══ CONFIG ═══ -->
         <div class="admin-panel" id="ap-config">
-          <div class="admin-panel-title">⚙️ Configurações</div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Nome do Site</label>
-            <input class="admin-input" type="text" id="cfg-nome" value="Copa do Mundo 2026 – Ao Vivo">
+          <div class="admin-panel-title">⚙️ Configurações do Site</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Nome do Site</label>
+              <input class="admin-input" type="text" id="cfg-nome" value="Copa do Mundo 2026 – Ao Vivo" style="margin:0">
+            </div>
+            <div class="admin-form-group" style="margin:0">
+              <label class="admin-form-label">Alterar Senha do Admin</label>
+              <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha" style="margin:0">
+            </div>
           </div>
-          <div class="admin-form-group">
-            <label class="admin-form-label">Alterar Senha do Admin</label>
-            <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
+          <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+            <button class="admin-btn" onclick="saveConfig()" style="width:auto;padding:10px 24px">💾 Salvar Configurações</button>
+            <div id="cfg-success" style="color:var(--green);font-size:12px;display:none">✓ Salvo!</div>
           </div>
-          <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
-          <div id="cfg-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
-
-          <!-- APIs EXTRAS -->
           <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
-            <div class="admin-panel-title" style="font-size:14px">🔌 APIs de Notícias Extras</div>
-
-            <div style="background:#f0f8ff;border:1px solid #cce0ff;border-radius:6px;padding:1rem;margin-bottom:1.25rem;font-size:12px;color:#335">
-              <strong>TheSportsDB</strong> — ✅ Ativa (gratuita, sem chave)<br>
-              <span style="color:#666">Fornece dados de times, eventos e partidas da Copa 2026 automaticamente.</span>
-            </div>
-
-            <div class="admin-form-group">
-              <label class="admin-form-label">🗞️ GNews API Key
-                <a href="https://gnews.io" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em gnews.io</a>
-              </label>
-              <input class="admin-input" type="text" id="cfg-gnews" placeholder="Cole sua chave aqui (ex: abc123def456...)" value="${localStorage.getItem('cfg_gnews_key')||''}">
-              <div style="font-size:10px;color:#888;margin-top:4px">Traz notícias de futebol em português de portais brasileiros. Plano gratuito: 100 req/dia.</div>
-            </div>
-
-            <div class="admin-form-group">
-              <label class="admin-form-label">⚽ API-Football Key (RapidAPI)
-                <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em rapidapi.com</a>
-              </label>
-              <input class="admin-input" type="text" id="cfg-rapidapi" placeholder="Cole sua X-RapidAPI-Key aqui" value="${localStorage.getItem('cfg_rapidapi_key')||''}">
-              <div style="font-size:10px;color:#888;margin-top:4px">Dados de jogos ao vivo, artilheiros e tabelas da Copa 2026. Plano gratuito: 100 req/dia.</div>
-            </div>
-
-            <button class="admin-btn" onclick="saveApiKeys()" style="width:auto;padding:10px 24px">🔑 Salvar Chaves de API</button>
-            <div id="api-key-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Chaves salvas! Recarregando dados...</div>
+            <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:10px">Zona de Perigo</div>
+            <button onclick="if(confirm('Excluir TODAS as matérias?')){adminArticles=[];localStorage.removeItem(ADMIN_ARTS_KEY);renderAdminDashboard();renderAdminArticles();renderNoticias();}" style="background:#fff5f5;border:1px solid #ffcccc;color:#cc0000;font-size:11px;font-weight:700;padding:8px 16px;border-radius:4px;cursor:pointer;font-family:inherit">🗑 Excluir todas as matérias</button>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -876,13 +1052,6 @@ const ESPN_BASE  = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.wo
 const ESPN_V2    = 'https://site.api.espn.com/apis/v2/sports/soccer/fifa.world';
 const REFRESH_MS = 60000; // 60 segundos
 
-// ── CHAVES DE API (configure no painel Admin ou aqui diretamente) ──────────
-let CFG = {
-  gnews_key:   localStorage.getItem('cfg_gnews_key')    || '',
-  rapidapi_key:localStorage.getItem('cfg_rapidapi_key') || '',
-};
-const SPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/3'; // free tier key = 3
-let extraNewsCache = []; // notícias extras (GNews + SportsDB)
 
 // Dados estáticos de fallback (usados se API falhar)
 const FALLBACK_GROUPS = {
@@ -1029,8 +1198,6 @@ async function fetchData() {
         } catch(e) {}
       })(),
 
-      // APIS EXTRAS (TheSportsDB + GNews + API-Football)
-      fetchAllExtra()
     ]);
 
   } finally {
@@ -1043,96 +1210,6 @@ async function fetchData() {
   }
 }
 
-// ─── EXTRA APIs ────────────────────────────────────────────────────────────
-
-// 1) TheSportsDB — gratuita, sem chave necessária
-async function fetchSportsDB() {
-  try {
-    // Busca eventos da Copa do Mundo 2026 (id do evento = 1165289)
-    const r = await fetch(`${SPORTSDB_BASE}/searchevents.php?e=FIFA+World+Cup+2026`);
-    if(!r.ok) return [];
-    const d = await r.json();
-    const events = d.event || [];
-    return events.slice(0,6).map(e => ({
-      source: 'TheSportsDB',
-      title: traduzirTitulo(e.strEvent || ''),
-      desc: e.strDescriptionEN || e.strFilename || 'Partida da Copa do Mundo 2026',
-      category: 'Copa 2026',
-      img: e.strThumb || e.strBanner || '',
-      date: e.dateEvent || new Date().toISOString(),
-      url: ''
-    }));
-  } catch(e) { return []; }
-}
-
-// 2) GNews — notícias em português (precisa de chave gratuita em gnews.io)
-async function fetchGNews() {
-  if(!CFG.gnews_key) return [];
-  try {
-    const q = encodeURIComponent('copa do mundo 2026 futebol');
-    const r = await fetch(
-      `https://gnews.io/api/v4/search?q=${q}&lang=pt&country=br&max=10&token=${CFG.gnews_key}`
-    );
-    if(!r.ok) return [];
-    const d = await r.json();
-    return (d.articles||[]).map(a => ({
-      source: 'GNews',
-      title: a.title || '',
-      desc: a.description || '',
-      category: 'Notícia',
-      img: a.image || '',
-      date: a.publishedAt || new Date().toISOString(),
-      url: a.url || ''
-    }));
-  } catch(e) { return []; }
-}
-
-// 3) API-Football (RapidAPI) — dados de jogos da Copa (precisa de chave em rapidapi.com)
-async function fetchAPIFootball() {
-  if(!CFG.rapidapi_key) return null;
-  try {
-    const r = await fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?league=1&season=2026&live=all', {
-      headers: {
-        'X-RapidAPI-Key': CFG.rapidapi_key,
-        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
-      }
-    });
-    if(!r.ok) return null;
-    const d = await r.json();
-    return d.response || null;
-  } catch(e) { return null; }
-}
-
-// Carrega todas as APIs extras em paralelo
-async function fetchAllExtra() {
-  const [sportsdb, gnews, apifootball] = await Promise.allSettled([
-    fetchSportsDB(),
-    fetchGNews(),
-    fetchAPIFootball()
-  ]);
-  const sd = sportsdb.status === 'fulfilled' ? sportsdb.value : [];
-  const gn = gnews.status   === 'fulfilled' ? gnews.value   : [];
-  extraNewsCache = [...gn, ...sd]; // GNews primeiro (mais relevante)
-
-  // Se API-Football retornar jogos, enriquecer o ticker
-  const af = apifootball.status === 'fulfilled' ? apifootball.value : null;
-  if(af && af.length && !apiData.scoreboard?.events?.length) {
-    renderTickerFromAPIFootball(af);
-  }
-}
-
-function renderTickerFromAPIFootball(fixtures) {
-  const items = fixtures.slice(0,10).map(f => {
-    const h = f.teams.home, a = f.teams.away;
-    const sh = f.goals.home ?? '–', sa = f.goals.away ?? '–';
-    const live = f.fixture.status.short === 'LIVE' ? '<span class="tl">● AO VIVO</span> ' : '';
-    return `<span class="ti">${live}${h.name} <span class="ts">${sh}–${sa}</span> ${a.name}</span>`;
-  }).join('');
-  if(items) {
-    const t = document.getElementById('ticker-inner');
-    t.innerHTML = items + items;
-  }
-}
 
 // ─── RENDER JOGOS ──────────────────────────────────────────────────────────
 function renderJogos() {
@@ -1427,19 +1504,7 @@ function renderNoticias() {
   const articles = apiData.news?.articles || [];
   // Mescla: ESPN + extras (GNews/SportsDB) + admin
   const espnNews = articles.length >= 2 ? articles : getStaticNews();
-  // Converte extraNewsCache para formato compatível
-  const extra = extraNewsCache.map(e => ({
-    headline: e.title,
-    description: e.desc,
-    images: e.img ? [{url: e.img}] : [],
-    published: e.date,
-    url: e.url,
-    categories: [{description: e.category}],
-    _source: e.source
-  }));
-  const allNews  = [...espnNews, ...extra];
-  allArticlesCache = [...adminArticles, ...allNews]; // salva para o modal
-  // Usa a lista completa para renderizar
+  allArticlesCache = [...adminArticles.filter(a=>a.status!=='draft'), ...espnNews];
   const displayNews = allArticlesCache;
 
   // ── HERO (article[0]) ──────────────────────────────────────────────────
@@ -1825,6 +1890,8 @@ function adminLogin() {
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-wrap').classList.add('open');
     renderAdminDashboard();
+    renderAdminArticles();
+    renderAdminDashboard();
   } else {
     document.getElementById('admin-login-err').style.display = 'block';
   }
@@ -1846,71 +1913,173 @@ function adminPanel(id, el) {
   if(id==='dashboard') renderAdminDashboard();
 }
 
-function publishArticle() {
+function publishArticle() { saveArticle('published'); } // compat alias
+
+// ─── EDITOR HELPERS ────────────────────────────────────────────────────────
+function updateTitleCount(el) {
+  document.getElementById('title-count').textContent = el.value.length;
+}
+function previewImg() {
+  const url = document.getElementById('art-img').value.trim();
+  const wrap = document.getElementById('img-preview');
+  const img  = document.getElementById('img-preview-el');
+  if(url) { img.src = url; wrap.style.display = 'block'; }
+  else wrap.style.display = 'none';
+}
+function insertTag(before, after) {
+  const ta = document.getElementById('art-body');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e);
+  ta.value = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
+  ta.focus(); ta.selectionStart = s + before.length; ta.selectionEnd = s + before.length + sel.length;
+}
+function insertBlank() {
+  const ta = document.getElementById('art-body');
+  const s = ta.selectionStart;
+  ta.value = ta.value.substring(0,s) + '\n\n' + ta.value.substring(s);
+  ta.focus(); ta.selectionStart = ta.selectionEnd = s + 2;
+}
+
+// ─── SAVE ARTICLE (published or draft) ─────────────────────────────────────
+function saveArticle(status) {
   const title = document.getElementById('art-title').value.trim();
   const body  = document.getElementById('art-body').value.trim();
-  if(!title || !body) return alert('Título e conteúdo são obrigatórios.');
+  const errEl = document.getElementById('art-error');
+  const okEl  = document.getElementById('art-success');
+  if(!title || !body) { errEl.style.display='block'; setTimeout(()=>errEl.style.display='none',3000); return; }
+
+  const editId = document.getElementById('art-edit-id').value;
+  const imgUrl = document.getElementById('art-img').value.trim();
   const art = {
-    id: Date.now(),
+    id: editId ? parseInt(editId) : Date.now(),
     headline: title,
+    subtitle: document.getElementById('art-lead').value.trim(),
     description: body.substring(0,200),
-    story: body.replace(/\n/g,'</p><p>'),
+    story: body,
     categories: [{description: document.getElementById('art-cat').value}],
-    image: document.getElementById('art-img').value.trim(),
-    images: document.getElementById('art-img').value.trim() ? [{url: document.getElementById('art-img').value.trim()}] : [],
+    tags: document.getElementById('art-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    image: imgUrl,
+    images: imgUrl ? [{url: imgUrl}] : [],
     published: new Date().toISOString(),
     byline: 'Redação',
-    source: 'admin'
+    source: 'admin',
+    status: status,
+    featured: document.getElementById('art-featured').checked
   };
-  adminArticles.unshift(art);
+
+  if(editId) {
+    const idx = adminArticles.findIndex(a => a.id === parseInt(editId));
+    if(idx>=0) adminArticles[idx] = art; else adminArticles.unshift(art);
+  } else {
+    adminArticles.unshift(art);
+  }
   localStorage.setItem(ADMIN_ARTS_KEY, JSON.stringify(adminArticles));
-  // Injeta nas notícias
-  const staticNews = getStaticNews();
-  allArticlesCache = [...adminArticles, ...staticNews];
-  renderNoticias();
-  document.getElementById('art-title').value = '';
-  document.getElementById('art-body').value = '';
-  document.getElementById('art-img').value = '';
-  const s = document.getElementById('art-success');
-  s.style.display = 'block';
-  setTimeout(() => s.style.display='none', 3000);
+
+  if(status === 'published') renderNoticias();
+  renderAdminArticles();
+  renderAdminDashboard();
+
+  // Reset form
+  ['art-title','art-lead','art-body','art-img','art-tags','art-edit-id'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = '';
+  });
+  document.getElementById('art-featured').checked = false;
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('title-count').textContent = '0';
+  document.getElementById('editor-title-label').textContent = '✏️ Nova Matéria';
+
+  okEl.textContent = status==='draft' ? '💾 Rascunho salvo!' : '✓ Matéria publicada com sucesso!';
+  okEl.style.display = 'block';
+  setTimeout(() => okEl.style.display='none', 3000);
+}
+
+function editArticle(id) {
+  const a = adminArticles.find(x => x.id === id);
+  if(!a) return;
+  document.getElementById('art-title').value   = a.headline || '';
+  document.getElementById('art-lead').value    = a.subtitle || '';
+  document.getElementById('art-body').value    = a.story || a.description || '';
+  document.getElementById('art-img').value     = a.image || a.images?.[0]?.url || '';
+  document.getElementById('art-tags').value    = (a.tags||[]).join(', ');
+  document.getElementById('art-featured').checked = a.featured || false;
+  document.getElementById('art-edit-id').value = a.id;
+  document.getElementById('editor-title-label').textContent = '✏️ Editar Matéria';
+  document.getElementById('title-count').textContent = (a.headline||'').length;
+  if(a.image) previewImg();
+  const cat = document.getElementById('art-cat');
+  const catVal = a.categories?.[0]?.description || '';
+  for(let o of cat.options) if(o.value===catVal) { cat.value=catVal; break; }
+  adminPanel('nova-materia', document.querySelectorAll('.admin-menu-item')[1]);
+  window.scrollTo(0,300);
 }
 
 function deleteArticle(id) {
-  if(!confirm('Excluir matéria?')) return;
+  if(!confirm('Excluir esta matéria permanentemente?')) return;
   adminArticles = adminArticles.filter(a => a.id !== id);
   localStorage.setItem(ADMIN_ARTS_KEY, JSON.stringify(adminArticles));
   renderAdminArticles();
   renderAdminDashboard();
+  renderNoticias();
 }
 
 function renderAdminArticles() {
-  const el = document.getElementById('admin-articles-list');
-  if(!adminArticles.length) {
-    el.innerHTML = '<div style="color:#555;font-size:12px">Nenhuma matéria criada ainda.</div>';
+  const el     = document.getElementById('admin-articles-list');
+  const search = (document.getElementById('art-search')?.value||'').toLowerCase();
+  const filter = document.getElementById('art-filter')?.value || '';
+  let list = adminArticles.filter(a => {
+    const matchSearch = !search || a.headline.toLowerCase().includes(search);
+    const matchFilter = !filter || a.status === filter;
+    return matchSearch && matchFilter;
+  });
+  if(!list.length) {
+    el.innerHTML = `<div style="text-align:center;padding:2rem;color:#888;font-size:12px">${search||filter?'Nenhuma matéria encontrada.':'Nenhuma matéria criada ainda. <a onclick="adminPanel(\'nova-materia\',document.querySelectorAll(\'.admin-menu-item\')[1])" style="color:var(--red);cursor:pointer;font-weight:600">Criar agora →</a>'}</div>`;
     return;
   }
-  el.innerHTML = adminArticles.map(a => `
-    <div class="admin-article-row">
-      ${a.images?.[0]?.url ? `<img src="${a.images[0].url}" style="width:60px;height:44px;object-fit:cover;border-radius:3px">` : '<div style="width:60px;height:44px;background:#1a1a28;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#444;font-size:18px">📰</div>'}
-      <div class="admin-article-title">${a.headline}</div>
-      <div class="admin-article-date">${new Date(a.published).toLocaleDateString('pt-BR')}</div>
-      <button class="admin-article-del" onclick="deleteArticle(${a.id})">🗑 Excluir</button>
-    </div>`).join('');
+  el.innerHTML = list.map(a => {
+    const img = a.image || a.images?.[0]?.url || '';
+    const statusBadge = a.status==='draft'
+      ? '<span style="background:#fff8e0;color:#886600;font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px;border:1px solid #f0d860">RASCUNHO</span>'
+      : '<span style="background:#d4f0d4;color:#1a6a1a;font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px">PUBLICADO</span>';
+    const featBadge = a.featured ? '<span style="background:#fff0f0;color:var(--red);font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px;border:1px solid #ffd0d0">⭐ DESTAQUE</span>' : '';
+    return `<div class="admin-article-row">
+      ${img ? `<img src="${img}" style="width:64px;height:48px;object-fit:cover;border-radius:3px;flex-shrink:0">` : '<div style="width:64px;height:48px;background:#f0f0f0;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px">📰</div>'}
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;gap:4px;margin-bottom:3px">${statusBadge}${featBadge}</div>
+        <div class="admin-article-title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div>
+        <div style="font-size:10px;color:#888;margin-top:2px">${a.categories?.[0]?.description||'Copa 2026'} · ${new Date(a.published).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button class="admin-article-edit" onclick="editArticle(${a.id})">✏️ Editar</button>
+        <button class="admin-article-del" onclick="deleteArticle(${a.id})">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function renderAdminDashboard() {
-  document.getElementById('ad-total').textContent = adminArticles.length;
+  const published = adminArticles.filter(a => a.status !== 'draft');
+  const drafts    = adminArticles.filter(a => a.status === 'draft');
+  document.getElementById('ad-total').textContent   = published.length;
+  document.getElementById('ad-drafts').textContent  = drafts.length;
+  document.getElementById('ad-apis-ok').textContent = apiData.scoreboard || apiData.news ? '✓' : '–';
+  document.getElementById('dash-updated').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  // ESPN status
+  const espnRow = document.getElementById('ast-espn');
+  if(espnRow) espnRow.innerHTML = `<span class="api-dot ${apiData.scoreboard||apiData.news?'green':'dot-spin'}"></span> ESPN API — ${apiData.scoreboard||apiData.news?'✓ online':'verificando...'}`;
+  ['ast-sdb','ast-gnews','ast-apif'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display='none';
+  });
+  // Recent articles
   const rec = document.getElementById('ad-recent-list');
-  if(!adminArticles.length) {
-    rec.textContent = 'Nenhuma matéria criada ainda.';
-    return;
-  }
-  rec.innerHTML = adminArticles.slice(0,5).map(a => `
-    <div style="padding:8px 0;border-bottom:1px solid #141420;display:flex;align-items:center;gap:8px">
-      <span style="font-size:9px;color:#c8a400;text-transform:uppercase">${a.categories?.[0]?.description||'Copa 2026'}</span>
-      <span style="flex:1;font-size:12px;color:#ddd">${a.headline}</span>
-      <span style="font-size:10px;color:#555">${new Date(a.published).toLocaleDateString('pt-BR')}</span>
+  if(!published.length) { rec.innerHTML = '<div style="color:#888;font-size:12px">Nenhuma matéria publicada ainda.</div>'; return; }
+  rec.innerHTML = published.slice(0,5).map(a => `
+    <div style="padding:10px 0;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="editArticle(${a.id})">
+      ${a.image ? `<img src="${a.image}" style="width:52px;height:38px;object-fit:cover;border-radius:3px;flex-shrink:0">` : '<div style="width:52px;height:38px;background:#f0f0f0;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px">📰</div>'}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;color:#1a1a1a;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div>
+        <div style="font-size:10px;color:#888;margin-top:2px">${a.categories?.[0]?.description||'Copa 2026'} · ${new Date(a.published).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <span style="font-size:10px;color:var(--red);flex-shrink:0">Editar →</span>
     </div>`).join('');
 }
 
@@ -1935,24 +2104,11 @@ function saveConfig() {
   setTimeout(() => s.style.display='none', 3000);
 }
 
-function saveApiKeys() {
-  const gk = (document.getElementById('cfg-gnews')?.value || '').trim();
-  const rk = (document.getElementById('cfg-rapidapi')?.value || '').trim();
-  if(gk) localStorage.setItem('cfg_gnews_key', gk);
-  if(rk) localStorage.setItem('cfg_rapidapi_key', rk);
-  CFG.gnews_key    = gk;
-  CFG.rapidapi_key = rk;
-  const s = document.getElementById('api-key-success');
-  s.style.display = 'block';
-  setTimeout(() => { s.style.display='none'; fetchData(); }, 2000);
-}
+function saveApiKeys() {} // removida — usando só ESPN
 
 // Carrega artigos admin nas notícias ao iniciar
 function loadAdminArticles() {
-  if(adminArticles.length) {
-    const staticNews = getStaticNews();
-    allArticlesCache = [...adminArticles, ...staticNews];
-  }
+  if(adminArticles.length) renderNoticias();
 }
 
 // ─── RENDER ALL ────────────────────────────────────────────────────────────
