@@ -180,9 +180,9 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .news-sidebar-date{font-size:10px;color:var(--txt3);margin-top:4px}
 
 /* Espaço publicitário — escondido por padrão, visível só quando ativo */
-.ad-slot{display:none}
-.ad-slot.active{display:flex;background:var(--card);border:1px dashed var(--border);border-radius:4px;align-items:center;justify-content:center;color:var(--txt3);font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.ad-slot-hero{border-radius:0;border:none;border-bottom:1px dashed var(--border);border-top:1px dashed var(--border)}
+.ad-slot{display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ad-slot-hero{border-bottom:1px solid var(--border);border-top:1px solid var(--border);background:#f8f8f8;min-height:96px}
+.ad-slot-mid{background:#f8f8f8;min-height:270px;margin-top:1rem;border:1px solid var(--border);border-radius:4px}
 
 /* Main content row */
 .news-main-row{display:grid;grid-template-columns:1fr 300px;gap:0}
@@ -461,7 +461,11 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
     </div>
 
     <!-- Banner publicitário -->
-    <div class="ad-slot ad-slot-hero" id="ad-slot-top">ESPAÇO PUBLICITÁRIO · 728×90</div>
+    <!-- ANÚNCIO 728×90 — topo -->
+    <div class="ad-slot ad-slot-hero" id="ad-slot-top">
+      <script>atOptions={'key':'3e0bd98d8b4b24dc90b55e49e04e787c','format':'iframe','height':90,'width':728,'params':{}};</script>
+      <script src="https://www.highperformanceformat.com/3e0bd98d8b4b24dc90b55e49e04e787c/invoke.js"></script>
+    </div>
 
     <!-- Main row -->
     <div class="news-main-row">
@@ -474,7 +478,11 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           ${[0,1,2,3,4,5,6,7].map(()=>`<div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>`).join('')}
         </div>
         <!-- Banner publicitário abaixo das notícias -->
-        <div class="ad-slot" style="height:100px;margin-top:1rem" id="ad-slot-mid">ESPAÇO PUBLICITÁRIO · 320×100</div>
+        <!-- ANÚNCIO 300×250 — meio das notícias -->
+        <div class="ad-slot ad-slot-mid" id="ad-slot-mid">
+          <script>atOptions={'key':'56c9f97553290d683f06c1af14b79688','format':'iframe','height':250,'width':300,'params':{}};</script>
+          <script src="https://www.highperformanceformat.com/56c9f97553290d683f06c1af14b79688/invoke.js"></script>
+        </div>
       </div>
       <div class="news-right-sidebar">
         <!-- Jogos de Hoje -->
@@ -499,6 +507,13 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <div class="sidebar-widget-title">Resultados Recentes</div>
           <div id="sidebar-resultados">
             <div class="sidebar-empty">Carregando...</div>
+          </div>
+        </div>
+        <!-- ANÚNCIO SIDEBAR 300×250 -->
+        <div class="sidebar-widget">
+          <div class="ad-slot" style="min-height:260px;border:1px solid var(--border);border-radius:4px;background:#f8f8f8">
+            <script>atOptions={'key':'56c9f97553290d683f06c1af14b79688','format':'iframe','height':250,'width':300,'params':{}};</script>
+            <script src="https://www.highperformanceformat.com/56c9f97553290d683f06c1af14b79688/invoke.js"></script>
           </div>
         </div>
       </div>
@@ -746,7 +761,36 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
             <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
           </div>
           <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
-          <div id="cfg-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
+          <div id="cfg-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
+
+          <!-- APIs EXTRAS -->
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+            <div class="admin-panel-title" style="font-size:14px">🔌 APIs de Notícias Extras</div>
+
+            <div style="background:#f0f8ff;border:1px solid #cce0ff;border-radius:6px;padding:1rem;margin-bottom:1.25rem;font-size:12px;color:#335">
+              <strong>TheSportsDB</strong> — ✅ Ativa (gratuita, sem chave)<br>
+              <span style="color:#666">Fornece dados de times, eventos e partidas da Copa 2026 automaticamente.</span>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">🗞️ GNews API Key
+                <a href="https://gnews.io" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em gnews.io</a>
+              </label>
+              <input class="admin-input" type="text" id="cfg-gnews" placeholder="Cole sua chave aqui (ex: abc123def456...)" value="${localStorage.getItem('cfg_gnews_key')||''}">
+              <div style="font-size:10px;color:#888;margin-top:4px">Traz notícias de futebol em português de portais brasileiros. Plano gratuito: 100 req/dia.</div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">⚽ API-Football Key (RapidAPI)
+                <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em rapidapi.com</a>
+              </label>
+              <input class="admin-input" type="text" id="cfg-rapidapi" placeholder="Cole sua X-RapidAPI-Key aqui" value="${localStorage.getItem('cfg_rapidapi_key')||''}">
+              <div style="font-size:10px;color:#888;margin-top:4px">Dados de jogos ao vivo, artilheiros e tabelas da Copa 2026. Plano gratuito: 100 req/dia.</div>
+            </div>
+
+            <button class="admin-btn" onclick="saveApiKeys()" style="width:auto;padding:10px 24px">🔑 Salvar Chaves de API</button>
+            <div id="api-key-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Chaves salvas! Recarregando dados...</div>
+          </div>
         </div>
       </div>
     </div>
@@ -831,6 +875,14 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 const ESPN_BASE  = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world';
 const ESPN_V2    = 'https://site.api.espn.com/apis/v2/sports/soccer/fifa.world';
 const REFRESH_MS = 60000; // 60 segundos
+
+// ── CHAVES DE API (configure no painel Admin ou aqui diretamente) ──────────
+let CFG = {
+  gnews_key:   localStorage.getItem('cfg_gnews_key')    || '',
+  rapidapi_key:localStorage.getItem('cfg_rapidapi_key') || '',
+};
+const SPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/3'; // free tier key = 3
+let extraNewsCache = []; // notícias extras (GNews + SportsDB)
 
 // Dados estáticos de fallback (usados se API falhar)
 const FALLBACK_GROUPS = {
@@ -951,44 +1003,35 @@ function flag(abbr) {
 async function fetchData() {
   document.getElementById('live-pill').textContent = '⟳ Atualizando';
   try {
-    // SCOREBOARD
-    try {
-      const r = await fetch(`${ESPN_BASE}/scoreboard`);
-      if(r.ok) {
-        const d = await r.json();
-        apiData.scoreboard = d;
-        usingFallback.scoreboard = false;
-      }
-    } catch(e) { usingFallback.scoreboard = true; }
+    // Busca ESPN + APIs extras em paralelo
+    await Promise.allSettled([
+      // SCOREBOARD
+      fetch(`${ESPN_BASE}/scoreboard`).then(async r => {
+        if(r.ok){ apiData.scoreboard = await r.json(); usingFallback.scoreboard = false; }
+      }).catch(() => { usingFallback.scoreboard = true; }),
 
-    // STANDINGS
-    try {
-      const r = await fetch(`${ESPN_V2}/standings`);
-      if(r.ok) {
-        const d = await r.json();
-        apiData.standings = d;
-        usingFallback.standings = false;
-      }
-    } catch(e) { usingFallback.standings = true; }
+      // STANDINGS
+      fetch(`${ESPN_V2}/standings`).then(async r => {
+        if(r.ok){ apiData.standings = await r.json(); usingFallback.standings = false; }
+      }).catch(() => { usingFallback.standings = true; }),
 
-    // SCORERS
-    try {
-      const r = await fetch(`${ESPN_BASE}/leaders`);
-      if(r.ok) {
-        const d = await r.json();
-        apiData.scorers = d;
-      }
-    } catch(e) {}
+      // SCORERS
+      fetch(`${ESPN_BASE}/leaders`).then(async r => {
+        if(r.ok) apiData.scorers = await r.json();
+      }).catch(() => {}),
 
-    // NEWS — tenta português primeiro, fallback inglês
-    try {
-      let r = await fetch(`${ESPN_BASE}/news?limit=12&lang=pt&region=br`);
-      if(!r.ok) r = await fetch(`${ESPN_BASE}/news?limit=12`);
-      if(r.ok) {
-        const d = await r.json();
-        apiData.news = d;
-      }
-    } catch(e) {}
+      // NEWS ESPN — tenta português primeiro
+      (async () => {
+        try {
+          let r = await fetch(`${ESPN_BASE}/news?limit=12&lang=pt&region=br`);
+          if(!r.ok) r = await fetch(`${ESPN_BASE}/news?limit=12`);
+          if(r.ok) apiData.news = await r.json();
+        } catch(e) {}
+      })(),
+
+      // APIS EXTRAS (TheSportsDB + GNews + API-Football)
+      fetchAllExtra()
+    ]);
 
   } finally {
     renderAll();
@@ -997,6 +1040,97 @@ async function fetchData() {
       now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('live-pill').textContent = '● AO VIVO';
     countdown = 60;
+  }
+}
+
+// ─── EXTRA APIs ────────────────────────────────────────────────────────────
+
+// 1) TheSportsDB — gratuita, sem chave necessária
+async function fetchSportsDB() {
+  try {
+    // Busca eventos da Copa do Mundo 2026 (id do evento = 1165289)
+    const r = await fetch(`${SPORTSDB_BASE}/searchevents.php?e=FIFA+World+Cup+2026`);
+    if(!r.ok) return [];
+    const d = await r.json();
+    const events = d.event || [];
+    return events.slice(0,6).map(e => ({
+      source: 'TheSportsDB',
+      title: traduzirTitulo(e.strEvent || ''),
+      desc: e.strDescriptionEN || e.strFilename || 'Partida da Copa do Mundo 2026',
+      category: 'Copa 2026',
+      img: e.strThumb || e.strBanner || '',
+      date: e.dateEvent || new Date().toISOString(),
+      url: ''
+    }));
+  } catch(e) { return []; }
+}
+
+// 2) GNews — notícias em português (precisa de chave gratuita em gnews.io)
+async function fetchGNews() {
+  if(!CFG.gnews_key) return [];
+  try {
+    const q = encodeURIComponent('copa do mundo 2026 futebol');
+    const r = await fetch(
+      `https://gnews.io/api/v4/search?q=${q}&lang=pt&country=br&max=10&token=${CFG.gnews_key}`
+    );
+    if(!r.ok) return [];
+    const d = await r.json();
+    return (d.articles||[]).map(a => ({
+      source: 'GNews',
+      title: a.title || '',
+      desc: a.description || '',
+      category: 'Notícia',
+      img: a.image || '',
+      date: a.publishedAt || new Date().toISOString(),
+      url: a.url || ''
+    }));
+  } catch(e) { return []; }
+}
+
+// 3) API-Football (RapidAPI) — dados de jogos da Copa (precisa de chave em rapidapi.com)
+async function fetchAPIFootball() {
+  if(!CFG.rapidapi_key) return null;
+  try {
+    const r = await fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?league=1&season=2026&live=all', {
+      headers: {
+        'X-RapidAPI-Key': CFG.rapidapi_key,
+        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
+      }
+    });
+    if(!r.ok) return null;
+    const d = await r.json();
+    return d.response || null;
+  } catch(e) { return null; }
+}
+
+// Carrega todas as APIs extras em paralelo
+async function fetchAllExtra() {
+  const [sportsdb, gnews, apifootball] = await Promise.allSettled([
+    fetchSportsDB(),
+    fetchGNews(),
+    fetchAPIFootball()
+  ]);
+  const sd = sportsdb.status === 'fulfilled' ? sportsdb.value : [];
+  const gn = gnews.status   === 'fulfilled' ? gnews.value   : [];
+  extraNewsCache = [...gn, ...sd]; // GNews primeiro (mais relevante)
+
+  // Se API-Football retornar jogos, enriquecer o ticker
+  const af = apifootball.status === 'fulfilled' ? apifootball.value : null;
+  if(af && af.length && !apiData.scoreboard?.events?.length) {
+    renderTickerFromAPIFootball(af);
+  }
+}
+
+function renderTickerFromAPIFootball(fixtures) {
+  const items = fixtures.slice(0,10).map(f => {
+    const h = f.teams.home, a = f.teams.away;
+    const sh = f.goals.home ?? '–', sa = f.goals.away ?? '–';
+    const live = f.fixture.status.short === 'LIVE' ? '<span class="tl">● AO VIVO</span> ' : '';
+    return `<span class="ti">${live}${h.name} <span class="ts">${sh}–${sa}</span> ${a.name}</span>`;
+  }).join('');
+  if(items) {
+    const t = document.getElementById('ticker-inner');
+    t.innerHTML = items + items;
   }
 }
 
@@ -1291,12 +1425,26 @@ function renderArtilheiros() {
 // ─── RENDER NOTÍCIAS ───────────────────────────────────────────────────────
 function renderNoticias() {
   const articles = apiData.news?.articles || [];
-  const allNews  = articles.length >= 2 ? articles : getStaticNews();
-  allArticlesCache = allNews; // salva para o modal
+  // Mescla: ESPN + extras (GNews/SportsDB) + admin
+  const espnNews = articles.length >= 2 ? articles : getStaticNews();
+  // Converte extraNewsCache para formato compatível
+  const extra = extraNewsCache.map(e => ({
+    headline: e.title,
+    description: e.desc,
+    images: e.img ? [{url: e.img}] : [],
+    published: e.date,
+    url: e.url,
+    categories: [{description: e.category}],
+    _source: e.source
+  }));
+  const allNews  = [...espnNews, ...extra];
+  allArticlesCache = [...adminArticles, ...allNews]; // salva para o modal
+  // Usa a lista completa para renderizar
+  const displayNews = allArticlesCache;
 
   // ── HERO (article[0]) ──────────────────────────────────────────────────
   const heroEl = document.getElementById('news-hero-main');
-  const hero = allNews[0] || {};
+  const hero = displayNews[0] || {};
   const heroImg   = hero.images?.[0]?.url || hero.image || '';
   const heroTitle = traduzirTitulo(hero.headline || hero.title || 'Copa do Mundo 2026');
   const heroDesc  = traduzirTitulo(hero.description || hero.excerpt || '');
@@ -1322,7 +1470,7 @@ function renderNoticias() {
 
   // ── SIDEBAR — últimas notícias (articles[1..4]) ────────────────────────
   const sidebarEl = document.getElementById('news-sidebar-list');
-  const sideItems = allNews.slice(1, 5);
+  const sideItems = displayNews.slice(1, 5);
   if(sideItems.length) {
     sidebarEl.innerHTML = sideItems.map(a => {
       const img   = a.images?.[0]?.url || a.image || '';
@@ -1344,7 +1492,7 @@ function renderNoticias() {
 
   // ── GRID — mais notícias (articles[5..12]) ─────────────────────────────
   const gridEl   = document.getElementById('news-content');
-  const gridNews = allNews.slice(5, 13);
+  const gridNews = displayNews.slice(5, 13);
   if(!gridNews.length) {
     gridEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem;color:#444"><div style="font-size:32px">📰</div><p>Notícias serão carregadas em breve</p></div>`;
   } else {
@@ -1785,6 +1933,18 @@ function saveConfig() {
   const s = document.getElementById('cfg-success');
   s.style.display = 'block';
   setTimeout(() => s.style.display='none', 3000);
+}
+
+function saveApiKeys() {
+  const gk = (document.getElementById('cfg-gnews')?.value || '').trim();
+  const rk = (document.getElementById('cfg-rapidapi')?.value || '').trim();
+  if(gk) localStorage.setItem('cfg_gnews_key', gk);
+  if(rk) localStorage.setItem('cfg_rapidapi_key', rk);
+  CFG.gnews_key    = gk;
+  CFG.rapidapi_key = rk;
+  const s = document.getElementById('api-key-success');
+  s.style.display = 'block';
+  setTimeout(() => { s.style.display='none'; fetchData(); }, 2000);
 }
 
 // Carrega artigos admin nas notícias ao iniciar

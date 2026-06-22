@@ -180,9 +180,9 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .news-sidebar-date{font-size:10px;color:var(--txt3);margin-top:4px}
 
 /* Espaço publicitário — escondido por padrão, visível só quando ativo */
-.ad-slot{display:none}
-.ad-slot.active{display:flex;background:var(--card);border:1px dashed var(--border);border-radius:4px;align-items:center;justify-content:center;color:var(--txt3);font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
-.ad-slot-hero{border-radius:0;border:none;border-bottom:1px dashed var(--border);border-top:1px dashed var(--border)}
+.ad-slot{display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ad-slot-hero{border-bottom:1px solid var(--border);border-top:1px solid var(--border);background:#f8f8f8;min-height:96px}
+.ad-slot-mid{background:#f8f8f8;min-height:270px;margin-top:1rem;border:1px solid var(--border);border-radius:4px}
 
 /* Main content row */
 .news-main-row{display:grid;grid-template-columns:1fr 300px;gap:0}
@@ -461,7 +461,11 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
     </div>
 
     <!-- Banner publicitário -->
-    <div class="ad-slot ad-slot-hero" id="ad-slot-top">ESPAÇO PUBLICITÁRIO · 728×90</div>
+    <!-- ANÚNCIO 728×90 — topo -->
+    <div class="ad-slot ad-slot-hero" id="ad-slot-top">
+      <script>atOptions={'key':'3e0bd98d8b4b24dc90b55e49e04e787c','format':'iframe','height':90,'width':728,'params':{}};</script>
+      <script src="https://www.highperformanceformat.com/3e0bd98d8b4b24dc90b55e49e04e787c/invoke.js"></script>
+    </div>
 
     <!-- Main row -->
     <div class="news-main-row">
@@ -474,7 +478,11 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           ${[0,1,2,3,4,5,6,7].map(()=>`<div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>`).join('')}
         </div>
         <!-- Banner publicitário abaixo das notícias -->
-        <div class="ad-slot" style="height:100px;margin-top:1rem" id="ad-slot-mid">ESPAÇO PUBLICITÁRIO · 320×100</div>
+        <!-- ANÚNCIO 300×250 — meio das notícias -->
+        <div class="ad-slot ad-slot-mid" id="ad-slot-mid">
+          <script>atOptions={'key':'56c9f97553290d683f06c1af14b79688','format':'iframe','height':250,'width':300,'params':{}};</script>
+          <script src="https://www.highperformanceformat.com/56c9f97553290d683f06c1af14b79688/invoke.js"></script>
+        </div>
       </div>
       <div class="news-right-sidebar">
         <!-- Jogos de Hoje -->
@@ -499,6 +507,13 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <div class="sidebar-widget-title">Resultados Recentes</div>
           <div id="sidebar-resultados">
             <div class="sidebar-empty">Carregando...</div>
+          </div>
+        </div>
+        <!-- ANÚNCIO SIDEBAR 300×250 -->
+        <div class="sidebar-widget">
+          <div class="ad-slot" style="min-height:260px;border:1px solid var(--border);border-radius:4px;background:#f8f8f8">
+            <script>atOptions={'key':'56c9f97553290d683f06c1af14b79688','format':'iframe','height':250,'width':300,'params':{}};</script>
+            <script src="https://www.highperformanceformat.com/56c9f97553290d683f06c1af14b79688/invoke.js"></script>
           </div>
         </div>
       </div>
@@ -746,7 +761,36 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
             <input class="admin-input" type="password" id="cfg-pwd" placeholder="Nova senha">
           </div>
           <button class="admin-btn" onclick="saveConfig()">💾 Salvar Configurações</button>
-          <div id="cfg-success" style="color:#6f6;font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
+          <div id="cfg-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Configurações salvas!</div>
+
+          <!-- APIs EXTRAS -->
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+            <div class="admin-panel-title" style="font-size:14px">🔌 APIs de Notícias Extras</div>
+
+            <div style="background:#f0f8ff;border:1px solid #cce0ff;border-radius:6px;padding:1rem;margin-bottom:1.25rem;font-size:12px;color:#335">
+              <strong>TheSportsDB</strong> — ✅ Ativa (gratuita, sem chave)<br>
+              <span style="color:#666">Fornece dados de times, eventos e partidas da Copa 2026 automaticamente.</span>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">🗞️ GNews API Key
+                <a href="https://gnews.io" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em gnews.io</a>
+              </label>
+              <input class="admin-input" type="text" id="cfg-gnews" placeholder="Cole sua chave aqui (ex: abc123def456...)" value="${localStorage.getItem('cfg_gnews_key')||''}">
+              <div style="font-size:10px;color:#888;margin-top:4px">Traz notícias de futebol em português de portais brasileiros. Plano gratuito: 100 req/dia.</div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">⚽ API-Football Key (RapidAPI)
+                <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank" style="color:var(--red);font-weight:600;font-size:10px;margin-left:8px">→ Pegar chave grátis em rapidapi.com</a>
+              </label>
+              <input class="admin-input" type="text" id="cfg-rapidapi" placeholder="Cole sua X-RapidAPI-Key aqui" value="${localStorage.getItem('cfg_rapidapi_key')||''}">
+              <div style="font-size:10px;color:#888;margin-top:4px">Dados de jogos ao vivo, artilheiros e tabelas da Copa 2026. Plano gratuito: 100 req/dia.</div>
+            </div>
+
+            <button class="admin-btn" onclick="saveApiKeys()" style="width:auto;padding:10px 24px">🔑 Salvar Chaves de API</button>
+            <div id="api-key-success" style="color:var(--green);font-size:12px;margin-top:8px;display:none">✓ Chaves salvas! Recarregando dados...</div>
+          </div>
         </div>
       </div>
     </div>
@@ -832,6 +876,14 @@ const ESPN_BASE  = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.wo
 const ESPN_V2    = 'https://site.api.espn.com/apis/v2/sports/soccer/fifa.world';
 const REFRESH_MS = 60000; // 60 segundos
 
+// ── CHAVES DE API (configure no painel Admin ou aqui diretamente) ──────────
+let CFG = {
+  gnews_key:   localStorage.getItem('cfg_gnews_key')    || '',
+  rapidapi_key:localStorage.getItem('cfg_rapidapi_key') || '',
+};
+const SPORTSDB_BASE = 'https://www.thesportsdb.com/api/v1/json/3'; // free tier key = 3
+let extraNewsCache = []; // notícias extras (GNews + SportsDB)
+
 // Dados estáticos de fallback (usados se API falhar)
 const FALLBACK_GROUPS = {
   A:[{f:'🇲🇽',n:'México',pts:6,j:2,v:2,e:0,d:0,gp:5,gc:2,w:true,cl:'g'},
@@ -879,61 +931,4 @@ const FALLBACK_GROUPS = {
      {f:'🇵🇹',n:'Portugal',pts:1,j:2,v:0,e:1,d:1,gp:1,gc:1,cl:'n'},
      {f:'🇺🇿',n:'Uzbequistão',pts:0,j:1,v:0,e:0,d:1,gp:0,gc:2,cl:'n'}],
   L:[{f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',n:'Inglaterra',pts:3,j:1,v:1,e:0,d:0,gp:3,gc:1,cl:'n'},
-     {f:'🇬🇭',n:'Gana',pts:3,j:1,v:1,e:0,d:0,gp:2,gc:1,cl:'n'},
-     {f:'🇵🇦',n:'Panamá',pts:0,j:1,v:0,e:0,d:1,gp:1,gc:2,cl:'n'},
-     {f:'🇭🇷',n:'Croácia',pts:0,j:1,v:0,e:0,d:1,gp:1,gc:3,cl:'n'}]
-};
-
-const FALLBACK_SCORERS = [
-  {name:'Kylian Mbappé',team:'França',flag:'🇫🇷',goals:4,logo:''},
-  {name:'Erling Haaland',team:'Noruega',flag:'🇳🇴',goals:3,logo:''},
-  {name:'Julián Álvarez',team:'Argentina',flag:'🇦🇷',goals:3,logo:''},
-  {name:'Vinicius Jr.',team:'Brasil',flag:'🇧🇷',goals:2,logo:''},
-  {name:'Harry Kane',team:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',goals:2,logo:''},
-  {name:'Jamal Musiala',team:'Alemanha',flag:'🇩🇪',goals:2,logo:''},
-  {name:'Lamine Yamal',team:'Espanha',flag:'🇪🇸',goals:2,logo:''},
-  {name:'Rodrygo',team:'Brasil',flag:'🇧🇷',goals:1,logo:''},
-];
-
-const NEXT_GAMES = {
-  A:[['24/06','19h','🇰🇷 Cor. do Sul','🇲🇽 México'],['24/06','19h','🇿🇦 Áf. do Sul','🇨🇿 R.Tcheca']],
-  B:[['25/06','16h','🇨🇭 Suíça','🇨🇦 Canadá'],['25/06','16h','🇶🇦 Catar','🇧🇦 Bósnia']],
-  C:[['24/06','15h','🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia','🇧🇷 Brasil'],['24/06','15h','🇲🇦 Marrocos','🇭🇹 Haiti']],
-  D:[['25/06','21h','🇦🇺 Austrália','🇺🇸 EUA'],['25/06','21h','🇵🇾 Paraguai','🇹🇷 Turquia']],
-  E:[['26/06','19h','🇨🇮 Costa Marfim','🇩🇪 Alemanha'],['26/06','19h','🇪🇨 Equador','🇨🇼 Curaçao']],
-  F:[['26/06','13h','🇸🇪 Suécia','🇳🇱 Holanda'],['26/06','13h','🇹🇳 Tunísia','🇯🇵 Japão']],
-  G:[['26/06','19h','🇳🇿 Nova Zel.','🇪🇬 Egito'],['26/06','19h','🇮🇷 Irã','🇧🇪 Bélgica']],
-  H:[['26/06','22h','🇺🇾 Uruguai','🇪🇸 Espanha'],['26/06','22h','🇨🇻 Cabo Verde','🇸🇦 Ar.Saudita']],
-  I:[['25/06','16h','🇫🇷 França','🇸🇳 Senegal'],['25/06','16h','🇳🇴 Noruega','🇮🇶 Iraque']],
-  J:[['25/06','19h','🇦🇷 Argentina','🇦🇹 Áustria'],['25/06','19h','🇯🇴 Jordânia','🇩🇿 Argélia']],
-  K:[['26/06','19h','🇵🇹 Portugal','🇨🇴 Colômbia'],['26/06','19h','🇺🇿 Uzbequistão','🇨🇩 DR Congo']],
-  L:[['27/06','13h','🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra','🇬🇭 Gana'],['27/06','13h','🇵🇦 Panamá','🇭🇷 Croácia']]
-};
-
-// ─── STATE ─────────────────────────────────────────────────────────────────
-let currentGroup = 'C';
-let countdown = 60;
-let apiData = { scoreboard: null, standings: null, scorers: null, news: null };
-let usingFallback = { scoreboard: false, standings: false };
-
-// ─── HELPERS ───────────────────────────────────────────────────────────────
-function timeAgo(dateStr) {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const m = Math.floor(diff/60000), h = Math.floor(m/60), d = Math.floor(h/24);
-  if(m < 1) return 'agora';
-  if(m < 60) return `há ${m}min`;
-  if(h < 24) return `há ${h}h`;
-  return `há ${d} dia${d>1?'s':''}`;
-}
-
-function getStat(stats, name) {
-  if(!stats) return 0;
-  const s = stats.find(x => x.name === name || x.shortDisplayName === name);
-  return s ? (parseFloat(s.value)||0) : 0;
-}
-
-function flag(abbr) {
-  // Emoji flags por abreviação
-  const map = {
-    BRA:'🇧🇷',ARG:'🇦🇷',FRA:'🇫🇷',GER:'🇩🇪',ENG:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',ESP:'🇪🇸',POR:'🇵🇹',
-    USA:'🇺🇸',MEX:'🇲🇽'
+     {f:'🇬🇭',n:'G
