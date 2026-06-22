@@ -196,6 +196,24 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .empty{text-align:center;padding:3rem 1.25rem;color:#444}
 .empty-icon{font-size:40px;margin-bottom:10px}
 
+/* MODAL ARTIGO */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:none;overflow-y:auto;padding:0}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
+.modal-box{background:#0e0e1a;width:100%;max-width:780px;min-height:100vh;position:relative}
+.modal-hero{position:relative;height:320px;overflow:hidden;background:#001a44;flex-shrink:0}
+.modal-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,18,1) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
+.modal-close{position:fixed;top:14px;right:14px;background:#1a1a28;border:1px solid #2a2a3e;color:#fff;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1001;line-height:1}
+.modal-close:hover{background:#c8a400;color:#000;border-color:#c8a400}
+.modal-content{padding:1.5rem 2rem 3rem}
+.modal-tag{font-size:9px;font-weight:800;color:#cc0000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.modal-title{font-size:22px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:12px}
+.modal-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:#666;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #1c1c2e}
+.modal-body{font-size:14px;color:#ccc;line-height:1.75}
+.modal-body p{margin-bottom:1rem}
+.modal-body h2,.modal-body h3{color:#fff;font-size:16px;margin:1.5rem 0 .75rem}
+.modal-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.5rem 0}
+
 /* RESPONSIVE */
 @media(max-width:768px){
   .news-hero-row{grid-template-columns:1fr}
@@ -328,6 +346,21 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ARTIGO -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-close" onclick="closeArticle()">✕</button>
+    <div class="modal-hero" id="modal-hero"></div>
+    <div class="modal-content">
+      <div class="modal-tag" id="modal-tag"></div>
+      <h1 class="modal-title" id="modal-title"></h1>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
+      <div class="modal-body" id="modal-body"></div>
     </div>
   </div>
 </div>
@@ -798,6 +831,7 @@ function renderArtilheiros() {
 function renderNoticias() {
   const articles = apiData.news?.articles || [];
   const allNews  = articles.length >= 2 ? articles : getStaticNews();
+  allArticlesCache = allNews; // salva para o modal
 
   // ── HERO (article[0]) ──────────────────────────────────────────────────
   const heroEl = document.getElementById('news-hero-main');
@@ -821,9 +855,9 @@ function renderNoticias() {
         <span>Redação Copa ao Vivo</span>
         ${hero.published ? `<span>· ${timeAgo(hero.published)}</span>` : ''}
       </div>
-      <span class="news-hero-btn" onclick="window.open('${heroUrl}','_blank')">Ler mais →</span>
+      <span class="news-hero-btn" onclick="event.stopPropagation();openArticle(0)">Ler mais →</span>
     </div>`;
-  heroEl.onclick = (e) => { if(e.target.classList.contains('news-hero-btn')) return; window.open(heroUrl,'_blank'); };
+  heroEl.onclick = () => openArticle(0);
 
   // ── SIDEBAR — últimas notícias (articles[1..4]) ────────────────────────
   const sidebarEl = document.getElementById('news-sidebar-list');
@@ -834,7 +868,7 @@ function renderNoticias() {
       const title = traduzirTitulo(a.headline || a.title || 'Notícia');
       const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
       const url   = a.links?.web?.href || a.url || '#';
-      return `<div class="news-sidebar-item" onclick="window.open('${url}','_blank')">
+      return `<div class="news-sidebar-item" onclick="openArticle(${1+sideItems.indexOf(a)})">
         ${img
           ? `<img class="news-sidebar-thumb" src="${img}" onerror="this.outerHTML='<div class=\\'news-sidebar-thumb-ph\\'>⚽</div>'">`
           : `<div class="news-sidebar-thumb-ph">⚽</div>`}
@@ -860,7 +894,7 @@ function renderNoticias() {
       const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa 2026');
       const url   = a.links?.web?.href || a.url || '#';
       const date  = a.published ? timeAgo(a.published) : '';
-      return `<div class="news-card" onclick="window.open('${url}','_blank')">
+      return `<div class="news-card" onclick="openArticle(${5+gridNews.indexOf(a)})">
         ${img
           ? `<img class="news-card-img" src="${img}" onerror="this.outerHTML='<div class=\\'news-card-img-ph\\'>⚽</div>'">`
           : `<div class="news-card-img-ph">⚽</div>`}
@@ -1028,6 +1062,68 @@ function getStaticNews() {
     {headline:'Egito vence Nova Zelândia por 2–0 e assume liderança do Grupo G',description:'Os egípcios dominaram o jogo do início ao fim e se mantêm invictos no torneio com 4 pontos.',categories:[{description:'Grupo G'}],published:new Date(now-691200000).toISOString()},
   ];
 }
+
+// ─── MODAL ARTIGO ──────────────────────────────────────────────────────────
+let allArticlesCache = [];
+
+function openArticle(idx) {
+  const a = allArticlesCache[idx];
+  if(!a) return;
+
+  const img   = a.images?.[0]?.url || a.image || '';
+  const title = traduzirTitulo(a.headline || a.title || 'Notícia');
+  const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
+  const date  = a.published ? new Date(a.published).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+  const author= a.byline || 'Redação Copa ao Vivo';
+  const desc  = traduzirTitulo(a.description || '');
+  const story = traduzirTitulo(a.story || '');
+
+  // Hero
+  const heroEl = document.getElementById('modal-hero');
+  heroEl.innerHTML = img
+    ? `<img src="${img}" onerror="this.style.display='none'"><div class="modal-hero-overlay"></div>`
+    : '';
+  if(!img) heroEl.style.display = 'none';
+  else heroEl.style.display = 'block';
+
+  document.getElementById('modal-tag').textContent = cat;
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-meta').innerHTML =
+    `<span>✍️ ${author}</span>${date?`<span>🕐 ${date}</span>`:''}`;
+
+  // Body
+  const bodyEl = document.getElementById('modal-body');
+  if(story) {
+    // ESPN às vezes retorna HTML da matéria
+    bodyEl.innerHTML = story;
+  } else if(desc) {
+    // Só tem descrição — exibe parágrafo expandido
+    bodyEl.innerHTML = `<p>${desc}</p>
+      <p style="color:#555;font-size:13px;border-top:1px solid #1c1c2e;padding-top:1rem;margin-top:1.5rem">
+        Para ler a matéria completa acesse a fonte original.
+        ${a.links?.web?.href ? `<a href="${a.links.web.href}" target="_blank" style="color:#c8a400;text-decoration:underline">Ver matéria →</a>` : ''}
+      </p>`;
+  } else {
+    bodyEl.innerHTML = `<p style="color:#555">Conteúdo não disponível.</p>`;
+  }
+
+  // Abre modal
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modal-box').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeArticle() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModal(e) {
+  if(e.target === document.getElementById('modal-overlay')) closeArticle();
+}
+
+// Fecha com ESC
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeArticle(); });
 
 // ─── RENDER ALL ────────────────────────────────────────────────────────────
 function renderAll() {
