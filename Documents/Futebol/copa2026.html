@@ -1350,25 +1350,33 @@ function renderSelecao(){
 function openArticle(idx){
   const a=allArticlesCache[idx];
   if(!a)return;
+  const page=document.getElementById('art-page');
   const img=a.images?.[0]?.url||a.image||'';
-  const title=tx(a.headline||a.title||'');
+  const title=tx(a.headline||a.title||a.name||'Matéria especial Futebol 24H');
   const cat=tc(a.categories?.[0]?.description||'Copa 2026');
-  const body=a.story||a.description||'Conteúdo da matéria disponível no portal oficial.';
-  const bodyHtml=body.split('\n').filter(p=>p.trim()).map(p=>p.startsWith('## ')?`<h2>${p.slice(3)}</h2>`:`<p>${p}</p>`).join('');
-  document.getElementById('art-cat').textContent=cat;
-  document.getElementById('art-title').textContent=title;
-  document.getElementById('art-breadcrumb-cat').textContent=cat;
-  document.getElementById('art-meta').innerHTML=`<strong>${a.byline||'Redação'}</strong>${a.published?` · <span>${timeAgo(a.published)}</span>`:''}`;
-  document.getElementById('art-body').innerHTML=bodyHtml;
-  document.getElementById('art-img-wrap').innerHTML=img?`<img class="art-img-hero" src="${img}" onerror="this.style.display='none'">`:'' ;
+  const desc=tx(a.description||a.subtitle||a.headline||a.title||'');
+  const body=a.story||a.content||a.description||desc||'Conteúdo da matéria disponível no portal Futebol 24H.';
+  const plainBody=String(body).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+  const paragraphs=plainBody && plainBody!==title ? [plainBody] : [];
+  if(desc && desc!==plainBody && desc!==title) paragraphs.unshift(desc);
+  if(!paragraphs.length){
+    paragraphs.push('Acompanhe a cobertura completa no Futebol 24H, com informações atualizadas, bastidores, escalações e todos os detalhes da Copa do Mundo 2026.');
+  }
+  const bodyHtml=paragraphs.map(p=>`<p>${p}</p>`).join('');
+  page.querySelector('#art-cat').textContent=cat;
+  page.querySelector('#art-title').textContent=title;
+  page.querySelector('#art-breadcrumb-cat').textContent=cat;
+  page.querySelector('#art-meta').innerHTML=`<strong>${a.byline||'Redação'}</strong>${a.published?` · <span>${timeAgo(a.published)}</span>`:''}`;
+  page.querySelector('#art-body').innerHTML=bodyHtml;
+  page.querySelector('#art-img-wrap').innerHTML=img?`<img class="art-img-hero" src="${img}" onerror="this.style.display='none'">`:'' ;
   const rel=allArticlesCache.filter((_,i)=>i!==idx).slice(0,6);
-  document.getElementById('art-relacionadas').innerHTML=rel.map(r=>{
+  page.querySelector('#art-relacionadas').innerHTML=rel.map(r=>{
     const ri=allArticlesCache.indexOf(r);
     const ri2=ri>=0?ri:0;
     const rimg=r.images?.[0]?.url||r.image||'';
     return`<div class="art-rel" onclick="openArticle(${ri2})">${rimg?`<img src="${rimg}" onerror="this.outerHTML='<div class=\\'art-rel-ph\\'>⚽</div>'">`:'<div class="art-rel-ph">⚽</div>'}<div><div class="art-rel-title">${tx(r.headline||r.title||'')}</div><div class="art-rel-date">${r.published?timeAgo(r.published):''}</div></div></div>`;
   }).join('');
-  document.getElementById('art-page').classList.add('open');
+  page.classList.add('open');
   window.scrollTo(0,0);
 }
 function closeArticle(){
