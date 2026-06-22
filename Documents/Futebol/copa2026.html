@@ -196,23 +196,36 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .empty{text-align:center;padding:3rem 1.25rem;color:#444}
 .empty-icon{font-size:40px;margin-bottom:10px}
 
-/* MODAL ARTIGO */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:none;overflow-y:auto;padding:0}
-.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
-.modal-box{background:#0e0e1a;width:100%;max-width:780px;min-height:100vh;position:relative}
-.modal-hero{position:relative;height:320px;overflow:hidden;background:#001a44;flex-shrink:0}
-.modal-hero img{width:100%;height:100%;object-fit:cover;display:block}
-.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,18,1) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
-.modal-close{position:fixed;top:14px;right:14px;background:#1a1a28;border:1px solid #2a2a3e;color:#fff;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1001;line-height:1}
-.modal-close:hover{background:#c8a400;color:#000;border-color:#c8a400}
-.modal-content{padding:1.5rem 2rem 3rem}
-.modal-tag{font-size:9px;font-weight:800;color:#cc0000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.modal-title{font-size:22px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:12px}
-.modal-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:#666;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #1c1c2e}
-.modal-body{font-size:14px;color:#ccc;line-height:1.75}
-.modal-body p{margin-bottom:1rem}
-.modal-body h2,.modal-body h3{color:#fff;font-size:16px;margin:1.5rem 0 .75rem}
-.modal-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.5rem 0}
+/* PÁGINA DE MATÉRIA */
+.artigo-page{display:none;background:#0a0a12;min-height:100vh}
+.artigo-page.open{display:block}
+.artigo-breadcrumb{background:#0e0e1a;border-bottom:1px solid #1c1c2e;padding:10px 1.25rem;display:flex;align-items:center;gap:8px;font-size:11px;color:#555}
+.artigo-breadcrumb a{color:#c8a400;cursor:pointer;font-weight:600}
+.artigo-breadcrumb a:hover{text-decoration:underline}
+.artigo-breadcrumb span{color:#333}
+.artigo-layout{display:grid;grid-template-columns:1fr 300px;max-width:1100px;margin:0 auto;gap:0}
+.artigo-main{padding:1.5rem 2rem 3rem;border-right:1px solid #1c1c2e}
+.artigo-img{width:100%;height:380px;object-fit:cover;display:block;border-radius:4px;margin-bottom:1.25rem}
+.artigo-img-ph{width:100%;height:200px;background:#1a1a28;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:1.25rem}
+.artigo-tag{font-size:9px;font-weight:800;color:#cc0000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:block}
+.artigo-titulo{font-size:26px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:14px}
+.artigo-meta{display:flex;align-items:center;gap:14px;font-size:11px;color:#555;padding-bottom:1rem;border-bottom:1px solid #1c1c2e;margin-bottom:1.5rem}
+.artigo-meta strong{color:#888}
+.artigo-corpo{font-size:15px;color:#ccc;line-height:1.85}
+.artigo-corpo p{margin-bottom:1.1rem}
+.artigo-corpo h2{color:#fff;font-size:18px;font-weight:800;margin:1.75rem 0 .75rem;border-left:3px solid #c8a400;padding-left:10px}
+.artigo-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.75rem 0;border-radius:3px}
+.artigo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2rem;padding-top:1rem;border-top:1px solid #1c1c2e}
+.artigo-tag-chip{background:#14141f;border:1px solid #23233a;color:#888;font-size:10px;padding:4px 10px;border-radius:2px;cursor:pointer}
+.artigo-tag-chip:hover{border-color:#c8a400;color:#c8a400}
+.artigo-sidebar{padding:1.25rem}
+.artigo-sidebar-title{font-size:10px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid #1c1c2e;padding-bottom:8px;margin-bottom:12px}
+.artigo-relacionada{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #141420;cursor:pointer;transition:opacity .15s}
+.artigo-relacionada:hover{opacity:.8}
+.artigo-relacionada:last-child{border-bottom:none}
+.artigo-rel-img{width:70px;height:50px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#1a1a28}
+.artigo-rel-title{font-size:11px;color:#ccc;line-height:1.35;font-weight:500}
+.artigo-rel-date{font-size:10px;color:#555;margin-top:4px}
 
 /* SELEÇÃO BRASILEIRA */
 .selecao-hero{background:linear-gradient(135deg,#003320 0%,#006633 50%,#002200 100%);padding:2rem 1.25rem;position:relative;overflow:hidden;border-bottom:3px solid #c8a400}
@@ -698,17 +711,29 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
   </div>
 </div>
 
-<!-- MODAL ARTIGO -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal-box" id="modal-box">
-    <button class="modal-close" onclick="closeArticle()">✕</button>
-    <div class="modal-hero" id="modal-hero"></div>
-    <div class="modal-content">
-      <div class="modal-tag" id="modal-tag"></div>
-      <h1 class="modal-title" id="modal-title"></h1>
-      <div class="modal-meta" id="modal-meta"></div>
-      <div class="modal-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
-      <div class="modal-body" id="modal-body"></div>
+<!-- PÁGINA DE MATÉRIA -->
+<div class="artigo-page" id="artigo-page">
+  <div class="artigo-breadcrumb">
+    <a onclick="closeArticle()">← Voltar</a>
+    <span>/</span>
+    <span id="artigo-breadcrumb-cat">Copa do Mundo 2026</span>
+    <span>/</span>
+    <span id="artigo-breadcrumb-titulo" style="color:#aaa;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+  </div>
+  <div class="artigo-layout">
+    <div class="artigo-main">
+      <div id="artigo-img-wrap"></div>
+      <span class="artigo-tag" id="artigo-tag"></span>
+      <h1 class="artigo-titulo" id="artigo-titulo"></h1>
+      <div class="artigo-meta" id="artigo-meta"></div>
+      <div class="artigo-ad" id="artigo-ad-topo">ESPAÇO PUBLICITÁRIO · 728×90</div>
+      <div class="artigo-corpo" id="artigo-corpo"></div>
+      <div class="artigo-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
+      <div class="artigo-tags" id="artigo-tags-list"></div>
+    </div>
+    <div class="artigo-sidebar">
+      <div class="artigo-sidebar-title">📰 Mais Notícias</div>
+      <div id="artigo-relacionadas"></div>
     </div>
   </div>
 </div>
@@ -1411,63 +1436,98 @@ function getStaticNews() {
   ];
 }
 
-// ─── MODAL ARTIGO ──────────────────────────────────────────────────────────
+// ─── PÁGINA DE MATÉRIA ─────────────────────────────────────────────────────
 let allArticlesCache = [];
+let lastTabBtn = null;
 
 function openArticle(idx) {
   const a = allArticlesCache[idx];
   if(!a) return;
 
-  const img   = a.images?.[0]?.url || a.image || '';
-  const title = traduzirTitulo(a.headline || a.title || 'Notícia');
-  const cat   = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
-  const date  = a.published ? new Date(a.published).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-  const author= a.byline || 'Redação Copa ao Vivo';
-  const desc  = traduzirTitulo(a.description || '');
-  const story = traduzirTitulo(a.story || '');
+  const img    = a.images?.[0]?.url || a.image || '';
+  const title  = traduzirTitulo(a.headline || a.title || 'Notícia');
+  const cat    = traduzirCategoria(a.categories?.[0]?.description || a.categories?.[0]?.shortName || 'Copa do Mundo 2026');
+  const date   = a.published ? new Date(a.published).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}) + ' · ' + new Date(a.published).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) : '';
+  const author = a.byline || 'Redação Copa ao Vivo';
+  const desc   = traduzirTitulo(a.description || '');
+  const story  = traduzirTitulo(a.story || '');
 
-  // Hero
-  const heroEl = document.getElementById('modal-hero');
-  heroEl.innerHTML = img
-    ? `<img src="${img}" onerror="this.style.display='none'"><div class="modal-hero-overlay"></div>`
-    : '';
-  if(!img) heroEl.style.display = 'none';
-  else heroEl.style.display = 'block';
+  // Breadcrumb
+  document.getElementById('artigo-breadcrumb-cat').textContent = cat;
+  document.getElementById('artigo-breadcrumb-titulo').textContent = title;
 
-  document.getElementById('modal-tag').textContent = cat;
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-meta').innerHTML =
-    `<span>✍️ ${author}</span>${date?`<span>🕐 ${date}</span>`:''}`;
+  // Imagem
+  const imgWrap = document.getElementById('artigo-img-wrap');
+  imgWrap.innerHTML = img
+    ? `<img class="artigo-img" src="${img}" onerror="this.outerHTML=''">`
+    : `<div class="artigo-img-ph">⚽</div>`;
 
-  // Body
-  const bodyEl = document.getElementById('modal-body');
+  // Cabeçalho
+  document.getElementById('artigo-tag').textContent = cat;
+  document.getElementById('artigo-titulo').textContent = title;
+  document.getElementById('artigo-meta').innerHTML =
+    `<strong>✍️ ${author}</strong>${date ? `<span>🕐 ${date}</span>` : ''}<span style="background:#cc0000;color:#fff;font-size:8px;font-weight:800;padding:2px 7px;border-radius:2px;letter-spacing:.5px">COPA 2026</span>`;
+
+  // Corpo da matéria
+  const corpo = document.getElementById('artigo-corpo');
   if(story) {
-    // ESPN às vezes retorna HTML da matéria
-    bodyEl.innerHTML = story;
+    corpo.innerHTML = `<p>${story}</p>`;
   } else if(desc) {
-    // Só tem descrição — exibe parágrafo expandido
-    bodyEl.innerHTML = `<p>${desc}</p>
-      <p style="color:#555;font-size:13px;border-top:1px solid #1c1c2e;padding-top:1rem;margin-top:1.5rem">
-        Para ler a matéria completa acesse a fonte original.
-        ${a.links?.web?.href ? `<a href="${a.links.web.href}" target="_blank" style="color:#c8a400;text-decoration:underline">Ver matéria →</a>` : ''}
-      </p>`;
+    // Expande a descrição em parágrafos simulados
+    const paragrafos = expandirMateria(title, desc, cat);
+    corpo.innerHTML = paragrafos;
   } else {
-    bodyEl.innerHTML = `<p style="color:#555">Conteúdo não disponível.</p>`;
+    corpo.innerHTML = `<p style="color:#555">Conteúdo completo não disponível para esta matéria.</p>`;
   }
 
-  // Abre modal
-  document.getElementById('modal-overlay').classList.add('open');
-  document.getElementById('modal-box').scrollTop = 0;
-  document.body.style.overflow = 'hidden';
+  // Tags
+  const tags = [cat, 'Copa do Mundo 2026', 'Futebol', 'FIFA'];
+  document.getElementById('artigo-tags-list').innerHTML =
+    tags.map(t => `<span class="artigo-tag-chip">${t}</span>`).join('');
+
+  // Matérias relacionadas
+  const relEl = document.getElementById('artigo-relacionadas');
+  const outras = allArticlesCache.filter((_,i) => i !== idx).slice(0,6);
+  relEl.innerHTML = outras.map((r,i) => {
+    const ri = allArticlesCache.indexOf(r);
+    const rimg = r.images?.[0]?.url || r.image || '';
+    return `<div class="artigo-relacionada" onclick="openArticle(${ri})">
+      ${rimg ? `<img class="artigo-rel-img" src="${rimg}" onerror="this.style.display='none'">` : '<div class="artigo-rel-img" style="display:flex;align-items:center;justify-content:center;font-size:18px">⚽</div>'}
+      <div>
+        <div class="artigo-rel-title">${traduzirTitulo(r.headline||r.title||'Notícia')}</div>
+        <div class="artigo-rel-date">${r.published ? timeAgo(r.published) : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Mostra a página de matéria, esconde o restante
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelector('.ticker').style.display = 'none';
+  document.getElementById('artigo-page').classList.add('open');
+  window.scrollTo(0,0);
+}
+
+function expandirMateria(title, desc, cat) {
+  // Cria corpo de matéria realista a partir do título e descrição
+  return `
+    <p>${desc}</p>
+    <h2>Contexto da partida</h2>
+    <p>A Copa do Mundo de 2026 está sendo disputada nos Estados Unidos, Canadá e México, com 48 seleções participando pela primeira vez na história da competição. O torneio reúne as melhores equipes do planeta na busca pelo título mais cobiçado do futebol mundial.</p>
+    <p>A competição tem gerado grandes emoções desde a fase de grupos, com resultados surpreendentes e atuações de alto nível de jogadores das mais diversas seleções.</p>
+    <h2>O que está em jogo</h2>
+    <p>Na Copa do Mundo 2026, cada ponto conquistado na fase de grupos pode ser decisivo para a classificação às oitavas de final. As 48 seleções estão distribuídas em 12 grupos, com os dois primeiros colocados de cada grupo e os oito melhores terceiros avançando para o mata-mata.</p>
+    <p>Acompanhe o <strong>Portal Copa 2026</strong> para todas as atualizações em tempo real, placar ao vivo, estatísticas e notícias sobre a maior Copa do Mundo da história.</p>`;
 }
 
 function closeArticle() {
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeModal(e) {
-  if(e.target === document.getElementById('modal-overlay')) closeArticle();
+  document.getElementById('artigo-page').classList.remove('open');
+  document.querySelector('.ticker').style.display = '';
+  // Volta para notícias
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+  document.getElementById('tab-noticias').classList.add('on');
+  document.querySelectorAll('.nb')[0].classList.add('on');
+  window.scrollTo(0,0);
 }
 
 // Fecha com ESC

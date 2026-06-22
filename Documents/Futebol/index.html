@@ -196,23 +196,36 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
 .empty{text-align:center;padding:3rem 1.25rem;color:#444}
 .empty-icon{font-size:40px;margin-bottom:10px}
 
-/* MODAL ARTIGO */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:none;overflow-y:auto;padding:0}
-.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
-.modal-box{background:#0e0e1a;width:100%;max-width:780px;min-height:100vh;position:relative}
-.modal-hero{position:relative;height:320px;overflow:hidden;background:#001a44;flex-shrink:0}
-.modal-hero img{width:100%;height:100%;object-fit:cover;display:block}
-.modal-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,18,1) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
-.modal-close{position:fixed;top:14px;right:14px;background:#1a1a28;border:1px solid #2a2a3e;color:#fff;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1001;line-height:1}
-.modal-close:hover{background:#c8a400;color:#000;border-color:#c8a400}
-.modal-content{padding:1.5rem 2rem 3rem}
-.modal-tag{font-size:9px;font-weight:800;color:#cc0000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.modal-title{font-size:22px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:12px}
-.modal-meta{display:flex;align-items:center;gap:12px;font-size:11px;color:#666;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #1c1c2e}
-.modal-body{font-size:14px;color:#ccc;line-height:1.75}
-.modal-body p{margin-bottom:1rem}
-.modal-body h2,.modal-body h3{color:#fff;font-size:16px;margin:1.5rem 0 .75rem}
-.modal-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.5rem 0}
+/* PÁGINA DE MATÉRIA */
+.artigo-page{display:none;background:#0a0a12;min-height:100vh}
+.artigo-page.open{display:block}
+.artigo-breadcrumb{background:#0e0e1a;border-bottom:1px solid #1c1c2e;padding:10px 1.25rem;display:flex;align-items:center;gap:8px;font-size:11px;color:#555}
+.artigo-breadcrumb a{color:#c8a400;cursor:pointer;font-weight:600}
+.artigo-breadcrumb a:hover{text-decoration:underline}
+.artigo-breadcrumb span{color:#333}
+.artigo-layout{display:grid;grid-template-columns:1fr 300px;max-width:1100px;margin:0 auto;gap:0}
+.artigo-main{padding:1.5rem 2rem 3rem;border-right:1px solid #1c1c2e}
+.artigo-img{width:100%;height:380px;object-fit:cover;display:block;border-radius:4px;margin-bottom:1.25rem}
+.artigo-img-ph{width:100%;height:200px;background:#1a1a28;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:1.25rem}
+.artigo-tag{font-size:9px;font-weight:800;color:#cc0000;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;display:block}
+.artigo-titulo{font-size:26px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:14px}
+.artigo-meta{display:flex;align-items:center;gap:14px;font-size:11px;color:#555;padding-bottom:1rem;border-bottom:1px solid #1c1c2e;margin-bottom:1.5rem}
+.artigo-meta strong{color:#888}
+.artigo-corpo{font-size:15px;color:#ccc;line-height:1.85}
+.artigo-corpo p{margin-bottom:1.1rem}
+.artigo-corpo h2{color:#fff;font-size:18px;font-weight:800;margin:1.75rem 0 .75rem;border-left:3px solid #c8a400;padding-left:10px}
+.artigo-ad{background:#12121e;border:1px dashed #2a2a3e;height:90px;display:flex;align-items:center;justify-content:center;color:#444;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin:1.75rem 0;border-radius:3px}
+.artigo-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2rem;padding-top:1rem;border-top:1px solid #1c1c2e}
+.artigo-tag-chip{background:#14141f;border:1px solid #23233a;color:#888;font-size:10px;padding:4px 10px;border-radius:2px;cursor:pointer}
+.artigo-tag-chip:hover{border-color:#c8a400;color:#c8a400}
+.artigo-sidebar{padding:1.25rem}
+.artigo-sidebar-title{font-size:10px;font-weight:800;color:#c8a400;text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid #1c1c2e;padding-bottom:8px;margin-bottom:12px}
+.artigo-relacionada{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #141420;cursor:pointer;transition:opacity .15s}
+.artigo-relacionada:hover{opacity:.8}
+.artigo-relacionada:last-child{border-bottom:none}
+.artigo-rel-img{width:70px;height:50px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#1a1a28}
+.artigo-rel-title{font-size:11px;color:#ccc;line-height:1.35;font-weight:500}
+.artigo-rel-date{font-size:10px;color:#555;margin-top:4px}
 
 /* SELEÇÃO BRASILEIRA */
 .selecao-hero{background:linear-gradient(135deg,#003320 0%,#006633 50%,#002200 100%);padding:2rem 1.25rem;position:relative;overflow:hidden;border-bottom:3px solid #c8a400}
@@ -698,17 +711,29 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
   </div>
 </div>
 
-<!-- MODAL ARTIGO -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal-box" id="modal-box">
-    <button class="modal-close" onclick="closeArticle()">✕</button>
-    <div class="modal-hero" id="modal-hero"></div>
-    <div class="modal-content">
-      <div class="modal-tag" id="modal-tag"></div>
-      <h1 class="modal-title" id="modal-title"></h1>
-      <div class="modal-meta" id="modal-meta"></div>
-      <div class="modal-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
-      <div class="modal-body" id="modal-body"></div>
+<!-- PÁGINA DE MATÉRIA -->
+<div class="artigo-page" id="artigo-page">
+  <div class="artigo-breadcrumb">
+    <a onclick="closeArticle()">← Voltar</a>
+    <span>/</span>
+    <span id="artigo-breadcrumb-cat">Copa do Mundo 2026</span>
+    <span>/</span>
+    <span id="artigo-breadcrumb-titulo" style="color:#aaa;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+  </div>
+  <div class="artigo-layout">
+    <div class="artigo-main">
+      <div id="artigo-img-wrap"></div>
+      <span class="artigo-tag" id="artigo-tag"></span>
+      <h1 class="artigo-titulo" id="artigo-titulo"></h1>
+      <div class="artigo-meta" id="artigo-meta"></div>
+      <div class="artigo-ad" id="artigo-ad-topo">ESPAÇO PUBLICITÁRIO · 728×90</div>
+      <div class="artigo-corpo" id="artigo-corpo"></div>
+      <div class="artigo-ad">ESPAÇO PUBLICITÁRIO · 728×90</div>
+      <div class="artigo-tags" id="artigo-tags-list"></div>
+    </div>
+    <div class="artigo-sidebar">
+      <div class="artigo-sidebar-title">📰 Mais Notícias</div>
+      <div id="artigo-relacionadas"></div>
     </div>
   </div>
 </div>
@@ -1015,39 +1040,4 @@ function parseStandingsFromAPI() {
     const groups = {};
     const s = apiData.standings;
     // Try different ESPN standings structures
-    const entries = s.standings?.entries || s.children || s.groups || [];
-    entries.forEach(grp => {
-      const grpName = grp.abbreviation || grp.shortName || grp.name || '';
-      const letter = grpName.replace(/^.*?([A-L]).*$/,'$1');
-      if(!letter.match(/^[A-L]$/)) return;
-      const teams = [];
-      const teamEntries = grp.standings?.entries || grp.entries || [];
-      teamEntries.forEach(te => {
-        const stats = te.stats || [];
-        teams.push({
-          n: te.team?.displayName || te.team?.name || '?',
-          abbr: te.team?.abbreviation || '',
-          logo: te.team?.logos?.[0]?.href || te.team?.logo || '',
-          pts: getStat(stats,'points') || getStat(stats,'pts'),
-          j:   getStat(stats,'gamesPlayed') || getStat(stats,'played'),
-          v:   getStat(stats,'wins'),
-          e:   getStat(stats,'ties') || getStat(stats,'draws'),
-          d:   getStat(stats,'losses'),
-          gp:  getStat(stats,'pointsFor') || getStat(stats,'goalsFor') || getStat(stats,'gf'),
-          gc:  getStat(stats,'pointsAgainst') || getStat(stats,'goalsAgainst') || getStat(stats,'ga'),
-          cl:  'n'
-        });
-      });
-      // Sort by pts desc
-      teams.sort((a,b) => b.pts - a.pts || (b.gp-b.gc) - (a.gp-a.gc) || b.gp - a.gp);
-      if(teams.length >= 2) {
-        teams[0].cl = 'g'; teams[1].cl = 'g';
-        if(teams[3]) teams[3].cl = teams[3].pts===0 && teams[3].j>=2 ? 'e' : 'n';
-      }
-      groups[letter] = teams;
-    });
-    return Object.keys(groups).length ? groups : null;
-  } catch(e) { return null; }
-}
-
-func
+    const entries = 
