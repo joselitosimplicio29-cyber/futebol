@@ -465,7 +465,10 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <a>Ver todas →</a>
         </div>
         <div class="news-sidebar-list" id="news-sidebar-list">
-          ${[0,1,2,3].map(()=>`<div class="sk-sidebar-item"><div class="sk sk-thumb"></div><div class="sk-lines"><div class="sk sk-line"></div><div class="sk sk-line short"></div></div></div>`).join('')}
+          <div class="sk-sidebar-item"><div class="sk sk-thumb"></div><div class="sk-lines"><div class="sk sk-line"></div><div class="sk sk-line short"></div></div></div>
+          <div class="sk-sidebar-item"><div class="sk sk-thumb"></div><div class="sk-lines"><div class="sk sk-line"></div><div class="sk sk-line short"></div></div></div>
+          <div class="sk-sidebar-item"><div class="sk sk-thumb"></div><div class="sk-lines"><div class="sk sk-line"></div><div class="sk sk-line short"></div></div></div>
+          <div class="sk-sidebar-item"><div class="sk sk-thumb"></div><div class="sk-lines"><div class="sk sk-line"></div><div class="sk sk-line short"></div></div></div>
         </div>
       </div>
     </div>
@@ -485,7 +488,14 @@ table.gt{width:100%;border-collapse:collapse;font-size:12px}
           <a>Ver todas →</a>
         </div>
         <div class="news-grid-2" id="news-content">
-          ${[0,1,2,3,4,5,6,7].map(()=>`<div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>`).join('')}
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
+          <div class="sk-card"><div class="sk sk-card-img"></div><div class="sk-card-body"><div class="sk sk-card-line short"></div><div class="sk sk-card-line"></div><div class="sk sk-card-line"></div></div></div>
         </div>
         <!-- Banner publicitário abaixo das notícias -->
         <!-- ANÚNCIO 300×250 — meio das notícias -->
@@ -868,32 +878,4 @@ O Brasil abriu o placar aos 23 minutos com Vinicius Jr. em cobrança de falta pr
               <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Meio — 320×100</div>
               <div style="font-size:10px;color:#888;margin-bottom:8px">Abaixo do grid de notícias</div>
               <span class="banner-slot-status empty" id="bn-meio-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
-              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-meio" placeholder="URL do banner ou código HTML">
-              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('meio')">Salvar</button>
-            </div>
-            <div style="border:1px solid var(--border);border-radius:6px;padding:1rem">
-              <div style="font-size:11px;font-weight:800;color:#1a1a1a;margin-bottom:4px">📌 Banner Rodapé — 728×90</div>
-              <div style="font-size:10px;color:#888;margin-bottom:8px">Acima do rodapé do site</div>
-              <span class="banner-slot-status empty" id="bn-rodape-status" style="font-size:10px;margin-bottom:8px;display:inline-block">Vazio</span>
-              <input class="admin-input" style="margin:0;margin-top:8px" type="text" id="bn-rodape" placeholder="URL do banner ou código HTML">
-              <button class="admin-article-edit" style="margin-top:8px" onclick="saveBanner('rodape')">Salvar</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ═══ APIs ═══ -->
-        <div class="admin-panel" id="ap-apis">
-          <div class="admin-panel-title">🔌 APIs de Conteúdo</div>
-          <!-- ESPN -->
-          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:12px">
-            <div style="background:#f8f8f8;padding:10px 14px;display:flex;align-items:center;gap:10px">
-              <span style="font-size:18px">📡</span>
-              <div style="flex:1">
-                <div style="font-size:12px;font-weight:800;color:#1a1a1a">ESPN API</div>
-                <div style="font-size:10px;color:#888">Notícias, jogos ao vivo, artilheiros · Gratuita · Sem cadastro</div>
-              </div>
-              <span class="banner-slot-status active">✓ Ativa</span>
-            </div>
-          </div>
-          <!-- TheSportsDB -->
-          <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-
+              <input class="admin-input" style="margin:0;margin-top:8px" 
