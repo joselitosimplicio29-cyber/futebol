@@ -956,7 +956,16 @@ const REFRESH_MS = 60000;
 const ADMIN_PWD_KEY  = 'copa_admin_pwd';
 const ADMIN_ARTS_KEY = 'copa_articles';
 let adminPwd = localStorage.getItem(ADMIN_PWD_KEY) || 'copa2026';
-let adminArticles = JSON.parse(localStorage.getItem(ADMIN_ARTS_KEY)||'[]');
+function readStoredArticles(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(ADMIN_ARTS_KEY)||'[]');
+    return Array.isArray(parsed)?parsed:[];
+  }catch(e){
+    localStorage.removeItem(ADMIN_ARTS_KEY);
+    return [];
+  }
+}
+let adminArticles = readStoredArticles();
 let allArticlesCache = [];
 let apiData = { scoreboard:null, standings:null, scorers:null, news:null };
 let currentGroup = 'A';
@@ -1050,14 +1059,20 @@ function tc(c){return(c||'Copa 2026').replace(/Soccer/gi,'Futebol').replace(/Wor
 // ─── STATIC NEWS ───────────────────────────────────────────────────────────
 function getStaticNews(){
   return[
-    {headline:'Noruega x Senegal: onde assistir e escalações do jogo da Copa do Mundo',description:'Partida decisiva em Nova Jersey vale liderança do grupo e pode encaminhar a classificação.',categories:[{description:'Copa 2026'}],images:[{url:'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80'}],published:new Date(Date.now()-780000).toISOString()},
-    {headline:'Tempestade alaga estádio em França x Iraque; veja vídeo',description:'Chuva forte atrasou o aquecimento e mobilizou a organização antes da bola rolar.',categories:[{description:'Copa do Mundo'}],images:[{url:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1080000).toISOString()},
-    {headline:'Cristiano Ronaldo faz história e atinge nova marca em Copas do Mundo',description:'Atacante português chega a número inédito e amplia lista de recordes pela seleção.',categories:[{description:'Cristiano Ronaldo'}],images:[{url:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1980000).toISOString()},
-    {headline:'Confira como ficaram os grupos da Copa do Mundo 2026',description:'Veja todos os grupos, favoritos e os confrontos mais aguardados da primeira fase.',categories:[{description:'Grupos'}],images:[{url:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=700&q=80'}],published:new Date(Date.now()-2700000).toISOString()},
-    {headline:'Artilharia atualizada: os goleadores da Copa 2026',description:'Disputa pela chuteira de ouro esquenta após rodada cheia de gols.',categories:[{description:'Artilharia'}],images:[{url:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=700&q=80'}],published:new Date(Date.now()-3600000).toISOString()},
-    {headline:'Estatísticas completas da Copa do Mundo 2026',description:'Posse, finalizações, mapas de calor e ranking dos melhores desempenhos.',categories:[{description:'Estatísticas'}],images:[{url:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80'}],published:new Date(Date.now()-7200000).toISOString()},
-    {headline:'Calendário completo da Copa do Mundo 2026',description:'Datas, horários e cidades de todos os jogos até a grande final.',categories:[{description:'Calendário'}],images:[{url:'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=700&q=80'}],published:new Date(Date.now()-7200000).toISOString()},
-    {headline:'Chaveamento do mata-mata: veja o caminho até a final',description:'Simulações mostram possíveis duelos gigantes nas oitavas e quartas.',categories:[{description:'Mata-Mata'}],images:[{url:'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=700&q=80'}],published:new Date(Date.now()-10800000).toISOString()}
+    {headline:'Rodada decisiva da Copa 2026 começa com Brasil, França e Argentina em foco',description:'A fase de grupos entra na reta final com disputa intensa por vaga no novo mata-mata de 32 seleções.',categories:[{description:'Copa 2026'}],images:[{url:'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80'}],published:new Date(Date.now()-600000).toISOString()},
+    {headline:'Brasil mira classificação no Grupo C e pode encaminhar vaga contra o Paraguai',description:'Seleção brasileira acompanha combinação de resultados após vitórias e tropeços de rivais diretos.',categories:[{description:'Seleção'}],images:[{url:'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1020000).toISOString()},
+    {headline:'Tabela da Copa atualizada: Espanha, Japão e Alemanha lideram seus grupos',description:'Resultados recentes mexeram na classificação e aumentaram a pressão pelos melhores terceiros colocados.',categories:[{description:'Tabela'}],images:[{url:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1560000).toISOString()},
+    {headline:'Noruega x Senegal: onde assistir e prováveis escalações do jogo da Copa',description:'Partida pode mudar o cenário do Grupo I e colocar Haaland ainda mais perto do mata-mata.',categories:[{description:'Copa 2026'}],images:[{url:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-2400000).toISOString()},
+    {headline:'Argentina e França entram em semana decisiva por vaga no round de 32',description:'Messi e Mbappé puxam os holofotes em uma sequência com jogos que definem classificados e eliminados.',categories:[{description:'Internacional'}],images:[{url:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-3300000).toISOString()},
+    {headline:'Melhores terceiros: entenda os critérios de desempate da Copa 2026',description:'Pontos, saldo, gols marcados e cartões podem decidir oito vagas extras no mata-mata.',categories:[{description:'Estatísticas'}],images:[{url:'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-4200000).toISOString()},
+    {headline:'Artilharia atualizada: Mbappé, Haaland e Julián Álvarez brigam pela ponta',description:'A disputa pela chuteira de ouro esquenta com atacantes decisivos aparecendo nos jogos grandes.',categories:[{description:'Artilharia'}],images:[{url:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-5400000).toISOString()},
+    {headline:'Calendário da semana tem clássicos e duelos diretos por classificação',description:'Veja os jogos mais importantes entre 22 e 28 de junho na Copa do Mundo 2026.',categories:[{description:'Calendário'}],images:[{url:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-7200000).toISOString()},
+    {headline:'Espanha goleia, Japão impressiona e Alemanha vence jogo duro na rodada',description:'Favoritos europeus e asiáticos mostram força e assumem posição confortável nos grupos.',categories:[{description:'Copa 2026'}],images:[{url:'https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-9000000).toISOString()},
+    {headline:'Brasil, Marrocos e Escócia repetem clima de rivalidade histórica no Grupo C',description:'Grupo brasileiro revive confrontos marcantes e promete decisão até a última rodada.',categories:[{description:'Grupos'}],images:[{url:'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-10800000).toISOString()},
+    {headline:'Possíveis cruzamentos do mata-mata já colocam gigantes em rota de colisão',description:'Com o novo formato, líderes de grupo podem encarar terceiros perigosos logo no round de 32.',categories:[{description:'Mata-Mata'}],images:[{url:'https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-12600000).toISOString()},
+    {headline:'Estatísticas da Copa: ataques mais eficientes e defesas menos vazadas',description:'Números mostram quais seleções mais finalizam, controlam a posse e sofrem menos gols.',categories:[{description:'Estatísticas'}],images:[{url:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-14400000).toISOString()},
+    {headline:'Estados Unidos e Austrália fazem jogo aberto e embolam o Grupo D',description:'Empate com gols mantém disputa viva e aumenta peso dos critérios de desempate.',categories:[{description:'Internacional'}],images:[{url:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-16200000).toISOString()},
+    {headline:'Cristiano Ronaldo persegue nova marca e Portugal ainda busca regularidade',description:'Craque português tenta ampliar recordes enquanto a seleção ajusta o ataque para a sequência.',categories:[{description:'Internacional'}],images:[{url:'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-18000000).toISOString()}
   ];
 }
 
@@ -1079,10 +1094,21 @@ async function fetchData(){
 
 // ─── RENDER NOTÍCIAS ───────────────────────────────────────────────────────
 function renderNoticias(filter){
+  try{
   if(filter!==undefined) currentNewsFilter=filter;
-  const raw = apiData.news?.articles||[];
-  const espn = raw.length>=8?raw:getStaticNews();
-  allArticlesCache=[...adminArticles.filter(a=>a.status!=='draft'),...espn];
+  const raw = Array.isArray(apiData.news?.articles)?apiData.news.articles:[];
+  const staticNews=getStaticNews();
+  const apiNews=raw
+    .filter(a=>(a?.headline||a?.title) && (a?.description||a?.story))
+    .slice(0,8)
+    .map(a=>({
+      ...a,
+      headline:tx(a.headline||a.title||''),
+      description:tx(a.description||a.story||''),
+      categories:a.categories?.length?a.categories:[{description:'Copa 2026'}]
+    }));
+  const editorialNews=[...staticNews,...apiNews].slice(0,18);
+  allArticlesCache=[...adminArticles.filter(a=>a.status!=='draft'),...editorialNews];
 
   // tabs
   document.querySelectorAll('.news-tab').forEach(t=>{
@@ -1149,7 +1175,7 @@ function renderNoticias(filter){
   html+='</div></div>'; // close side-col + news-top
 
   // — GRID ROW: 5 cards abaixo do destaque —
-  const gridItems=list.slice(3,8);
+  const gridItems=list.slice(3,13);
   let count=0;
 
   // First row of 5
@@ -1173,6 +1199,25 @@ function renderNoticias(filter){
     html+='</div>';
   }
 
+  const row2=gridItems.slice(5,10);
+  if(row2.length){
+    html+='<div class="news-grid3">';
+    row2.forEach((a,i)=>{
+      const idx=allArticlesCache.indexOf(a);
+      html+=`<div class="news-grid-card" onclick="openArticle(${idx>=0?idx:i+8})">
+        <div class="news-grid-media">
+          ${cardImg(a,'news-grid-img','news-grid-img-ph')}
+          <div class="news-grid-cat">${tc(a.categories?.[0]?.description||'Copa 2026')}</div>
+        </div>
+        <div class="news-grid-body">
+          <div class="news-grid-title">${tx(a.headline||a.title||'')}</div>
+          <div class="news-grid-time">${a.published?timeAgo(a.published):''}</div>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+
   // — AD BANNER HORIZONTAL —
   html+=`<div class="news-ad-banner">
     <div class="news-ad-banner-txt"><h3>🏆 Copa do Mundo 2026 — Ao Vivo</h3><p>Fique por dentro de cada jogo, gol e artilheiro</p></div>
@@ -1184,6 +1229,17 @@ function renderNoticias(filter){
   </div>`;
 
   el.innerHTML=html;
+  }catch(e){
+    console.error('Erro ao renderizar notícias',e);
+    const el=document.getElementById('news-section');
+    if(el){
+      apiData.news=null;
+      currentNewsFilter='';
+      const fallback=getStaticNews();
+      allArticlesCache=fallback;
+      el.innerHTML=fallback.slice(0,8).map((a,i)=>`<div class="news-grid-card" onclick="openArticle(${i})" style="margin-bottom:12px"><div class="news-grid-body"><div class="news-grid-cat" style="position:static;display:inline-block;border-radius:3px;margin-bottom:8px">${tc(a.categories?.[0]?.description||'Copa 2026')}</div><div class="news-grid-title">${a.headline}</div><div class="news-grid-time">${timeAgo(a.published)}</div></div></div>`).join('');
+    }
+  }
 }
 
 
