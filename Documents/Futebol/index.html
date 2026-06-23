@@ -514,9 +514,6 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
     <div class="nav-item">
       <span class="nav-link" onclick="switchTab('videos',this)">Vídeos</span>
     </div>
-    <div class="nav-item">
-      <span class="nav-link" onclick="switchTab('admin',this)">Admin</span>
-    </div>
     <span class="nav-search" onclick="toggleSearch()">🔍</span>
   </div>
 </nav>
@@ -915,7 +912,22 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
         <input type="hidden" id="art-edit-id">
         <div class="admin-fg"><label class="admin-label">Título <span style="font-size:10px;color:#aaa;font-weight:400">(<span id="title-count">0</span>/120)</span></label><input class="admin-input" type="text" id="art-title" placeholder="Título da matéria" oninput="updateTitleCount(this)" maxlength="120"></div>
         <div class="admin-fg"><label class="admin-label">Subtítulo</label><input class="admin-input" type="text" id="art-lead" placeholder="Lead/subtítulo"></div>
-        <div class="admin-fg"><label class="admin-label">Categoria</label><select class="admin-input" id="art-cat"><option>Copa do Mundo 2026</option><option>Seleção Brasileira</option><option>Futebol Internacional</option><option>Mercado da Bola</option><option>Mata-Mata</option><option>Artilharia</option></select></div>
+        <div class="admin-fg">
+  <label class="admin-label">Categoria <span style="font-size:10px;color:#aaa;font-weight:400;text-transform:none">(define onde a matéria aparece no site)</span></label>
+  <select class="admin-input" id="art-cat" onchange="updateCatHint(this)">
+    <option value="Copa do Mundo 2026">Copa do Mundo 2026 → aba COPA 2026</option>
+    <option value="Seleção Brasileira">Seleção Brasileira → aba SELEÇÃO</option>
+    <option value="Futebol Internacional">Futebol Internacional → aba INTERNACIONAL</option>
+    <option value="Mercado da Bola">Mercado da Bola → aba MERCADO DA BOLA</option>
+    <option value="Mata-Mata">Mata-Mata → aba COPA 2026</option>
+    <option value="Artilharia">Artilharia → aba COPA 2026</option>
+    <option value="Gols &amp; Destaques">Gols &amp; Destaques → aba COPA 2026</option>
+    <option value="Bastidores">Bastidores → aba SELEÇÃO</option>
+  </select>
+  <div id="cat-hint" style="margin-top:6px;font-size:11px;color:var(--green);font-weight:700;display:none">
+    ✓ Esta matéria aparecerá em: <span id="cat-hint-txt"></span>
+  </div>
+</div>
         <div class="admin-fg"><label class="admin-label">URL da Imagem</label><input class="admin-input" type="text" id="art-img" placeholder="https://..." oninput="previewImg()"><div id="img-preview" style="display:none;margin-top:8px"><img id="img-preview-el" style="max-height:140px;border-radius:4px;border:1px solid var(--border)"></div></div>
         <div class="admin-fg">
           <label class="admin-label">Corpo da Matéria</label>
@@ -992,7 +1004,7 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
     <div class="art-category-bar">
       <span class="art-category-link on" onclick="switchTab('home')">Todas</span>
       <span class="art-category-link" onclick="renderNoticias('Copa 2026');switchTab('home')">Copa 2026</span>
-      <span class="art-category-link" onclick="renderNoticias('Sele');switchTab('home')">Selecao</span>
+      <span class="art-category-link" onclick="renderNoticias('Seleção');switchTab('home')">Selecao</span>
       <span class="art-category-link" onclick="renderNoticias('Mercado da Bola');switchTab('home')">Mercado da Bola</span>
       <span class="art-category-link" onclick="renderNoticias('Futebol Internacional');switchTab('home')">Internacional</span>
     </div>
@@ -1189,7 +1201,6 @@ function homePath(){
 // ─── STATIC NEWS ───────────────────────────────────────────────────────────
 function getStaticNews(){
   return[
-    {headline:'ARGENTINA NAS OITAVAS! MESSI FAZ HISTÓRIA NOVAMENTE!',description:'A Seleção Argentina garantiu sua vaga antecipada nas oitavas de final da Copa do Mundo de 2026 ao vencer a Áustria por 2 a 0 hoje, no AT&T Stadium. Messi marcou duas vezes e se tornou o maior artilheiro da história das Copas.',categories:[{description:'Copa 2026'}],images:[{url:'capa_argentina.png'}],published:new Date().toISOString(),story:'A Seleção Argentina garantiu sua vaga antecipada nas oitavas de final da Copa do Mundo de 2026 ao vencer a Áustria por 2 a 0 hoje, 22 de junho de 2026, no AT&T Stadium. O grande nome da noite foi, mais uma vez, Lionel Messi.\n\n### Resumo do Jogo\nA partida começou com um susto para os torcedores argentinos. Logo aos 8 minutos, a Argentina teve um pênalti a seu favor, mas Messi acabou finalizando para fora. No entanto, o craque mostrou por que é um dos maiores de todos os tempos ao não se abalar com o erro.\n\nAos 38 minutos do primeiro tempo, após uma bela jogada coletiva iniciada por Facundo Medina pela esquerda, a bola passou por Thiago Almada e sobrou para Messi, que não perdoou e abriu o placar.\n\nNo segundo tempo, a Áustria tentou buscar o empate e exigiu boas defesas do goleiro Emiliano \"Dibu\" Martínez. Mas, nos acréscimos da partida, Messi apareceu novamente. Em um contra-ataque veloz, ele driblou o goleiro Schlager e empurrou para o fundo das redes, selando a vitória por 2 a 0.\n\n### Recorde Histórico\nA noite não foi especial apenas pela classificação. Com os dois gols marcados hoje, Lionel Messi alcançou a marca de 18 gols em Copas do Mundo, tornando-se o maior artilheiro isolado da história da competição, superando o recorde anterior do alemão Miroslav Klose (16 gols).\n\n### Situação no Grupo J\nCom este resultado, a Argentina chega aos 6 pontos e garante matematicamente sua vaga na próxima fase do Mundial, consolidando-se como uma das grandes favoritas ao título.'},
     {headline:'Rodada decisiva da Copa 2026 começa com Brasil, França e Argentina em foco',description:'A fase de grupos entra na reta final com disputa intensa por vaga no novo mata-mata de 32 seleções.',categories:[{description:'Copa 2026'}],images:[{url:'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=1200&q=80'}],published:new Date(Date.now()-600000).toISOString()},
     {headline:'Brasil mira classificação no Grupo C e pode encaminhar vaga contra o Paraguai',description:'Seleção brasileira acompanha combinação de resultados após vitórias e tropeços de rivais diretos.',categories:[{description:'Seleção'}],images:[{url:'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1020000).toISOString()},
     {headline:'Tabela da Copa atualizada: Espanha, Japão e Alemanha lideram seus grupos',description:'Resultados recentes mexeram na classificação e aumentaram a pressão pelos melhores terceiros colocados.',categories:[{description:'Tabela'}],images:[{url:'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80'}],published:new Date(Date.now()-1560000).toISOString()},
@@ -1662,6 +1673,21 @@ function adminPanel(id,el){
   if(el)el.classList.add('on');
 }
 function updateTitleCount(el){document.getElementById('title-count').textContent=el.value.length;}
+function updateCatHint(sel){
+  const map={
+    'Copa do Mundo 2026':'aba COPA 2026',
+    'Seleção Brasileira':'aba SELEÇÃO',
+    'Futebol Internacional':'aba INTERNACIONAL',
+    'Mercado da Bola':'aba MERCADO DA BOLA',
+    'Mata-Mata':'aba COPA 2026',
+    'Artilharia':'aba COPA 2026',
+    'Gols & Destaques':'aba COPA 2026',
+    'Bastidores':'aba SELEÇÃO'
+  };
+  const hint=document.getElementById('cat-hint');
+  const txt=document.getElementById('cat-hint-txt');
+  if(hint&&txt){const where=map[sel.value]||'aba TODAS';txt.textContent=where;hint.style.display='block';}
+}
 function previewImg(){
   const url=document.getElementById('art-img').value.trim();
   const wrap=document.getElementById('img-preview');
@@ -1681,606 +1707,106 @@ function saveArticle(status){
   else adminArticles.unshift(art);
   localStorage.setItem(ADMIN_ARTS_KEY,JSON.stringify(adminArticles));
   renderNoticias();renderAdminArticles();renderAdminDashboard();
-  ['art-title','art-lead','art-body','art-img','art-tags','art-edit-id'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('art-featured').checked=false;
-  document.getElementById('img-preview').style.display='none';
-  document.getElementById('title-count').textContent='0';
-  document.getElementById('editor-title-label').textContent='✏️ Nova Matéria';
-  const ok=document.getElementById('art-success');
-  ok.textContent=status==='draft'?'💾 Rascunho salvo!':'✓ Matéria publicada!';
-  ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);
+  ['art-title','art-lead','art-body','art-img','art-tags','art-edit-id'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=entById(id);if(el)el.value='';});
+  const feat=document.getElementById('art-featured');if(feat)feat.checked=false;
+  const catHint=document.getElementById('cat-hint');if(catHint)catHint.style.display='none';
+  const catMap={'Copa do Mundo 2026':'Copa 2026','Seleção Brasileira':'Seleção','Futebol Internacional':'Internacional','Mercado da Bola':'Mercado da Bola','Mata-Mata':'Copa 2026','Artilharia':'Copa 2026','Gols & Destaques':'Copa 2026','Bastidores':'Seleção'};
+  const destTab=catMap[document.getElementById('art-cat')?.value]||'Todas';
+  const ok=document.getElementById('art-ok');
+  if(ok){ok.style.display='block';ok.textContent=status==='draft'?'💾 Rascunho salvo!':'✅ Publicado! Aparece na aba: '+destTab;setTimeout(()=>ok.style.display='none',4000);}
+  if(status==='published')adminPanel('materias');
 }
+
+function renderAdminDashboard(){
+  const total=adminArticles.length;
+  const pub=adminArticles.filter(a=>a.status==='published').length;
+  const draft=adminArticles.filter(a=>a.status==='draft').length;
+  const el=document.getElementById('admin-stats');
+  if(!el)return;
+  el.innerHTML=`
+    <div class="admin-stat-card"><span class="admin-stat-num">${total}</span><span class="admin-stat-label">Total de Matérias</span></div>
+    <div class="admin-stat-card"><span class="admin-stat-num" style="color:var(--green)">${pub}</span><span class="admin-stat-label">Publicadas</span></div>
+    <div class="admin-stat-card"><span class="admin-stat-num" style="color:#f59e0b">${draft}</span><span class="admin-stat-label">Rascunhos</span></div>
+    <div class="admin-stat-card"><span class="admin-stat-num" style="color:var(--red)">${adminArticles.filter(a=>a.featured).length}</span><span class="admin-stat-label">Destaques</span></div>`;
+  const recent=document.getElementById('admin-recent');
+  if(!recent)return;
+  const recents=adminArticles.filter(a=>a.status==='published').slice(0,5);
+  if(!recents.length){recent.innerHTML='<p style="color:#aaa;font-size:13px">Nenhuma matéria publicada ainda.</p>';return;}
+  recent.innerHTML=recents.map(a=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">
+      ${a.image?`<img src="${a.image}" style="width:52px;height:38px;object-fit:cover;border-radius:4px;flex-shrink:0">`:'<div style="width:52px;height:38px;background:#eee;border-radius:4px;flex-shrink:0"></div>'}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div>
+        <div style="font-size:11px;color:#888;margin-top:2px">${(a.categories[0]?.description||'Geral')} · ${new Date(a.published).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <button onclick="editArticle(${a.id})" style="font-size:11px;padding:3px 8px;background:var(--green);color:#fff;border:none;border-radius:3px;cursor:pointer">Editar</button>
+    </div>`).join('');
+}
+
+function renderAdminArticles(){
+  const container=document.getElementById('admin-arts-list');
+  if(!container)return;
+  const q=(document.getElementById('art-search')?.value||'').toLowerCase();
+  const f=document.getElementById('art-filter')?.value||'';
+  let arts=adminArticles.filter(a=>{
+    if(f&&a.status!==f)return false;
+    if(q&&!a.headline.toLowerCase().includes(q)&&!(a.categories[0]?.description||'').toLowerCase().includes(q))return false;
+    return true;
+  });
+  if(!arts.length){container.innerHTML='<p style="color:#aaa;font-size:13px;padding:20px 0">Nenhuma matéria encontrada.</p>';return;}
+  container.innerHTML=arts.map(a=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
+      ${a.image?`<img src="${a.image}" style="width:64px;height:46px;object-fit:cover;border-radius:4px;flex-shrink:0">`:'<div style="width:64px;height:46px;background:#f3f4f6;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px">📰</div>'}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div>
+        <div style="font-size:11px;color:#888;margin-top:3px;display:flex;gap:8px;align-items:center">
+          <span style="background:${a.status==='published'?'#dcfce7':'#fef9c3'};color:${a.status==='published'?'#166534':'#92400e'};padding:1px 6px;border-radius:10px;font-weight:600">${a.status==='published'?'✓ Publicado':'⏳ Rascunho'}</span>
+          <span>${a.categories[0]?.description||'Geral'}</span>
+          <span>${new Date(a.published).toLocaleDateString('pt-BR')}</span>
+          ${a.featured?'<span style="color:var(--red)">★ Destaque</span>':''}
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        <button onclick="editArticle(${a.id})" style="font-size:11px;padding:4px 10px;background:var(--green);color:#fff;border:none;border-radius:4px;cursor:pointer">✏️ Editar</button>
+        <button onclick="deleteArticle(${a.id})" style="font-size:11px;padding:4px 10px;background:#fee2e2;color:var(--red);border:none;border-radius:4px;cursor:pointer">🗑️ Excluir</button>
+      </div>
+    </div>`).join('');
+}
+
 function editArticle(id){
-  const a=adminArticles.find(x=>x.id===id);if(!a)return;
-  document.getElementById('art-title').value=a.headline||'';
-  document.getElementById('art-lead').value=a.subtitle||'';
-  document.getElementById('art-body').value=a.story||a.description||'';
-  document.getElementById('art-img').value=a.image||'';
-  document.getElementById('art-tags').value=(a.tags||[]).join(', ');
-  document.getElementById('art-featured').checked=a.featured||false;
-  document.getElementById('art-edit-id').value=a.id;
-  document.getElementById('editor-title-label').textContent='✏️ Editar Matéria';
-  document.getElementById('title-count').textContent=(a.headline||'').length;
-  if(a.image)previewImg();
-  adminPanel('nova',document.querySelectorAll('.admin-menu-item')[1]);
+  const a=adminArticles.find(x=>x.id===id);
+  if(!a)return;
+  adminPanel('nova');
+  setTimeout(()=>{
+    const set=(elId,val)=>{const el=document.getElementById(elId);if(el)el.value=val||'';};
+    set('art-title',a.headline);set('art-lead',a.subtitle);set('art-body',a.story||a.description);
+    set('art-img',a.image||'');set('art-tags',(a.tags||[]).join(', '));set('art-edit-id',a.id);
+    const cat=document.getElementById('art-cat');
+    if(cat){
+      const catVal=a.categories[0]?.description||'Copa do Mundo 2026';
+      [...cat.options].forEach(o=>{if(o.value===catVal)o.selected=true;});
+    }
+    const feat=document.getElementById('art-featured');if(feat)feat.checked=!!a.featured;
+    document.getElementById('title-count').textContent=(a.headline||'').length;
+    previewImg();
+  },50);
 }
+
 function deleteArticle(id){
   if(!confirm('Excluir esta matéria?'))return;
   adminArticles=adminArticles.filter(a=>a.id!==id);
   localStorage.setItem(ADMIN_ARTS_KEY,JSON.stringify(adminArticles));
-  renderAdminArticles();renderAdminDashboard();renderNoticias();
-}
-function renderAdminArticles(){
-  const el=document.getElementById('admin-articles-list');if(!el)return;
-  const search=(document.getElementById('art-search')?.value||'').toLowerCase();
-  const filter=document.getElementById('art-filter')?.value||'';
-  let list=adminArticles.filter(a=>(!search||a.headline.toLowerCase().includes(search))&&(!filter||a.status===filter));
-  if(!list.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:#888;font-size:12px">Nenhuma matéria ainda.</div>';return;}
-  el.innerHTML=list.map(a=>{
-    const img=a.image||a.images?.[0]?.url||'';
-    const sb=a.status==='draft'?'<span class="badge-dft">RASCUNHO</span>':'<span class="badge-pub">PUBLICADO</span>';
-    return`<div class="admin-art-row">${img?`<img src="${img}" style="width:64px;height:48px;object-fit:cover;border-radius:3px;flex-shrink:0">`:'<div style="width:64px;height:48px;background:#f0f0f0;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center">📰</div>'}<div style="flex:1;min-width:0">${sb}<div class="admin-art-title">${a.headline}</div><div style="font-size:10px;color:#888;margin-top:2px">${new Date(a.published).toLocaleDateString('pt-BR')}</div></div><div style="display:flex;gap:4px;flex-shrink:0"><button class="admin-art-btn" onclick="editArticle(${a.id})">✏️</button><button class="admin-art-btn del" onclick="deleteArticle(${a.id})">🗑</button></div></div>`;
-  }).join('');
-}
-function renderAdminDashboard(){
-  const pub=adminArticles.filter(a=>a.status!=='draft');
-  const drf=adminArticles.filter(a=>a.status==='draft');
-  document.getElementById('ad-total').textContent=pub.length;
-  document.getElementById('ad-drafts').textContent=drf.length;
-  document.getElementById('ad-apis-ok').textContent=apiData.scoreboard||apiData.news?'✓':'-';
-  const rec=document.getElementById('ad-recent-list');
-  if(!rec)return;
-  if(!pub.length){rec.innerHTML='<div style="color:#888;font-size:12px">Nenhuma matéria publicada ainda.</div>';return;}
-  rec.innerHTML=pub.slice(0,5).map(a=>`<div class="admin-art-row" onclick="editArticle(${a.id})" style="cursor:pointer">${a.image?`<img src="${a.image}" style="width:52px;height:38px;object-fit:cover;border-radius:3px;flex-shrink:0">`:'<div style="width:52px;height:38px;background:#f0f0f0;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px">📰</div>'}<div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div><div style="font-size:10px;color:#888;margin-top:2px">${new Date(a.published).toLocaleDateString('pt-BR')}</div></div><span style="font-size:11px;color:var(--green);flex-shrink:0">Editar →</span></div>`).join('');
-}
-function saveBanner(slot){const val=document.getElementById('bn-'+slot)?.value?.trim();if(!val)return;localStorage.setItem('copa_banner_'+slot,val);}
-function saveScore(){
-  const home=document.getElementById('score-home')?.value||'Brasil';
-  const away=document.getElementById('score-away')?.value||'Marrocos';
-  const hg=document.getElementById('score-home-goals')?.value||'0';
-  const ag=document.getElementById('score-away-goals')?.value||'0';
-  const status=document.getElementById('score-status')?.value||'AO VIVO';
-  localStorage.setItem('copa_live_score',JSON.stringify({home,away,hg,ag,status,updated:new Date().toISOString()}));
-  const ok=document.getElementById('score-success');
-  if(ok){ok.style.display='block';setTimeout(()=>ok.style.display='none',3000);}
-}
-function saveConfig(){
-  const pwd=document.getElementById('cfg-pwd').value;
-  if(pwd){adminPwd=pwd;localStorage.setItem(ADMIN_PWD_KEY,pwd);}
-  const s=document.getElementById('cfg-success');s.style.display='block';setTimeout(()=>s.style.display='none',3000);
+  renderNoticias();renderAdminArticles();renderAdminDashboard();
 }
 
-// ─── RENDER ALL ────────────────────────────────────────────────────────────
-function renderAll(){
+// Init
+window.addEventListener('DOMContentLoaded',()=>{
+  handleArticleRoute();
   renderNoticias();
   renderJogos();
-  buildGroupSelector();
-  renderGrupoContent();
-  renderArtilheiros();
-  renderSelecao();
-  renderCopa();
-  renderEstatisticas();
-}
-
-// ─── NEWS TABS ─────────────────────────────────────────────────────────────
-document.querySelectorAll('.news-tab').forEach(t=>{
-  t.addEventListener('click',()=>renderNoticias(t.dataset.cat));
 });
-
-// ─── COUNTDOWN ─────────────────────────────────────────────────────────────
-setInterval(()=>{
-  countdown--;
-  const el=document.getElementById('countdown');
-  if(el)el.textContent=countdown;
-  if(countdown<=0)fetchData();
-},1000);
-
-// ─── INIT ─────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',()=>{
-  if(adminArticles.length)renderNoticias();else renderNoticias();
-  buildGroupSelector();
-  renderGrupoContent();
-  renderArtilheiros();
-  renderSelecao();
-  renderCopa();
-  renderEstatisticas();
-  fetchData();
-});
-
-</script>
-
-<!-- ═══════════════════════════════════════════════════════════════
-     PÁGINA CALENDÁRIO DE JOGOS
-═══════════════════════════════════════════════════════════════ -->
-
-<!-- SUB-NAV COPA 2026 (visível quando tab-copa ou tab-calendario ativo) -->
-<style>
-/* ─── SUB-NAV ─── */
-.copa-subnav{background:var(--blue);display:none}
-.copa-subnav.show{display:block}
-.copa-subnav-inner{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;align-items:center;gap:0}
-.copa-subnav-label{color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;padding:10px 20px 10px 0;border-right:1px solid rgba(255,255,255,.2);margin-right:4px;white-space:nowrap}
-.copa-subnav-link{color:rgba(255,255,255,.75);font-size:13px;font-weight:600;padding:11px 16px;border-bottom:3px solid transparent;margin-bottom:-0px;white-space:nowrap;cursor:pointer;transition:color .2s,border-color .2s}
-.copa-subnav-link:hover{color:#fff}
-.copa-subnav-link.on{color:#fff;border-bottom-color:#fff}
-
-/* ─── CALENDÁRIO PAGE LAYOUT ─── */
-.cal-wrap{max-width:1200px;margin:0 auto;padding:1.5rem 1rem;display:grid;grid-template-columns:200px 1fr 260px;gap:1.2rem;align-items:start}
-
-/* FILTROS SIDEBAR */
-.cal-filters{background:#fff;border-radius:6px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.cal-filter-title{font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:var(--blue);margin-bottom:12px}
-.cal-filter-group{margin-bottom:14px}
-.cal-filter-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);margin-bottom:6px;display:block}
-
-/* Mini calendar */
-.mini-cal{background:#fff;border-radius:4px}
-.mini-cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.mini-cal-month{font-size:12px;font-weight:700;color:var(--dark)}
-.mini-cal-nav{background:none;border:none;cursor:pointer;color:var(--txt3);font-size:14px;padding:0 4px;line-height:1}
-.mini-cal-nav:hover{color:var(--dark)}
-.mini-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
-.mini-cal-dow{font-size:9px;font-weight:700;color:var(--txt3);text-transform:uppercase;padding:2px 0}
-.mini-cal-day{font-size:11px;color:var(--txt3);padding:3px 0;border-radius:3px;cursor:pointer;transition:background .15s}
-.mini-cal-day:hover{background:#f0f0f0;color:var(--dark)}
-.mini-cal-day.today{background:var(--blue);color:#fff;font-weight:700}
-.mini-cal-day.has-game{color:var(--dark);font-weight:600}
-.mini-cal-day.selected{background:var(--green);color:#fff;font-weight:700}
-.mini-cal-day.empty{color:transparent;cursor:default}
-
-.cal-select{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:inherit;color:var(--txt);background:#fff}
-.cal-select:focus{outline:none;border-color:var(--blue)}
-.cal-checkbox-row{display:flex;align-items:center;gap:7px;padding:4px 0;cursor:pointer;font-size:13px;color:var(--txt2)}
-.cal-checkbox-row input{accent-color:var(--blue)}
-
-/* MATCH CARDS */
-.cal-main{}
-.cal-date-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;background:#fff;border-radius:6px;padding:10px 14px;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.cal-date-btn{background:#f0f0f0;border:none;padding:6px 14px;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;color:var(--txt2);font-family:inherit;display:flex;align-items:center;gap:4px;transition:background .15s}
-.cal-date-btn:hover{background:#ddd}
-.cal-date-center{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--dark)}
-.cal-date-center span{font-size:18px}
-.cal-date-down{background:none;border:none;color:var(--txt3);cursor:pointer;font-size:12px;padding:0}
-
-.cal-day-label{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;text-transform:uppercase;color:var(--dark);margin:14px 0 6px;letter-spacing:.5px}
-.cal-day-label:first-child{margin-top:0}
-
-.match-card{background:#fff;border-radius:6px;margin-bottom:8px;display:grid;grid-template-columns:140px 1fr 120px;align-items:center;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.07);transition:box-shadow .2s}
-.match-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
-.match-card-left{padding:12px 14px;border-right:1px solid var(--border)}
-.match-card-time{font-size:18px;font-weight:900;color:#fff;background:var(--live);display:inline-block;padding:3px 10px;border-radius:3px;margin-bottom:4px;line-height:1.2}
-.match-card-time.pre{background:var(--green)}
-.match-card-time.fin{background:var(--fin)}
-.match-card-grp{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:2px}
-.match-card-stadium{font-size:10px;color:var(--txt3);line-height:1.3}
-.match-card-center{padding:12px 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.match-card-team{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
-.match-card-team-flag{font-size:32px;line-height:1}
-.match-card-team-name{font-size:12px;font-weight:700;color:var(--dark);text-align:center}
-.match-card-vs{font-size:22px;font-weight:900;color:var(--txt3);flex-shrink:0;padding:0 8px}
-.match-card-score{font-size:28px;font-weight:900;color:var(--dark);padding:0 12px;min-width:70px;text-align:center}
-.match-card-right{padding:12px 14px;border-left:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:8px}
-.match-card-status{font-size:11px;font-weight:800;padding:5px 12px;border-radius:3px;text-align:center;text-transform:uppercase;letter-spacing:.5px}
-.match-card-status.live{background:var(--live);color:#fff;animation:pulse .8s ease-in-out infinite alternate}
-.match-card-status.pre{background:var(--green);color:#fff}
-.match-card-status.fin{background:#f0f0f0;color:var(--fin)}
-.match-card-btn{font-size:11px;font-weight:700;padding:6px 14px;border-radius:3px;border:1px solid var(--border);background:#fff;color:var(--dark);cursor:pointer;font-family:inherit;transition:background .15s}
-.match-card-btn:hover{background:#f5f5f5}
-@keyframes pulse{from{opacity:1}to{opacity:.7}}
-
-/* SIDEBAR DIREITA CALENDÁRIO */
-.cal-sidebar{}
-.cal-side-box{background:#fff;border-radius:6px;overflow:hidden;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.cal-side-hdr{background:var(--dark);color:#fff;padding:10px 14px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
-.cal-side-hdr a{font-size:11px;color:#88aacc;font-family:'Barlow',sans-serif;font-weight:600;cursor:pointer}
-.cal-group-tabs{display:flex;border-bottom:1px solid var(--border)}
-.cal-group-tab{flex:1;padding:8px 4px;text-align:center;font-size:11px;font-weight:700;cursor:pointer;color:var(--txt3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s}
-.cal-group-tab.on{color:var(--blue);border-bottom-color:var(--blue)}
-.cal-mini-table{width:100%;border-collapse:collapse;font-size:12px}
-.cal-mini-table thead tr{background:#f8f8f8}
-.cal-mini-table th{padding:6px 8px;text-align:left;font-size:10px;text-transform:uppercase;color:var(--txt3);font-weight:700;border-bottom:1px solid var(--border)}
-.cal-mini-table th.c{text-align:center}
-.cal-mini-table td{padding:6px 8px;border-bottom:1px solid #f5f5f5}
-.cal-mini-table td.c{text-align:center;color:var(--txt2)}
-.cal-mini-table tr:last-child td{border-bottom:none}
-.cal-mini-table tr.q{background:#f0fff5}
-.cal-mini-ptb{font-weight:900;color:var(--dark)}
-.cal-scorer-row{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid #f5f5f5;font-size:12px}
-.cal-scorer-row:last-child{border-bottom:none}
-.cal-scorer-rank{width:20px;height:20px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--txt3);flex-shrink:0}
-.cal-scorer-rank.top{background:var(--blue);color:#fff}
-.cal-scorer-info{flex:1}
-.cal-scorer-name{font-weight:700;color:var(--dark)}
-.cal-scorer-team{font-size:10px;color:var(--txt3)}
-.cal-scorer-goals{font-weight:900;color:var(--dark);font-size:15px}
-.cal-next-match{padding:10px 14px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:10px}
-.cal-next-match:last-child{border-bottom:none}
-.cal-next-flags{display:flex;flex-direction:column;align-items:center;gap:0;font-size:22px;line-height:1.2;flex-shrink:0}
-.cal-next-x{font-size:9px;color:var(--txt3);font-weight:700;text-align:center}
-.cal-next-info{}
-.cal-next-teams{font-size:12px;font-weight:700;color:var(--dark)}
-.cal-next-date{font-size:11px;color:var(--green);font-weight:600}
-.cal-next-grp{font-size:10px;color:var(--txt3)}
-.cal-ad-block{background:var(--dark);border-radius:6px;overflow:hidden;padding:1.5rem;text-align:center;color:#fff;margin-bottom:1rem}
-.cal-ad-block h4{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase;line-height:1.2;margin-bottom:.5rem;color:var(--green)}
-.cal-ad-block p{font-size:11px;color:#888;margin-bottom:.5rem}
-.cal-ad-block .ad-btn{background:var(--green);color:#fff;font-weight:700;font-size:12px;padding:8px 20px;border-radius:3px;display:inline-block;text-transform:uppercase;margin-top:.5rem}
-
-@media(max-width:1000px){.cal-wrap{grid-template-columns:1fr}.cal-filters,.cal-sidebar{display:none}}
-</style>
-
-<!-- SUB-NAV -->
-<div class="copa-subnav" id="copa-subnav">
-  <div class="copa-subnav-inner">
-    <span class="copa-subnav-label">Copa do Mundo 2026</span>
-    <span class="copa-subnav-link" onclick="subNav('noticias',this)">Notícias</span>
-    <span class="copa-subnav-link" onclick="subNav('tabela',this)">Tabela</span>
-    <span class="copa-subnav-link" onclick="subNav('grupos',this)">Grupos</span>
-    <span class="copa-subnav-link on" onclick="subNav('calendario',this)">Calendário</span>
-    <span class="copa-subnav-link" onclick="subNav('artilheiros',this)">Artilharia</span>
-    <span class="copa-subnav-link" onclick="subNav('selecao',this)">Seleções</span>
-    <span class="copa-subnav-link" onclick="subNav('jogos',this)">Estadios</span>
-    <span class="copa-subnav-link" onclick="subNav('home',this)">História</span>
-  </div>
-</div>
-
-<!-- ========== CALENDÁRIO ========== -->
-<div id="tab-calendario" class="tab-panel">
-<div class="cal-wrap">
-
-  <!-- FILTROS -->
-  <div class="cal-filters">
-    <div class="cal-filter-title">🔽 Filtros</div>
-
-    <div class="cal-filter-group">
-      <span class="cal-filter-label">Data</span>
-      <div class="mini-cal" id="mini-cal"></div>
-    </div>
-
-    <div class="cal-filter-group">
-      <span class="cal-filter-label">Fase</span>
-      <select class="cal-select" id="cal-fase" onchange="applyCalFilters()">
-        <option value="">Todas as fases</option>
-        <option value="groups">Fase de Grupos</option>
-        <option value="r16">Oitavas de Final</option>
-        <option value="qf">Quartas de Final</option>
-        <option value="sf">Semifinais</option>
-        <option value="final">Final</option>
-      </select>
-    </div>
-
-    <div class="cal-filter-group">
-      <span class="cal-filter-label">Grupo</span>
-      <select class="cal-select" id="cal-grupo" onchange="applyCalFilters()">
-        <option value="">Todos os grupos</option>
-        <option>Grupo A</option><option>Grupo B</option><option>Grupo C</option>
-        <option>Grupo D</option><option>Grupo E</option><option>Grupo F</option>
-        <option>Grupo G</option><option>Grupo H</option><option>Grupo I</option>
-        <option>Grupo J</option><option>Grupo K</option><option>Grupo L</option>
-      </select>
-    </div>
-
-    <div class="cal-filter-group">
-      <span class="cal-filter-label">Status</span>
-      <label class="cal-checkbox-row"><input type="checkbox" id="f-todos" checked onchange="applyCalFilters()"> Todos</label>
-      <label class="cal-checkbox-row"><input type="checkbox" id="f-live" onchange="applyCalFilters()"> Ao vivo (<span id="f-live-count">0</span>)</label>
-      <label class="cal-checkbox-row"><input type="checkbox" id="f-pre" onchange="applyCalFilters()"> Próximos</label>
-      <label class="cal-checkbox-row"><input type="checkbox" id="f-fin" onchange="applyCalFilters()"> Encerrados</label>
-    </div>
-  </div>
-
-  <!-- PARTIDAS -->
-  <div class="cal-main">
-    <div class="cal-date-nav">
-      <button class="cal-date-btn" onclick="calChangeDay(-1)">‹ Anterior</button>
-      <div class="cal-date-center">
-        <span>📅</span>
-        <span id="cal-date-label">Segunda-feira, 22 de Junho de 2026</span>
-        <button class="cal-date-down">▾</button>
-      </div>
-      <button class="cal-date-btn" onclick="calChangeDay(1)">Próximo ›</button>
-    </div>
-    <div id="cal-matches-container">
-      <div style="text-align:center;padding:3rem;color:#888"><div style="font-size:32px;margin-bottom:.5rem">⏳</div>Carregando partidas...</div>
-    </div>
-  </div>
-
-  <!-- SIDEBAR DIREITA -->
-  <div class="cal-sidebar">
-
-    <!-- CLASSIFICAÇÃO -->
-    <div class="cal-side-box">
-      <div class="cal-side-hdr">Classificação dos Grupos <a onclick="switchTab('grupos',null)">Ver tabela completa</a></div>
-      <div class="cal-group-tabs" id="cal-grp-tabs">
-        <span class="cal-group-tab on" onclick="calSelectGrp('A',this)">GRUPO A</span>
-        <span class="cal-group-tab" onclick="calSelectGrp('B',this)">GRUPO B</span>
-        <span class="cal-group-tab" onclick="calSelectGrp('C',this)">GRUPO C</span>
-        <span class="cal-group-tab" onclick="calSelectGrp('D',this)">GRUPO D</span>
-      </div>
-      <div style="padding:0 0 4px">
-        <table class="cal-mini-table" id="cal-grp-table">
-          <thead><tr><th class="c">#</th><th>Seleção</th><th class="c">P</th><th class="c">J</th><th class="c">V</th><th class="c">E</th><th class="c">D</th><th class="c">SG</th></tr></thead>
-          <tbody id="cal-grp-tbody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- ARTILHARIA -->
-    <div class="cal-side-box">
-      <div class="cal-side-hdr">Artilharia <a onclick="switchTab('artilheiros',null)">Ver ranking completo</a></div>
-      <div id="cal-scorers-list">
-        <div class="cal-scorer-row"><div class="cal-scorer-rank top">1</div><div style="font-size:16px">🇫🇷</div><div class="cal-scorer-info"><div class="cal-scorer-name">K. Mbappé</div><div class="cal-scorer-team">França</div></div><div class="cal-scorer-goals">4 <small style="font-size:9px;color:#888">gols</small></div></div>
-        <div class="cal-scorer-row"><div class="cal-scorer-rank top">2</div><div style="font-size:16px">🇦🇷</div><div class="cal-scorer-info"><div class="cal-scorer-name">L. Messi</div><div class="cal-scorer-team">Argentina</div></div><div class="cal-scorer-goals">3</div></div>
-        <div class="cal-scorer-row"><div class="cal-scorer-rank top">3</div><div style="font-size:16px">🇧🇷</div><div class="cal-scorer-info"><div class="cal-scorer-name">V. Júnior</div><div class="cal-scorer-team">Brasil</div></div><div class="cal-scorer-goals">2</div></div>
-        <div class="cal-scorer-row"><div class="cal-scorer-rank">4</div><div style="font-size:16px">🇨🇭</div><div class="cal-scorer-info"><div class="cal-scorer-name">B. Embolo</div><div class="cal-scorer-team">Suíça</div></div><div class="cal-scorer-goals">2</div></div>
-      </div>
-    </div>
-
-    <!-- PRÓXIMOS BRASIL -->
-    <div class="cal-side-box">
-      <div class="cal-side-hdr">Próximos Jogos do Brasil <a onclick="switchTab('jogos',null)">Ver todos</a></div>
-      <div class="cal-next-match">
-        <div class="cal-next-flags"><span>🇧🇷</span><div class="cal-next-x">×</div><span>🇵🇾</span></div>
-        <div class="cal-next-info">
-          <div class="cal-next-teams">Brasil × Paraguai</div>
-          <div class="cal-next-date">28/06 · 16:00</div>
-          <div class="cal-next-grp">Grupo C – Fase de Grupos</div>
-        </div>
-      </div>
-      <div class="cal-next-match">
-        <div class="cal-next-flags"><span>🇧🇷</span><div class="cal-next-x">×</div><span>🇯🇲</span></div>
-        <div class="cal-next-info">
-          <div class="cal-next-teams">Brasil × Jamaica</div>
-          <div class="cal-next-date">02/07 · 22:00</div>
-          <div class="cal-next-grp">Grupo C – Fase de Grupos</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AD -->
-    <div class="cal-ad-block">
-      <h4>JOGUE COM RESPONSABILIDADE</h4>
-      <p>Análises e palpites da Copa 2026</p>
-      <a class="ad-btn">REGISTRE-SE</a>
-    </div>
-
-  </div><!-- /cal-sidebar -->
-</div><!-- /cal-wrap -->
-</div><!-- /tab-calendario -->
-
-<script>
-// ─── SUB-NAV ───────────────────────────────────────────────────────────────
-const COPA_TABS = ['copa','calendario','grupos','artilheiros','selecao'];
-function showSubNav(id){
-  const sn = document.getElementById('copa-subnav');
-  if(sn) sn.classList.toggle('show', COPA_TABS.includes(id));
-}
-
-const _switchTab = switchTab;
-function switchTab(id, btn){
-  _switchTab(id, btn);
-  showSubNav(id);
-}
-
-function subNav(id, el){
-  const articlePage=document.getElementById('art-page');
-  if(articlePage)articlePage.classList.remove('open');
-  currentArticleSlug='';
-  if(location.pathname.startsWith('/noticia/')||location.hash.startsWith('#/noticia/'))history.pushState({},'',`${homePath()}#${id}`);
-  document.querySelectorAll('.copa-subnav-link').forEach(l=>l.classList.remove('on'));
-  if(el) el.classList.add('on');
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('on'));
-  const panel = document.getElementById('tab-'+id);
-  if(panel) panel.classList.add('on');
-  if(id==='grupos'){buildGroupSelector();renderGrupoContent();}
-  if(id==='calendario'){renderCalendar();}
-  showSubNav(id);
-  window.scrollTo(0,0);
-}
-
-// ─── MINI CALENDAR ─────────────────────────────────────────────────────────
-let calSelectedDate = new Date();
-let calViewMonth = new Date(calSelectedDate);
-
-function renderMiniCal(){
-  const el = document.getElementById('mini-cal');
-  if(!el) return;
-  const today = new Date();
-  const yr = calViewMonth.getFullYear();
-  const mo = calViewMonth.getMonth();
-  const firstDay = new Date(yr, mo, 1).getDay();
-  const daysInMonth = new Date(yr, mo+1, 0).getDate();
-  const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  const dows = ['D','S','T','Q','Q','S','S'];
-
-  let html = `<div class="mini-cal-hdr">
-    <button class="mini-cal-nav" onclick="calMonthNav(-1)">‹</button>
-    <span class="mini-cal-month">${months[mo]} ${yr}</span>
-    <button class="mini-cal-nav" onclick="calMonthNav(1)">›</button>
-  </div>
-  <div class="mini-cal-grid">
-    ${dows.map(d=>`<div class="mini-cal-dow">${d}</div>`).join('')}
-    ${Array(firstDay).fill('<div class="mini-cal-day empty">0</div>').join('')}
-    ${Array.from({length:daysInMonth},(_,i)=>{
-      const d = i+1;
-      const date = new Date(yr,mo,d);
-      const isToday = d===today.getDate()&&mo===today.getMonth()&&yr===today.getFullYear();
-      const isSel = d===calSelectedDate.getDate()&&mo===calSelectedDate.getMonth()&&yr===calSelectedDate.getFullYear();
-      const hasGame = mo===5&&d>=11&&d<=30; // June games (Copa 2026)
-      const cls = [isToday&&!isSel?'today':'', isSel?'selected':'', hasGame&&!isToday&&!isSel?'has-game':''].filter(Boolean).join(' ');
-      return `<div class="mini-cal-day ${cls}" onclick="calSelectDate(${yr},${mo},${d})">${d}</div>`;
-    }).join('')}
-  </div>`;
-  el.innerHTML = html;
-}
-function calMonthNav(dir){
-  calViewMonth.setMonth(calViewMonth.getMonth()+dir);
-  renderMiniCal();
-}
-function calSelectDate(yr,mo,d){
-  calSelectedDate = new Date(yr,mo,d);
-  renderMiniCal();
-  renderCalendar();
-}
-
-// ─── CALENDAR MATCHES ──────────────────────────────────────────────────────
-const CAL_STATIC = [
-  {date:'2026-06-22',time:'13:00',grp:'Grupo A',stadium:'MetLife Stadium',city:'Nova Jersey, EUA',h:{name:'Canadá',flag:'🇨🇦'},a:{name:'Chile',flag:'🇨🇱'},state:'in',hsc:1,asc:0},
-  {date:'2026-06-22',time:'16:00',grp:'Grupo B',stadium:'BMO Field',city:'Toronto, Canadá',h:{name:'Austrália',flag:'🇦🇺'},a:{name:'Espanha',flag:'🇪🇸'},state:'in',hsc:0,asc:2},
-  {date:'2026-06-22',time:'19:00',grp:'Grupo C',stadium:'SoFi Stadium',city:'Los Angeles, EUA',h:{name:'Brasil',flag:'🇧🇷'},a:{name:'Escócia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-22',time:'22:00',grp:'Grupo D',stadium:'AT&T Stadium',city:'Dallas, EUA',h:{name:'França',flag:'🇫🇷'},a:{name:'Arábia Saudita',flag:'🇸🇦'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-23',time:'13:00',grp:'Grupo E',stadium:'Mercedes-Benz Stadium',city:'Atlanta, EUA',h:{name:'Alemanha',flag:'🇩🇪'},a:{name:'Japão',flag:'🇯🇵'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-23',time:'16:00',grp:'Grupo F',stadium:'Rose Bowl',city:'Los Angeles, EUA',h:{name:'Holanda',flag:'🇳🇱'},a:{name:'Tunísia',flag:'🇹🇳'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-23',time:'19:00',grp:'Grupo G',stadium:'Estadio Azteca',city:'Cidade do México, MEX',h:{name:'Bélgica',flag:'🇧🇪'},a:{name:'Egito',flag:'🇪🇬'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-23',time:'22:00',grp:'Grupo H',stadium:'Arrowhead Stadium',city:'Kansas City, EUA',h:{name:'Espanha',flag:'🇪🇸'},a:{name:'Cabo Verde',flag:'🇨🇻'},state:'pre',hsc:null,asc:null},
-  {date:'2026-06-21',time:'13:00',grp:'Grupo A',stadium:'MetLife Stadium',city:'Nova Jersey, EUA',h:{name:'México',flag:'🇲🇽'},a:{name:'África do Sul',flag:'🇿🇦'},state:'post',hsc:2,asc:0},
-  {date:'2026-06-21',time:'16:00',grp:'Grupo B',stadium:'BMO Field',city:'Toronto, Canadá',h:{name:'Argentina',flag:'🇦🇷'},a:{name:'México',flag:'🇲🇽'},state:'post',hsc:3,asc:1},
-  {date:'2026-06-21',time:'19:00',grp:'Grupo D',stadium:'AT&T Stadium',city:'Dallas, EUA',h:{name:'França',flag:'🇫🇷'},a:{name:'Holanda',flag:'🇳🇱'},state:'post',hsc:1,asc:1},
-  {date:'2026-06-21',time:'22:00',grp:'Grupo E',stadium:'Mercedes-Benz Stadium',city:'Atlanta, EUA',h:{name:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},a:{name:'Polônia',flag:'🇵🇱'},state:'post',hsc:2,asc:0},
-];
-
-let calCurrentDate = new Date();
-
-function calChangeDay(dir){
-  calCurrentDate.setDate(calCurrentDate.getDate()+dir);
-  calSelectedDate = new Date(calCurrentDate);
-  renderMiniCal();
-  renderCalendar();
-}
-
-function applyCalFilters(){ renderCalendar(); }
-
-function renderCalendar(){
-  const el = document.getElementById('cal-matches-container');
-  if(!el) return;
-
-  // Update date label
-  const opts = {weekday:'long',day:'numeric',month:'long',year:'numeric'};
-  const dateStr = calSelectedDate.toLocaleDateString('pt-BR',opts);
-  const capDate = dateStr.charAt(0).toUpperCase()+dateStr.slice(1);
-  document.getElementById('cal-date-label').textContent = capDate;
-
-  // Use ESPN data or static
-  const events = apiData.scoreboard?.events || [];
-  const selDateStr = calSelectedDate.toISOString().split('T')[0];
-
-  let matches;
-  if(events.length){
-    const liveCount = events.filter(e=>e.status.type.state==='in').length;
-    const f = document.getElementById('f-live-count');
-    if(f) f.textContent = liveCount;
-
-    matches = events.map(e=>{
-      const c = e.competitions[0];
-      const h = c.competitors.find(x=>x.homeAway==='home')||c.competitors[0];
-      const a = c.competitors.find(x=>x.homeAway==='away')||c.competitors[1];
-      const st = e.status.type.state;
-      const t = new Date(e.date).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-      return{date:e.date.split('T')[0],time:t,grp:c.notes?.[0]?.headline||'Copa 2026',stadium:c.venue?.fullName||'',city:'',h:{name:h.team.displayName,flag:flag(h.team.abbreviation)},a:{name:a.team.displayName,flag:flag(a.team.abbreviation)},state:st,hsc:st!=='pre'?parseInt(h.score)||0:null,asc:st!=='pre'?parseInt(a.score)||0:null};
-    });
-  } else {
-    // Use static + filter by selected date
-    matches = CAL_STATIC;
-  }
-
-  // Group by day
-  const byDay = {};
-  matches.forEach(m=>{
-    const d = m.date || selDateStr;
-    if(!byDay[d]) byDay[d]=[];
-    byDay[d].push(m);
-  });
-
-  const days = Object.keys(byDay).sort();
-  if(!days.length){
-    el.innerHTML='<div style="text-align:center;padding:3rem;color:#888"><div style="font-size:32px;margin-bottom:.5rem">📭</div>Nenhuma partida nesta data.</div>';
-    return;
-  }
-
-  const dayNames = {
-    '2026-06-21':'Domingo, 21 de Junho de 2026',
-    '2026-06-22':'Segunda-feira, 22 de Junho de 2026',
-    '2026-06-23':'Terça-feira, 23 de Junho de 2026'
-  };
-
-  el.innerHTML = days.map(day=>{
-    const label = dayNames[day] || new Date(day+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    const capLabel = label.charAt(0).toUpperCase()+label.slice(1);
-    return `<div class="cal-day-label">${capLabel}</div>`+
-    byDay[day].map(m=>{
-      const stClass = m.state==='in'?'live':m.state==='pre'?'pre':'fin';
-      const stTxt = m.state==='in'?'AO VIVO':m.state==='pre'?'PRÓXIMO':'ENCERRADO';
-      const btnTxt = m.state==='in'?'Acompanhe':m.state==='pre'?'Pré-jogo':'Resultado';
-      const scoreOrVs = m.state==='pre'
-        ? `<div class="match-card-vs">X</div>`
-        : `<div class="match-card-score">${m.hsc??0} – ${m.asc??0}</div>`;
-      return`<div class="match-card">
-        <div class="match-card-left">
-          <div class="match-card-time ${stClass}">${m.time}</div>
-          <div class="match-card-grp">${m.grp}</div>
-          <div class="match-card-stadium">${m.stadium}${m.city?'<br>'+m.city:''}</div>
-        </div>
-        <div class="match-card-center">
-          <div class="match-card-team"><div class="match-card-team-flag">${m.h.flag}</div><div class="match-card-team-name">${m.h.name}</div></div>
-          ${scoreOrVs}
-          <div class="match-card-team"><div class="match-card-team-flag">${m.a.flag}</div><div class="match-card-team-name">${m.a.name}</div></div>
-        </div>
-        <div class="match-card-right">
-          <span class="match-card-status ${stClass}">${stTxt}</span>
-          <button class="match-card-btn">${btnTxt}</button>
-        </div>
-      </div>`;
-    }).join('');
-  }).join('');
-}
-
-// ─── CAL SIDEBAR GROUPS ────────────────────────────────────────────────────
-let calSideGrp = 'A';
-function calSelectGrp(g, el){
-  calSideGrp = g;
-  document.querySelectorAll('.cal-group-tab').forEach(t=>t.classList.remove('on'));
-  if(el) el.classList.add('on');
-  renderCalSideGroup();
-}
-function renderCalSideGroup(){
-  const el = document.getElementById('cal-grp-tbody');
-  if(!el) return;
-  const teams = FALLBACK_GROUPS[calSideGrp]||[];
-  const sorted = [...teams].sort((a,b)=>b.pts-a.pts||(b.gp-b.gc)-(a.gp-a.gc));
-  el.innerHTML = sorted.map((t,i)=>`<tr class="${t.cl==='g'?'q':''}">
-    <td class="c" style="font-size:11px;color:#888">${i+1}</td>
-    <td style="display:flex;align-items:center;gap:5px;padding:6px 8px"><span style="font-size:13px">${t.f}</span><span style="font-size:12px;font-weight:600">${t.n}</span></td>
-    <td class="c cal-mini-ptb">${t.pts}</td>
-    <td class="c">${t.j}</td>
-    <td class="c">${t.v}</td>
-    <td class="c">${t.e}</td>
-    <td class="c">${t.d}</td>
-    <td class="c">${t.gp-t.gc>0?'+':''+'${t.gp-t.gc}'}</td>
-  </tr>`).join('');
-}
-
-// ─── INIT CALENDARIO ───────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', ()=>{
-  renderMiniCal();
-  renderCalSideGroup();
-  renderCalendar();
-
-  // Copa 2026 nav shows subnav and opens calendario
-  document.querySelectorAll('.nav-link').forEach(lnk=>{
-    if(lnk.textContent.trim().startsWith('Copa 2026')){
-      lnk.onclick = function(){
-        document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
-        document.getElementById('tab-calendario').classList.add('on');
-        document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('on'));
-        lnk.classList.add('on');
-        document.getElementById('copa-subnav').classList.add('show');
-        renderCalendar();
-        window.scrollTo(0,0);
-      };
-    }
-  });
-});
+window.addEventListener('popstate',handleArticleRoute);
 </script>
 </body>
 </html>
+                                                                                                                  
