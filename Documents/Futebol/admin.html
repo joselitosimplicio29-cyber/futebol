@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Futebol 24H Copa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#22C55E;--green2:#16A34A;--red:#dc2626;
+  --dark:#0F172A;--bg:#F1F5F9;--white:#fff;
+  --border:#E5E7EB;--txt2:#475569;--txt3:#94A3B8;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;color:var(--dark)}
+
+/* TOPBAR */
+.adm-topbar{background:var(--dark);color:#fff;padding:0 1.5rem;display:flex;align-items:center;gap:1rem;height:52px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.adm-logo{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-0.5px;display:flex;align-items:center;gap:6px}
+.adm-logo span{color:var(--green)}
+.adm-topbar-title{font-size:13px;color:#94a3b8;border-left:1px solid #334155;padding-left:1rem;margin-left:4px}
+.adm-topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.adm-view-site{font-size:12px;color:#94a3b8;text-decoration:none;padding:6px 12px;border:1px solid #334155;border-radius:4px;transition:all .15s}
+.adm-view-site:hover{color:#fff;border-color:#64748b}
+.adm-logout-btn{font-size:12px;background:#dc2626;color:#fff;border:none;padding:6px 12px;border-radius:4px;cursor:pointer;font-family:inherit;font-weight:600}
+.adm-user{font-size:12px;color:#94a3b8}
+
+/* LOGIN */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 52px)}
+.login-box{background:var(--white);border-radius:10px;padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.login-box h1{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;margin-bottom:4px}
+.login-box p{font-size:13px;color:var(--txt3);margin-bottom:1.5rem}
+.login-box input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;margin-bottom:10px;transition:border .15s}
+.login-box input:focus{outline:none;border-color:var(--green)}
+.login-box button{width:100%;background:var(--green);color:#fff;border:none;padding:12px;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.login-box button:hover{background:var(--green2)}
+.login-err{color:var(--red);font-size:12px;margin-top:8px;display:none;text-align:center}
+
+/* LAYOUT */
+.adm-layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+
+/* SIDEBAR */
+.adm-sidebar{background:var(--white);border-right:1px solid var(--border);padding:1rem 0}
+.adm-sidebar-section{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;padding:8px 16px 4px}
+.adm-nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:13px;font-weight:500;color:var(--txt2);cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.adm-nav-item:hover{background:#f8fafc;color:var(--dark)}
+.adm-nav-item.on{background:#f0fff4;color:var(--green);font-weight:700;border-left-color:var(--green)}
+.adm-nav-icon{font-size:16px;width:20px;text-align:center}
+
+/* MAIN */
+.adm-main{padding:1.5rem;max-width:1000px}
+.adm-panel{display:none}
+.adm-panel.on{display:block}
+.adm-panel-hdr{margin-bottom:1.5rem}
+.adm-panel-hdr h2{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--dark)}
+.adm-panel-hdr p{font-size:13px;color:var(--txt2);margin-top:2px}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px 20px}
+.stat-card .val{font-size:36px;font-weight:900;font-family:'Barlow Condensed',sans-serif;line-height:1}
+.stat-card .lbl{font-size:11px;color:var(--txt2);text-transform:uppercase;font-weight:600;margin-top:4px}
+
+/* FORM */
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.fg label small{font-size:10px;color:var(--txt3);text-transform:none;font-weight:400;margin-left:4px}
+.fi{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;transition:border .15s}
+.fi:focus{outline:none;border-color:var(--green)}
+.fi-ta{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;resize:vertical;min-height:220px;transition:border .15s}
+.fi-ta:focus{outline:none;border-color:var(--green)}
+.fi-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green2)}
+.btn-secondary{background:#f1f5f9;color:var(--dark)}
+.btn-secondary:hover{background:#e2e8f0}
+.btn-danger{background:#fee2e2;color:var(--red)}
+.btn-danger:hover{background:#fecaca}
+.btn-sm{padding:5px 10px;font-size:11px}
+
+/* TOOLBAR */
+.editor-toolbar{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap}
+.editor-toolbar button{padding:4px 10px;background:#f1f5f9;border:1px solid var(--border);border-radius:4px;font-size:12px;cursor:pointer;font-family:inherit}
+.editor-toolbar button:hover{background:#e2e8f0}
+
+/* ARTICLE LIST */
+.art-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.art-row:last-child{border-bottom:none}
+.art-thumb{width:72px;height:52px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:22px}
+.art-info{flex:1;min-width:0}
+.art-title{font-size:14px;font-weight:700;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.art-meta{font-size:11px;color:var(--txt3);margin-top:4px;display:flex;align-items:center;gap:8px}
+.art-badge{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.art-badge.pub{background:#dcfce7;color:#166534}
+.art-badge.draft{background:#fef9c3;color:#92400e}
+.art-actions{display:flex;gap:6px;flex-shrink:0}
+
+/* SEARCH BAR */
+.search-bar{display:flex;gap:8px;margin-bottom:16px}
+.search-bar input,.search-bar select{padding:9px 13px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit}
+.search-bar input{flex:1}
+.search-bar input:focus,.search-bar select:focus{outline:none;border-color:var(--green)}
+
+/* CAT HINT */
+.cat-hint{margin-top:6px;font-size:11px;color:var(--green);font-weight:700;display:none;background:#f0fff4;padding:6px 10px;border-radius:4px}
+
+/* IMG PREVIEW */
+.img-preview{display:none;margin-top:8px}
+.img-preview img{max-height:140px;border-radius:6px;border:1px solid var(--border)}
+
+/* FEEDBACK */
+.feedback{font-size:12px;padding:8px 12px;border-radius:4px;margin-top:8px;display:none}
+.feedback.ok{background:#dcfce7;color:#166534}
+.feedback.err{background:#fee2e2;color:#991b1b}
+
+/* RECENT LIST */
+.recent-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--border)}
+.recent-row:last-child{border-bottom:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .adm-layout{grid-template-columns:1fr}
+  .adm-sidebar{display:none}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="adm-topbar">
+  <a href="/" class="adm-logo">⚽ <span>Futebol</span>24H</a>
+  <span class="adm-topbar-title">Painel Administrativo</span>
+  <div class="adm-topbar-right">
+    <a href="/" class="adm-view-site" target="_blank">🌐 Ver site</a>
+    <span class="adm-user" id="adm-user-label" style="display:none">Admin</span>
+    <button class="adm-logout-btn" id="btn-logout" style="display:none" onclick="doLogout()">Sair</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-screen">
+  <div class="login-box">
+    <h1>🔐 Painel Admin</h1>
+    <p>Copa do Mundo 2026 — Futebol 24H</p>
+    <input type="password" id="pwd-input" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Entrar no painel</button>
+    <div class="login-err" id="login-err">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="adm-layout" id="adm-panel" style="display:none">
+
+  <!-- SIDEBAR -->
+  <div class="adm-sidebar">
+    <div class="adm-sidebar-section">Conteúdo</div>
+    <div class="adm-nav-item on" onclick="goPanel('dashboard',this)"><span class="adm-nav-icon">📊</span> Dashboard</div>
+    <div class="adm-nav-item" onclick="goPanel('nova',this)"><span class="adm-nav-icon">✏️</span> Nova Matéria</div>
+    <div class="adm-nav-item" onclick="goPanel('materias',this)"><span class="adm-nav-icon">📰</span> Todas as Matérias</div>
+    <div class="adm-sidebar-section" style="margin-top:8px">Ferramentas</div>
+    <div class="adm-nav-item" onclick="goPanel('placares',this)"><span class="adm-nav-icon">⚽</span> Placares</div>
+    <div class="adm-nav-item" onclick="goPanel('config',this)"><span class="adm-nav-icon">⚙️</span> Configurações</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="adm-main">
+
+    <!-- DASHBOARD -->
+    <div class="adm-panel on" id="ap-dashboard">
+      <div class="adm-panel-hdr">
+        <h2>Dashboard</h2>
+        <p>Visão geral do portal</p>
+      </div>
+      <div class="stat-row" id="stat-row">
+        <div class="stat-card"><div class="val" id="st-total">0</div><div class="lbl">Total</div></div>
+        <div class="stat-card"><div class="val" id="st-pub" style="color:var(--green)">0</div><div class="lbl">Publicadas</div></div>
+        <div class="stat-card"><div class="val" id="st-draft" style="color:#f59e0b">0</div><div class="lbl">Rascunhos</div></div>
+        <div class="stat-card"><div class="val" id="st-feat" style="color:var(--red)">0</div><div class="lbl">Destaques</div></div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--dark)">📰 Matérias Recentes</div>
+        <div id="dash-recent"></div>
+      </div>
+    </div>
+
+    <!-- NOVA MATÉRIA -->
+    <div class="adm-panel" id="ap-nova">
+      <div class="adm-panel-hdr">
+        <h2 id="editor-title-h">✏️ Nova Matéria</h2>
+        <p>Preencha e publique. A matéria aparece imediatamente no site.</p>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.5rem">
+        <input type="hidden" id="art-edit-id">
+        <div class="fg">
+          <label>Título <small>(<span id="title-count">0</span>/120 caracteres)</small></label>
+          <input class="fi" type="text" id="art-title" placeholder="Título da matéria" oninput="document.getElementById('title-count').textContent=this.value.length" maxlength="120">
+        </div>
+        <div class="fi-row">
+          <div class="fg">
+            <label>Subtítulo / Lead</label>
+            <input class="fi" type="text" id="art-lead" placeholder="Resumo ou lead da notícia">
+          </div>
+          <div class="fg">
+            <label>Categoria <small>(define onde aparece no site)</small></label>
+            <select class="fi" id="art-cat" onchange="updateCatHint(this)">
+              <option value="Copa do Mundo 2026">Copa do Mundo 2026 → aba COPA 2026</option>
+              <option value="Seleção Brasileira">Seleção Brasileira → aba SELEÇÃO</option>
+              <option value="Futebol Internacional">Futebol Internacional → aba INTERNACIONAL</option>
+              <option value="Mercado da Bola">Mercado da Bola → aba MERCADO DA BOLA</option>
+              <option value="Mata-Mata">Mata-Mata → aba COPA 2026</option>
+              <option value="Artilharia">Artilharia → aba COPA 2026</option>
+              <option value="Gols &amp; Destaques">Gols &amp; Destaques → aba COPA 2026</option>
+              <option value="Bastidores">Bastidores → aba SELEÇÃO</option>
+            </select>
+            <div class="cat-hint" id="cat-hint">✓ Aparecerá em: <span id="cat-hint-txt"></span></div>
+          </div>
+        </div>
+        <div class="fg">
+          <label>URL da Imagem de Capa</label>
+          <input class="fi" type="text" id="art-img" placeholder="https://..." oninput="previewImg()">
+          <div class="img-preview" id="img-preview"><img id="img-preview-el"></div>
+        </div>
+        <div class="fg">
+          <label>Corpo da Matéria</label>
+          <div class="editor-toolbar">
+            <button onclick="insertTag('**','**')"><b>Negrito</b></button>
+            <button onclick="insertTag('*','*')"><i>Itálico</i></button>
+            <button onclick="insertTag('## ','')">Título H2</button>
+            <button onclick="insertTag('### ','')">Título H3</button>
+            <button onclick="insertBlank()">¶ Parágrafo</button>
+          </div>
+          <textarea class="fi-ta" id="art-body" placeholder="Escreva o corpo da matéria aqui..."></textarea>
+        </div>
+        <div class="fi-row">
+          <div class="fg">
+            <label>Tags <small>(separadas por vírgula)</small></label>
+            <input class="fi" type="text" id="art-tags" placeholder="Copa 2026, Brasil, Messi">
+          </div>
+          <div class="fg" style="display:flex;align-items:center;gap:8px;padding-top:22px">
+            <input type="checkbox" id="art-featured" style="width:16px;height:16px">
+            <label for="art-featured" style="font-size:13px;cursor:pointer;font-weight:500;color:var(--dark)">⭐ Matéria em destaque (hero do site)</label>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-primary" onclick="saveArticle('published')">✅ Publicar agora</button>
+          <button class="btn btn-secondary" onclick="saveArticle('draft')">💾 Salvar rascunho</button>
+          <button class="btn btn-secondary" onclick="clearForm()">🗑️ Limpar</button>
+        </div>
+        <div class="feedback ok" id="art-ok"></div>
+        <div class="feedback err" id="art-err">Preencha o título e o corpo da matéria.</div>
+      </div>
+    </div>
+
+    <!-- MATÉRIAS -->
+    <div class="adm-panel" id="ap-materias">
+      <div class="adm-panel-hdr">
+        <h2>📰 Todas as Matérias</h2>
+        <p>Gerencie as matérias publicadas e rascunhos.</p>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.25rem">
+        <div class="search-bar">
+          <input type="text" id="art-search" placeholder="🔍 Buscar por título ou categoria..." oninput="renderArticles()">
+          <select id="art-filter" onchange="renderArticles()">
+            <option value="">Todos</option>
+            <option value="published">Publicados</option>
+            <option value="draft">Rascunhos</option>
+          </select>
+        </div>
+        <div id="art-list-container"><p style="color:var(--txt3);font-size:13px">Carregando...</p></div>
+      </div>
+    </div>
+
+    <!-- PLACARES -->
+    <div class="adm-panel" id="ap-placares">
+      <div class="adm-panel-hdr">
+        <h2>⚽ Placares ao Vivo</h2>
+        <p>Adicione ou atualize placares manualmente.</p>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.5rem">
+        <div style="display:grid;grid-template-columns:1fr 80px 80px 1fr;gap:10px;align-items:end">
+          <div class="fg"><label>Mandante</label><input class="fi" id="score-home" value="Brasil"></div>
+          <div class="fg"><label>Gols</label><input class="fi" id="score-home-g" type="number" value="0"></div>
+          <div class="fg"><label>Gols</label><input class="fi" id="score-away-g" type="number" value="0"></div>
+          <div class="fg"><label>Visitante</label><input class="fi" id="score-away" value="Argentina"></div>
+        </div>
+        <div class="fg"><label>Status do jogo</label>
+          <select class="fi" id="score-status">
+            <option>AO VIVO</option><option>PRÉ-JOGO</option><option>ENCERRADO</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="saveScore()">Atualizar placar</button>
+        <div class="feedback ok" id="score-ok">✓ Placar atualizado!</div>
+      </div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="adm-panel" id="ap-config">
+      <div class="adm-panel-hdr">
+        <h2>⚙️ Configurações</h2>
+        <p>Altere a senha de acesso ao painel.</p>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1.5rem;max-width:480px">
+        <div class="fg">
+          <label>Nova senha de acesso</label>
+          <input class="fi" type="password" id="cfg-pwd" placeholder="Deixe vazio para não alterar">
+        </div>
+        <div class="fg">
+          <label>Confirmar nova senha</label>
+          <input class="fi" type="password" id="cfg-pwd2" placeholder="Repita a nova senha">
+        </div>
+        <button class="btn btn-primary" onclick="saveConfig()">💾 Salvar</button>
+        <div class="feedback ok" id="cfg-ok">✓ Configurações salvas!</div>
+        <div class="feedback err" id="cfg-err">As senhas não coincidem.</div>
+      </div>
+    </div>
+
+  </div><!-- /adm-main -->
+</div><!-- /adm-layout -->
+
+<script>
+const ARTS_KEY = 'copa_articles';
+const PWD_KEY  = 'copa_admin_pwd';
+let adminPwd = localStorage.getItem(PWD_KEY) || 'copa2026';
+let articles = [];
+
+function loadArticles(){
+  try{ articles = JSON.parse(localStorage.getItem(ARTS_KEY)||'[]'); }
+  catch(e){ articles = []; }
+}
+
+// ─── LOGIN ───────────────────────────────────────────────────────────────────
+function doLogin(){
+  const v = document.getElementById('pwd-input').value;
+  if(v === adminPwd){
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('adm-panel').style.display = 'grid';
+    document.getElementById('adm-user-label').style.display = 'inline';
+    document.getElementById('btn-logout').style.display = 'inline-block';
+    loadArticles();
+    renderDashboard();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+    setTimeout(()=>document.getElementById('login-err').style.display='none', 3000);
+  }
+}
+function doLogout(){
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('adm-panel').style.display = 'none';
+  document.getElementById('adm-user-label').style.display = 'none';
+  document.getElementById('btn-logout').style.display = 'none';
+  document.getElementById('pwd-input').value = '';
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function goPanel(id, el){
+  document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.adm-nav-item').forEach(n=>n.classList.remove('on'));
+  document.getElementById('ap-'+id).classList.add('on');
+  if(el) el.classList.add('on');
+  if(id==='materias') renderArticles();
+  if(id==='dashboard') renderDashboard();
+}
+
+// ─── DASHBOARD ───────────────────────────────────────────────────────────────
+function renderDashboard(){
+  loadArticles();
+  const pub = articles.filter(a=>a.status==='published');
+  const draft = articles.filter(a=>a.status==='draft');
+  const feat = articles.filter(a=>a.featured);
+  document.getElementById('st-total').textContent = articles.length;
+  document.getElementById('st-pub').textContent = pub.length;
+  document.getElementById('st-draft').textContent = draft.length;
+  document.getElementById('st-feat').textContent = feat.length;
+
+  const el = document.getElementById('dash-recent');
+  const recents = pub.slice(0,6);
+  if(!recents.length){
+    el.innerHTML = '<p style="color:var(--txt3);font-size:13px">Nenhuma matéria publicada ainda. <a href="#" onclick="goPanel(\'nova\',null)" style="color:var(--green)">Criar primeira matéria →</a></p>';
+    return;
+  }
+  el.innerHTML = recents.map(a=>`
+    <div class="recent-row">
+      ${a.image
+        ? `<img src="${a.image}" style="width:60px;height:44px;object-fit:cover;border-radius:5px;flex-shrink:0">`
+        : `<div style="width:60px;height:44px;background:#f1f5f9;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📰</div>`}
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${a.headline}</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:3px">${a.categories[0]?.description||'Geral'} · ${new Date(a.published).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="editArticle(${a.id})">✏️ Editar</button>
+    </div>`).join('');
+}
+
+// ─── FORM ────────────────────────────────────────────────────────────────────
+const CAT_MAP = {
+  'Copa do Mundo 2026':'aba COPA 2026','Seleção Brasileira':'aba SELEÇÃO',
+  'Futebol Internacional':'aba INTERNACIONAL','Mercado da Bola':'aba MERCADO DA BOLA',
+  'Mata-Mata':'aba COPA 2026','Artilharia':'aba COPA 2026',
+  'Gols & Destaques':'aba COPA 2026','Bastidores':'aba SELEÇÃO'
+};
+function updateCatHint(sel){
+  const hint = document.getElementById('cat-hint');
+  const txt  = document.getElementById('cat-hint-txt');
+  const where = CAT_MAP[sel.value] || 'aba TODAS';
+  txt.textContent = where;
+  hint.style.display = 'block';
+}
+function previewImg(){
+  const url = document.getElementById('art-img').value.trim();
+  const wrap = document.getElementById('img-preview');
+  document.getElementById('img-preview-el').src = url;
+  wrap.style.display = url ? 'block' : 'none';
+}
+function insertTag(b,a){
+  const ta=document.getElementById('art-body'),s=ta.selectionStart,e=ta.selectionEnd,sel=ta.value.substring(s,e);
+  ta.value=ta.value.substring(0,s)+b+sel+a+ta.value.substring(e);ta.focus();
+}
+function insertBlank(){
+  const ta=document.getElementById('art-body'),s=ta.selectionStart;
+  ta.value=ta.value.substring(0,s)+'\n\n'+ta.value.substring(s);ta.focus();
+}
+function clearForm(){
+  ['art-title','art-lead','art-body','art-img','art-tags','art-edit-id'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  document.getElementById('art-featured').checked=false;
+  document.getElementById('title-count').textContent='0';
+  document.getElementById('cat-hint').style.display='none';
+  document.getElementById('img-preview').style.display='none';
+  document.getElementById('editor-title-h').textContent='✏️ Nova Matéria';
+}
+function showFeedback(id, msg, ms=4000){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none', ms);
+}
+
+// ─── SAVE ────────────────────────────────────────────────────────────────────
+function saveArticle(status){
+  const title = document.getElementById('art-title').value.trim();
+  const body  = document.getElementById('art-body').value.trim();
+  if(!title||!body){ showFeedback('art-err','Preencha o título e o corpo da matéria.'); return; }
+
+  loadArticles();
+  const editId  = document.getElementById('art-edit-id').value;
+  const imgUrl  = document.getElementById('art-img').value.trim();
+  const catVal  = document.getElementById('art-cat').value;
+  const art = {
+    id: editId ? parseInt(editId) : Date.now(),
+    headline: title,
+    subtitle: document.getElementById('art-lead').value.trim(),
+    description: body.substring(0,200),
+    story: body,
+    categories: [{description: catVal}],
+    tags: document.getElementById('art-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    image: imgUrl,
+    images: imgUrl ? [{url:imgUrl}] : [],
+    published: new Date().toISOString(),
+    byline: 'Redação',
+    source: 'admin',
+    status: status,
+    featured: document.getElementById('art-featured').checked
+  };
+
+  if(editId){
+    const idx = articles.findIndex(a=>a.id===parseInt(editId));
+    if(idx>=0) articles[idx]=art; else articles.unshift(art);
+  } else {
+    articles.unshift(art);
+  }
+  localStorage.setItem(ARTS_KEY, JSON.stringify(articles));
+
+  const destTab = CAT_MAP[catVal] || 'aba TODAS';
+  if(status==='published'){
+    showFeedback('art-ok', `✅ Publicado! Aparece na ${destTab} do site.`);
+    setTimeout(()=>{ clearForm(); goPanel('materias', document.querySelector('.adm-nav-item:nth-child(4)')); }, 1500);
+  } else {
+    showFeedback('art-ok', '💾 Rascunho salvo!');
+  }
+}
+
+// ─── ARTICLES LIST ───────────────────────────────────────────────────────────
+function renderArticles(){
+  loadArticles();
+  const q = (document.getElementById('art-search')?.value||'').toLowerCase();
+  const f = document.getElementById('art-filter')?.value||'';
+  const container = document.getElementById('art-list-container');
+  if(!container) return;
+
+  const filtered = articles.filter(a=>{
+    if(f && a.status!==f) return false;
+    if(q && !a.headline.toLowerCase().includes(q) && !(a.categories[0]?.description||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  if(!filtered.length){
+    container.innerHTML='<p style="color:var(--txt3);font-size:13px;padding:20px 0">Nenhuma matéria encontrada.</p>';
+    return;
+  }
+  container.innerHTML = filtered.map(a=>`
+    <div class="art-row">
+      ${a.image
+        ? `<img class="art-thumb" src="${a.image}">`
+        : `<div class="art-thumb">📰</div>`}
+      <div class="art-info">
+        <div class="art-title">${a.headline}</div>
+        <div class="art-meta">
+          <span class="art-badge ${a.status==='published'?'pub':'draft'}">${a.status==='published'?'✓ Publicado':'⏳ Rascunho'}</span>
+          <span>${a.categories[0]?.description||'Geral'}</span>
+          <span>${new Date(a.published).toLocaleDateString('pt-BR')}</span>
+          ${a.featured?'<span style="color:var(--red)">★ Destaque</span>':''}
+        </div>
+      </div>
+      <div class="art-actions">
+        <button class="btn btn-secondary btn-sm" onclick="editArticle(${a.id})">✏️ Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteArticle(${a.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+function editArticle(id){
+  loadArticles();
+  const a = articles.find(x=>x.id===id);
+  if(!a) return;
+  goPanel('nova', document.querySelector('.adm-nav-item:nth-child(3)'));
+  setTimeout(()=>{
+    const set=(elId,val)=>{const el=document.getElementById(elId);if(el)el.value=val||'';};
+    set('art-title',a.headline); set('art-lead',a.subtitle);
+    set('art-body',a.story||a.description);
+    set('art-img',a.image||''); set('art-tags',(a.tags||[]).join(', '));
+    set('art-edit-id',a.id);
+    document.getElementById('title-count').textContent=(a.headline||'').length;
+    const cat=document.getElementById('art-cat');
+    if(cat){const v=a.categories[0]?.description||'Copa do Mundo 2026';[...cat.options].forEach(o=>o.selected=o.value===v);}
+    const feat=document.getElementById('art-featured'); if(feat) feat.checked=!!a.featured;
+    document.getElementById('editor-title-h').textContent='✏️ Editando Matéria';
+    previewImg(); updateCatHint(document.getElementById('art-cat'));
+  }, 50);
+}
+
+function deleteArticle(id){
+  if(!confirm('Excluir esta matéria permanentemente?')) return;
+  loadArticles();
+  articles = articles.filter(a=>a.id!==id);
+  localStorage.setItem(ARTS_KEY, JSON.stringify(articles));
+  renderArticles();
+  renderDashboard();
+}
+
+// ─── PLACARES ────────────────────────────────────────────────────────────────
+function saveScore(){
+  const scores = JSON.parse(localStorage.getItem('copa_scores')||'[]');
+  scores.unshift({
+    home: document.getElementById('score-home').value,
+    away: document.getElementById('score-away').value,
+    homeGoals: parseInt(document.getElementById('score-home-g').value)||0,
+    awayGoals: parseInt(document.getElementById('score-away-g').value)||0,
+    status: document.getElementById('score-status').value,
+    time: new Date().toISOString()
+  });
+  localStorage.setItem('copa_scores', JSON.stringify(scores.slice(0,20)));
+  showFeedback('score-ok','✓ Placar atualizado no site!');
+}
+
+// ─── CONFIG ──────────────────────────────────────────────────────────────────
+function saveConfig(){
+  const p1 = document.getElementById('cfg-pwd').value;
+  const p2 = document.getElementById('cfg-pwd2').value;
+  if(p1 && p1!==p2){ showFeedback('cfg-err','As senhas não coincidem.'); return; }
+  if(p1){ adminPwd=p1; localStorage.setItem(PWD_KEY,p1); }
+  showFeedback('cfg-ok','✓ Configurações salvas!');
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+document.getElementById('pwd-input').addEventListener('keydown', e=>{
+  if(e.key==='Enter') doLogin();
+});
+</script>
+</body>
+</html>
