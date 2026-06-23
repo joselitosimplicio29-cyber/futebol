@@ -259,24 +259,40 @@ img{max-width:100%}
 .player-club{font-size:10px;color:var(--txt3)}
 
 /* ARTICLE PAGE */
-.art-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:500;overflow-y:auto}
+.art-page{display:none;background:var(--bg)}
 .art-page.open{display:block}
-.art-page-inner{max-width:1100px;margin:0 auto;padding:1.5rem 1rem}
+.art-page-inner{max-width:1360px;margin:0 auto;padding:1.35rem 1rem}
 .art-breadcrumb{font-size:12px;color:var(--txt3);margin-bottom:1.5rem;display:flex;align-items:center;gap:6px}
 .art-breadcrumb a{color:var(--green);cursor:pointer;font-weight:600}
 .art-breadcrumb a:hover{text-decoration:underline}
-.art-layout{display:grid;grid-template-columns:1fr 280px;gap:2rem}
-.art-main{}
+.art-category-bar{display:flex;gap:8px;flex-wrap:wrap;margin:-.4rem 0 1.25rem}
+.art-category-link{background:#fff;border:1px solid var(--border);border-radius:4px;color:var(--dark);cursor:pointer;font-size:11px;font-weight:900;letter-spacing:.2px;padding:8px 12px;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+.art-category-link:hover,.art-category-link.on{background:var(--green);border-color:var(--green);color:#fff}
+.art-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:2rem;align-items:start}
+.art-main{min-width:0}
 .art-img-hero{width:100%;border-radius:6px;margin-bottom:1rem;max-height:400px;object-fit:cover;display:block}
 .art-img-ph{background:#e0e0e0;height:300px;border-radius:6px;margin-bottom:1rem;display:flex;align-items:center;justify-content:center;font-size:48px;color:#aaa}
 .art-cat{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:6px}
 .art-title{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;line-height:1.1;color:var(--dark);margin-bottom:8px}
 .art-meta{font-size:12px;color:var(--txt3);margin-bottom:1.5rem;display:flex;gap:12px;align-items:center}
 .art-meta strong{color:var(--txt2)}
+.art-share{display:flex;gap:8px;flex-wrap:wrap;margin:-.55rem 0 1.5rem}
+.art-share a{border-radius:4px;color:#fff;font-size:11px;font-weight:900;padding:9px 12px;text-transform:uppercase;letter-spacing:.3px}
+.art-share .whatsapp{background:#16a34a}.art-share .facebook{background:#2563eb}.art-share .x{background:#0f172a}.art-share .telegram{background:#0284c7}
 .art-body{font-size:15px;line-height:1.7;color:var(--txt)}
 .art-body p{margin-bottom:1rem}
 .art-body h2{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;color:var(--dark);margin:1.5rem 0 .5rem;border-left:4px solid var(--green);padding-left:10px}
-.art-sidebar{}
+.art-ad{background:linear-gradient(135deg,#07111f,#0f172a 58%,#064e2a);border-radius:6px;color:#fff;margin:1.4rem 0;padding:1.25rem;text-align:center}
+.art-ad strong{display:block;font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;text-transform:uppercase}
+.art-ad span{color:#cbd5e1;display:block;font-size:11px;margin-top:4px;text-transform:uppercase}
+.art-related-block{margin-top:1.8rem}
+.art-related-title{font-family:'Barlow',sans-serif;font-size:17px;font-weight:900;text-transform:uppercase;border-left:5px solid var(--green);padding-left:10px;margin-bottom:12px;color:var(--dark)}
+.art-related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.art-related-card{background:#fff;border:1px solid var(--border);border-radius:6px;cursor:pointer;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.art-related-card:hover{box-shadow:0 8px 22px rgba(15,23,42,.1);transform:translateY(-2px)}
+.art-related-card img,.art-related-ph{width:100%;aspect-ratio:16/9;object-fit:cover;background:#e0e0e0;display:flex;align-items:center;justify-content:center}
+.art-related-card div:last-child{font-size:13px;font-weight:800;line-height:1.3;padding:10px;color:var(--dark)}
+.art-sidebar{min-width:0}
 .art-sidebar-title{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:900;text-transform:uppercase;color:var(--dark);border-bottom:2px solid var(--green);padding-bottom:6px;margin-bottom:10px}
 .art-rel{display:flex;gap:8px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer}
 .art-rel:hover .art-rel-title{color:var(--green)}
@@ -407,6 +423,7 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
   .news-grid{grid-template-columns:1fr}
   .news-ad-col{display:none}
   .art-layout{grid-template-columns:1fr}
+  .art-related-grid{grid-template-columns:1fr}
   .admin-wrap{grid-template-columns:1fr}
 }
 @media(max-width:700px){
@@ -972,17 +989,40 @@ footer .foot-copy{font-size:11px;color:#666;text-align:right}
     <div class="art-breadcrumb">
       <a onclick="closeArticle()">← Voltar</a> <span>/</span> <span id="art-breadcrumb-cat">Notícias</span>
     </div>
+    <div class="art-category-bar">
+      <span class="art-category-link on" onclick="switchTab('home')">Todas</span>
+      <span class="art-category-link" onclick="renderNoticias('Copa 2026');switchTab('home')">Copa 2026</span>
+      <span class="art-category-link" onclick="renderNoticias('Sele');switchTab('home')">Selecao</span>
+      <span class="art-category-link" onclick="renderNoticias('Mercado da Bola');switchTab('home')">Mercado da Bola</span>
+      <span class="art-category-link" onclick="renderNoticias('Futebol Internacional');switchTab('home')">Internacional</span>
+    </div>
     <div class="art-layout">
       <div class="art-main">
         <div id="art-img-wrap"></div>
         <div class="art-cat" id="art-cat"></div>
         <h1 class="art-title" id="art-title"></h1>
         <div class="art-meta" id="art-meta"></div>
+        <div class="art-share" id="art-share"></div>
         <div class="art-body" id="art-body"></div>
+        <div class="art-ad"><strong>Publicidade</strong><span>Espaco entre conteudos</span></div>
+        <div class="art-related-block">
+          <div class="art-related-title">Noticias relacionadas</div>
+          <div class="art-related-grid" id="art-related-grid"></div>
+        </div>
       </div>
       <div class="art-sidebar">
+        <div class="side-ad">
+          <h4>Publicidade</h4>
+          <p>Espaco lateral 300x250</p>
+          <div class="side-ad-brand">Futebol24H</div>
+        </div>
         <div class="art-sidebar-title">📰 Mais Notícias</div>
         <div id="art-relacionadas"></div>
+        <div class="side-ad">
+          <h4>Copa 2026</h4>
+          <p>Tabela, jogos e artilharia em tempo real</p>
+          <a class="side-ad-btn" onclick="switchTab('jogos',null)">Ver jogos</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1029,6 +1069,7 @@ let apiData = { scoreboard:null, standings:null, scorers:null, news:null };
 let currentGroup = 'A';
 let countdown = 60;
 let currentNewsFilter = '';
+let currentArticleSlug = '';
 
 const FALLBACK_GROUPS = {
   A:[{f:'🇲🇽',n:'México',pts:6,j:2,v:2,e:0,d:0,gp:5,gc:2,cl:'g'},{f:'🇰🇷',n:'Coreia do Sul',pts:3,j:2,v:1,e:0,d:1,gp:3,gc:3,cl:'n'},{f:'🇨🇿',n:'Rep. Tcheca',pts:1,j:2,v:0,e:1,d:1,gp:2,gc:3,cl:'n'},{f:'🇿🇦',n:'África do Sul',pts:1,j:2,v:0,e:1,d:1,gp:1,gc:3,cl:'n'}],
@@ -1114,6 +1155,37 @@ function tx(t){
 }
 function tc(c){return(c||'Copa 2026').replace(/Soccer/gi,'Futebol').replace(/World Cup/gi,'Copa do Mundo').replace(/Transfer/gi,'Mercado').replace(/Match/gi,'Partida');}
 
+function slugifyArticle(text){
+  return String(text||'')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'')
+    .slice(0,90);
+}
+function refreshArticleSlugs(){
+  const used={};
+  allArticlesCache.forEach((a,i)=>{
+    const title=a.headline||a.title||a.name||`materia-${i+1}`;
+    const base=slugifyArticle(title)||`materia-${i+1}`;
+    const count=used[base]||0;
+    used[base]=count+1;
+    a._slug=count?`${base}-${count+1}`:base;
+  });
+}
+function articlePath(a,idx){
+  const slug=a?._slug||slugifyArticle(a?.headline||a?.title)||`materia-${idx+1}`;
+  if(location.protocol==='file:')return `${location.pathname}#/noticia/${slug}`;
+  return `/noticia/${slug}`;
+}
+function fullArticleUrl(a,idx){
+  if(location.protocol==='file:')return `${location.href.split('#')[0]}#/noticia/${a?._slug||slugifyArticle(a?.headline||a?.title)||`materia-${idx+1}`}`;
+  return new URL(articlePath(a,idx), window.location.origin).href;
+}
+function homePath(){
+  return location.protocol==='file:'?location.pathname:'/';
+}
+
 // ─── STATIC NEWS ───────────────────────────────────────────────────────────
 function getStaticNews(){
   return[
@@ -1167,6 +1239,7 @@ function renderNoticias(filter){
     }));
   const editorialNews=[...staticNews,...apiNews].slice(0,18);
   allArticlesCache=[...adminArticles.filter(a=>a.status!=='draft'),...editorialNews];
+  refreshArticleSlugs();
 
   // tabs
   document.querySelectorAll('.news-tab').forEach(t=>{
@@ -1287,6 +1360,8 @@ function renderNoticias(filter){
   </div>`;
 
   el.innerHTML=html;
+  if(currentArticleSlug)openArticleBySlug(currentArticleSlug,false);
+  else handleArticleRoute();
   }catch(e){
     console.error('Erro ao renderizar notícias',e);
     const el=document.getElementById('news-section');
@@ -1462,44 +1537,95 @@ function renderSelecao(){
 }
 
 // ─── ARTICLE PAGE ─────────────────────────────────────────────────────────
-function openArticle(idx){
+function renderArticleByIndex(idx,pushUrl=true){
   const a=allArticlesCache[idx];
-  if(!a)return;
+  if(!a)return false;
   const page=document.getElementById('art-page');
   const img=a.images?.[0]?.url||a.image||'';
-  const title=tx(a.headline||a.title||a.name||'Matéria especial Futebol 24H');
+  const title=tx(a.headline||a.title||a.name||'Materia especial Futebol 24H');
   const cat=tc(a.categories?.[0]?.description||'Copa 2026');
   const desc=tx(a.description||a.subtitle||a.headline||a.title||'');
-  const body=a.story||a.content||a.description||desc||'Conteúdo da matéria disponível no portal Futebol 24H.';
+  const body=a.story||a.content||a.description||desc||'Conteudo da materia disponivel no portal Futebol 24H.';
   const plainBody=String(body).replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
   const paragraphs=plainBody && plainBody!==title ? [plainBody] : [];
   if(desc && desc!==plainBody && desc!==title) paragraphs.unshift(desc);
   if(!paragraphs.length){
-    paragraphs.push('Acompanhe a cobertura completa no Futebol 24H, com informações atualizadas, bastidores, escalações e todos os detalhes da Copa do Mundo 2026.');
+    paragraphs.push('Acompanhe a cobertura completa no Futebol 24H, com informacoes atualizadas, bastidores, escalacoes e todos os detalhes da Copa do Mundo 2026.');
   }
   const bodyHtml=paragraphs.map(p=>`<p>${p}</p>`).join('');
+  const url=fullArticleUrl(a,idx);
+  currentArticleSlug=a._slug||'';
+
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('on'));
   page.querySelector('#art-cat').textContent=cat;
   page.querySelector('#art-title').textContent=title;
   page.querySelector('#art-breadcrumb-cat').textContent=cat;
-  page.querySelector('#art-meta').innerHTML=`<strong>${a.byline||'Redação'}</strong>${a.published?` · <span>${timeAgo(a.published)}</span>`:''}`;
+  page.querySelector('#art-meta').innerHTML=`<strong>${a.byline||'Redacao'}</strong>${a.published?` &middot; <span>${new Date(a.published).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</span>`:''}`;
+  page.querySelector('#art-share').innerHTML=`
+    <a class="whatsapp" target="_blank" rel="noopener" href="https://api.whatsapp.com/send?text=${encodeURIComponent(title+' '+url)}">WhatsApp</a>
+    <a class="facebook" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}">Facebook</a>
+    <a class="x" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}">X</a>
+    <a class="telegram" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}">Telegram</a>`;
   page.querySelector('#art-body').innerHTML=bodyHtml;
-  page.querySelector('#art-img-wrap').innerHTML=img?`<img class="art-img-hero" src="${img}" onerror="this.style.display='none'">`:'' ;
+  page.querySelector('#art-img-wrap').innerHTML=img?`<img class="art-img-hero" src="${img}" alt="${title}" onerror="this.style.display='none'">`:'<div class="art-img-ph">F24</div>';
+
   const rel=allArticlesCache.filter((_,i)=>i!==idx).slice(0,6);
   page.querySelector('#art-relacionadas').innerHTML=rel.map(r=>{
     const ri=allArticlesCache.indexOf(r);
     const ri2=ri>=0?ri:0;
     const rimg=r.images?.[0]?.url||r.image||'';
-    return`<div class="art-rel" onclick="openArticle(${ri2})">${rimg?`<img src="${rimg}" onerror="this.outerHTML='<div class=\\'art-rel-ph\\'>⚽</div>'">`:'<div class="art-rel-ph">⚽</div>'}<div><div class="art-rel-title">${tx(r.headline||r.title||'')}</div><div class="art-rel-date">${r.published?timeAgo(r.published):''}</div></div></div>`;
+    return`<div class="art-rel" onclick="openArticle(${ri2})">${rimg?`<img src="${rimg}" onerror="this.outerHTML='<div class=\\'art-rel-ph\\'>F24</div>'">`:'<div class="art-rel-ph">F24</div>'}<div><div class="art-rel-title">${tx(r.headline||r.title||'')}</div><div class="art-rel-date">${r.published?timeAgo(r.published):''}</div></div></div>`;
   }).join('');
+  page.querySelector('#art-related-grid').innerHTML=rel.slice(0,3).map(r=>{
+    const ri=allArticlesCache.indexOf(r);
+    const ri2=ri>=0?ri:0;
+    const rimg=r.images?.[0]?.url||r.image||'';
+    return`<div class="art-related-card" onclick="openArticle(${ri2})">${rimg?`<img src="${rimg}" onerror="this.outerHTML='<div class=\\'art-related-ph\\'>F24</div>'">`:'<div class="art-related-ph">F24</div>'}<div>${tx(r.headline||r.title||'')}</div></div>`;
+  }).join('');
+
   page.classList.add('open');
+  document.title=`${title} | Futebol 24H`;
+  if(pushUrl && location.pathname!==articlePath(a,idx)){
+    history.pushState({articleSlug:currentArticleSlug},'',articlePath(a,idx));
+  }
+  window.scrollTo(0,0);
+  return true;
+}
+function openArticle(idx){
+  renderArticleByIndex(idx,true);
+}
+function openArticleBySlug(slug,pushUrl=false){
+  const idx=allArticlesCache.findIndex(a=>a._slug===slug);
+  return idx>=0 ? renderArticleByIndex(idx,pushUrl) : false;
+}
+function closeArticle(pushUrl=true){
+  document.getElementById('art-page').classList.remove('open');
+  currentArticleSlug='';
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
+  const home=document.getElementById('tab-home');
+  if(home)home.classList.add('on');
+  document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('on'));
+  const firstNav=document.querySelector('.nav-link');
+  if(firstNav)firstNav.classList.add('on');
+  document.title='Futebol 24H - Copa do Mundo 2026';
+  if(pushUrl)history.pushState({},'',homePath());
   window.scrollTo(0,0);
 }
-function closeArticle(){
-  document.getElementById('art-page').classList.remove('open');
+function handleArticleRoute(){
+  const match=location.pathname.match(/^\/noticia\/([^\/?#]+)/)||location.hash.match(/^#\/noticia\/([^\/?#]+)/);
+  if(!match)return false;
+  return openArticleBySlug(decodeURIComponent(match[1]),false);
 }
-
+window.addEventListener('popstate',()=>{
+  if(!handleArticleRoute())closeArticle(false);
+});
 // ─── TABS ─────────────────────────────────────────────────────────────────
 function switchTab(id,btn){
+  const articlePage=document.getElementById('art-page');
+  if(articlePage)articlePage.classList.remove('open');
+  currentArticleSlug='';
+  if(location.pathname.startsWith('/noticia/')||location.hash.startsWith('#/noticia/'))history.pushState({},'',id==='home'?homePath():`${homePath()}#${id}`);
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.nav-link').forEach(b=>b.classList.remove('on'));
   const el=document.getElementById('tab-'+id);
@@ -1936,6 +2062,10 @@ function switchTab(id, btn){
 }
 
 function subNav(id, el){
+  const articlePage=document.getElementById('art-page');
+  if(articlePage)articlePage.classList.remove('open');
+  currentArticleSlug='';
+  if(location.pathname.startsWith('/noticia/')||location.hash.startsWith('#/noticia/'))history.pushState({},'',`${homePath()}#${id}`);
   document.querySelectorAll('.copa-subnav-link').forEach(l=>l.classList.remove('on'));
   if(el) el.classList.add('on');
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
