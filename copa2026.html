@@ -1243,14 +1243,14 @@ function renderNoticias(filter){
   const staticNews=getStaticNews();
   const apiNews=raw
     .filter(a=>(a?.headline||a?.title) && (a?.description||a?.story))
-    .slice(0,8)
+    .slice(0,18)
     .map(a=>({
       ...a,
       headline:tx(a.headline||a.title||''),
       description:tx(a.description||a.story||''),
       categories:a.categories?.length?a.categories:[{description:'Copa 2026'}]
     }));
-  const editorialNews=[...staticNews,...apiNews].slice(0,18);
+  const editorialNews=(apiNews.length?apiNews:staticNews).slice(0,18);
   allArticlesCache=[...adminArticles.filter(a=>a.status!=='draft'),...editorialNews];
   refreshArticleSlugs();
 
@@ -1471,10 +1471,34 @@ function renderJogos(){
 }
 
 // ─── RENDER GRUPOS ─────────────────────────────────────────────────────────
+function getGroupsData(){
+  const children=apiData.standings?.children;
+  if(!Array.isArray(children)||!children.length) return FALLBACK_GROUPS;
+  const groups={};
+  children.forEach(c=>{
+    const letter=(c.name||'').replace(/^Group\s*/i,'').trim();
+    if(!letter) return;
+    const entries=c.standings?.entries||[];
+    groups[letter]=entries.map(e=>{
+      const stat=name=>Number(e.stats?.find(s=>s.name===name)?.value||0);
+      const desc=(e.note?.description||'').toLowerCase();
+      const cl=desc.includes('advance')?'g':desc.includes('eliminat')?'e':'n';
+      return{
+        f:flag(e.team?.abbreviation),
+        n:e.team?.displayName||e.team?.name||'',
+        pts:stat('points'),j:stat('gamesPlayed'),v:stat('wins'),e:stat('ties'),d:stat('losses'),
+        gp:stat('pointsFor'),gc:stat('pointsAgainst'),cl
+      };
+    });
+  });
+  return Object.keys(groups).length?groups:FALLBACK_GROUPS;
+}
 function buildGroupSelector(){
   const el=document.getElementById('group-selector');
   if(!el)return;
-  el.innerHTML=Object.keys(FALLBACK_GROUPS).map(g=>`<button class="gb ${g===currentGroup?'on':''}" onclick="selectGroup('${g}',this)">Grupo ${g}</button>`).join('');
+  const groups=getGroupsData();
+  if(!groups[currentGroup]) currentGroup=Object.keys(groups)[0]||'A';
+  el.innerHTML=Object.keys(groups).map(g=>`<button class="gb ${g===currentGroup?'on':''}" onclick="selectGroup('${g}',this)">Grupo ${g}</button>`).join('');
 }
 function selectGroup(g,btn){
   currentGroup=g;
@@ -1485,7 +1509,7 @@ function selectGroup(g,btn){
 function renderGrupoContent(){
   const el=document.getElementById('group-content');
   if(!el)return;
-  const teams=FALLBACK_GROUPS[currentGroup]||[];
+  const teams=getGroupsData()[currentGroup]||[];
   const sorted=[...teams].sort((a,b)=>b.pts-a.pts||(b.gp-b.gc)-(a.gp-a.gc)||b.gp-a.gp);
   el.innerHTML=`<div class="grp-name">Grupo ${currentGroup}</div>
   <table class="gt"><thead><tr><th></th><th>Seleção</th><th class="c">J</th><th class="c">V</th><th class="c">E</th><th class="c">D</th><th class="c">GP</th><th class="c">GC</th><th class="c">SG</th><th class="c">PTS</th></tr></thead><tbody>
@@ -1801,10 +1825,28 @@ function deleteArticle(id){
 }
 
 // Init
+function renderAll(){
+  renderNoticias(currentNewsFilter);
+  renderJogos();
+  buildGroupSelector();
+  renderGrupoContent();
+  renderArtilheiros();
+  renderCopa();
+  renderEstatisticas();
+  renderSelecao();
+}
+
 window.addEventListener('DOMContentLoaded',()=>{
   handleArticleRoute();
   renderNoticias();
   renderJogos();
+  fetchData();
+  setInterval(fetchData,REFRESH_MS);
+  setInterval(()=>{
+    countdown=Math.max(0,countdown-1);
+    const cd=document.getElementById('countdown');
+    if(cd) cd.textContent=countdown;
+  },1000);
 });
 window.addEventListener('popstate',handleArticleRoute);
 </script>
